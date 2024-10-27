@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SparePartsStore.Data;
-using SparePartsStore.Models;
+using SPSModels.Models;
+using SparePartsStoreWeb.Data;
 
-namespace SparePartsStore.DataSeeders
+namespace SparePartsStoreWeb.DataSeeders
 {
 	public class CategoryDataSeeder
 	{

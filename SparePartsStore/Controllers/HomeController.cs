@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using SparePartsStore.Models;
+using SparePartsStoreWeb.Models;
 using System.Diagnostics;
 
-namespace SparePartsStore.Controllers
+namespace SparePartsStoreWeb.Controllers
 {
 	public class HomeController : Controller
 	{

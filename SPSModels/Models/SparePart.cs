@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SparePartsStore.Models
+namespace SPSModels.Models
 {
 	public class SparePart
 	{

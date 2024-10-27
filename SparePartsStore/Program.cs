@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using SparePartsStore.Data;
 using Microsoft.Extensions.DependencyInjection;
+using SparePartsStoreWeb.Data;
 
 // Add services to the container.
 var builder = WebApplication.CreateBuilder(args);

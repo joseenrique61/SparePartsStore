@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using SparePartsStore.Models;
+using SPSModels.Models;
 
-namespace SparePartsStore.Data
+namespace SparePartsStoreWeb.Data
 {
-    public class SparePartsStoreContext : DbContext
-    {
-        public SparePartsStoreContext (DbContextOptions<SparePartsStoreContext> options)
-            : base(options)
-        {
-        }
+	public class SparePartsStoreContext : DbContext
+	{
+		public SparePartsStoreContext(DbContextOptions<SparePartsStoreContext> options)
+			: base(options)
+		{
+		}
 
-        public DbSet<SparePartsStore.Models.SparePart> SparePart { get; set; } = default!;
+		public DbSet<SparePart> SparePart { get; set; } = default!;
 
-        public DbSet<SparePartsStore.Models.Category> Category { get; set; }
-    }
+		public DbSet<Category> Category { get; set; } = default!;
+	}
 }

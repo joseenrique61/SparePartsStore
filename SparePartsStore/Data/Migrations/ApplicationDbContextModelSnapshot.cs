@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using SparePartsStore.Data;
+using SparePartsStoreWeb.Data;
 using System;
 
-namespace SparePartsStore.Data.Migrations
+namespace SparePartsStoreWeb.Data.Migrations
 {
 	[DbContext(typeof(ApplicationDbContext))]
 	partial class ApplicationDbContextModelSnapshot : ModelSnapshot

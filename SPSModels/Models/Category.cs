@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SparePartsStore.Models
+namespace SPSModels.Models
 {
 	public class Category
 	{
