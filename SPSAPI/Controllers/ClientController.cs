@@ -34,7 +34,6 @@ namespace SPSAPI.Controllers
 				await _context.User.AddAsync(client.User);
 				await _context.SaveChangesAsync();
 
-				client.UserId = client.User.Id;
 				await _context.Client.AddAsync(client);
 				await _context.SaveChangesAsync();
 
