@@ -22,9 +22,14 @@ namespace SPSAPI.Utilities
 				new Claim(ClaimTypes.Role, role)
 			};
 
-			var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Keys:JWT"]!));
+			// This piece of code was made with the help of ChatGPT
+			var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWTSettings:Key"]!));
 			var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-			var token = new JwtSecurityToken(claims: claims, expires: DateTime.Now.AddDays(1), signingCredentials: credentials, issuer: "https://hola.com", audience: "https://hola.com");
+			var token = new JwtSecurityToken(claims: claims,
+				expires: DateTime.Now.AddDays(1),
+				signingCredentials: credentials,
+				issuer: _configuration["JWTSettings:Issuer"]!,
+				audience: _configuration["JWTSettings:Audience"]!);
 
 			return new JwtSecurityTokenHandler().WriteToken(token);
 		}
