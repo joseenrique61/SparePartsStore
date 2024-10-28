@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using SPSAPI.Data;
+using SPSAPI.Utilities;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,6 +28,8 @@ builder.Services.AddAuthentication(options =>
 	};
 });
 
+// Add the token generator to the dependency injection
+builder.Services.AddScoped<IJWTTokenGenerator, JWTTokenGenerator>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

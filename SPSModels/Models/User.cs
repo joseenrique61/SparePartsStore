@@ -1,7 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SPSModels.Models
 {
+	[Index(nameof(Email), IsUnique = true)]
 	public class User
 	{
 		[Key]
@@ -13,6 +16,7 @@ namespace SPSModels.Models
 
 		[Required]
 		[DataType(DataType.Password)]
+		[NotMapped]
 		public string? Password { get; set; }
 
 		public string? PasswordHash { get; set; }

@@ -1,13 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SPSModels.Models
 {
-	public class Administrator : User
+	public class Administrator
 	{
+		[Key]
+		public int Id { get; set; }
 
+		[ForeignKey(nameof(User))]
+		public int UserId { get; set; }
+
+		public User? User { get; set; }
 	}
 }

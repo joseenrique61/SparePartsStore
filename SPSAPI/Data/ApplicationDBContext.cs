@@ -9,6 +9,8 @@ namespace SPSAPI.Data
 
 		public DbSet<SparePart> SparePart { get; set; }
 
+		public DbSet<User> User { get; set; }
+
 		public DbSet<Client> Client { get; set; }
 
 		public DbSet<Administrator> Administrator { get; set; }
