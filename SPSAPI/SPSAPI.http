@@ -1,6 +1,6 @@
 @SPSAPI_HostAddress = http://localhost:5027
 
-GET {{SPSAPI_HostAddress}}/weatherforecast/
+GET {{SPSAPI_HostAddress}}/all/
 Accept: application/json
 
 ###

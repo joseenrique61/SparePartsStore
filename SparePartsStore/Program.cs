@@ -1,21 +1,11 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using SparePartsStoreWeb.Data;
+﻿using SparePartsStoreWeb.Data.UnitOfWork;
 
 // Add services to the container.
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddDbContext<SparePartsStoreContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("SparePartsStoreContext") ?? throw new InvalidOperationException("Connection string 'SparePartsStoreContext' not found.")));
 
-var connectionString = builder.Configuration.GetConnectionString("UsersConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-	options.UseSqlServer(connectionString));
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-	.AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 var app = builder.Build();
 

@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SPSAPI.Data;
 using SPSModels.Models;
@@ -8,7 +7,7 @@ namespace SPSAPI.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
-	[Authorize(Roles = "Client")]
+	[Authorize]
 	public class SparePartController : ControllerBase
 	{
 		private readonly ApplicationDBContext _context;

@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using SPSAPI.Data;
+using SPSAPI.DataSeeders;
 using SPSAPI.Utilities;
 using System.Text;
 
@@ -30,6 +31,11 @@ builder.Services.AddAuthentication(options =>
 		IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWTSettings:Key"]!))
 	};
 });
+
+// Add the DBInitializer to the dependency injection
+builder.Services.AddScoped<IAdministratorDataSeeder, AdministratorDataSeeder>();
+builder.Services.AddScoped<ICategoryDataSeeder, CategoryDataSeeder>();
+builder.Services.AddScoped<ISparePartDataSeeder, SparePartDataSeeder>();
 
 // Add the token generator to the dependency injection
 builder.Services.AddScoped<IJWTTokenGenerator, JWTTokenGenerator>();
@@ -77,6 +83,9 @@ if (app.Environment.IsDevelopment())
 	app.UseSwaggerUI();
 }
 
+// Seed data into the database
+await DataSeeding(app);
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
@@ -84,3 +93,12 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+static async Task DataSeeding(WebApplication app)
+{
+	using IServiceScope scoped = app.Services.CreateScope();
+
+	await scoped.ServiceProvider.GetRequiredService<IAdministratorDataSeeder>().Initialize();
+	await scoped.ServiceProvider.GetRequiredService<ICategoryDataSeeder>().Initialize();
+	await scoped.ServiceProvider.GetRequiredService<ISparePartDataSeeder>().Initialize();
+}
