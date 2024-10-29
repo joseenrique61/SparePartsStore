@@ -20,3 +20,47 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.nanum-gothic-regular {
+    font-family: "Nanum Gothic", sans-serif;
+    font-size: 25px;
+    font-weight: 700;
+    font-style: normal;
+}
+
+.card {
+    width: 15rem;
+    float: left;
+    border-radius: 10px;
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+}
+
+.card-footer {
+    margin-top: 10px;
+}
+
+.btnDetails {
+    background-color: #292929;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+}
+
+.btnDetails:hover {
+    background-color: #808080ff;
+}
+
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
