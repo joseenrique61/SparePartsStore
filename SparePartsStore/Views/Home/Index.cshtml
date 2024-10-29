@@ -4,41 +4,51 @@
 
 @model IEnumerable<SPSModels.Models.SparePart>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+<div class="content">
+    <div class="text-center">
+        <h1 class="display-4">Welcome to SpareParts Store</h1>
+        <p class="nanum-gothic-regular">SEE OUR CATALOG</p>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome to SpareParts Store</h1>
-    <p class="nanum-gothic-regular">SEE OUR CATALOG</p>
-
-    @if (Model != null && Model.Any())
-    {
-        var count = 0;
-
-        @foreach (var item in Model)
-        {
-            <div class="card">
-                <div class="card-body">
-                    <header>Code: @Html.DisplayFor(modelItem => item.Id) </header>
-                    <header>Name: @Html.DisplayFor(modelItem => item.Name)</header>
-                    <header>Category: @Html.DisplayFor(modelItem => item.Category.Name)</header>
-                </div>
-                <div class="card-footer">
-                    <a href="~/SpareParts/Details/@item.Id" class="btnDetails">Ver más</a>
-                </div>
-            </div>
-
-            count++;
-            @if (count == 4) {count = 0; <br>}
-        }
-    }
-    else
-    {
-        <div class="card">
-            <p>The stock is empty.</p>
+        <div class="card-header">
+            <img src="https://static3.therichestimages.com/wordpress/wp-content/uploads/2015/11/1622053-4961x3307-2013-Mercedes-Benz-Vision-Gran-Turismo-concept-e1446483647459.jpg" class="card-img-top" alt="...">
         </div>
-    }
+
+        <div class="container text-center">
+            <div class="row row-cols-auto">
+                @if (Model != null && Model.Any())
+                {
+                    @foreach (var item in Model)
+                    {
+                        <div class="card">
+                            <div class="card-body">
+                                <header>Code: @Html.DisplayFor(modelItem => item.Id) </header>
+                                <header>Name: @Html.DisplayFor(modelItem => item.Name)</header>
+                                <header>Category: @Html.DisplayFor(modelItem => item.Category.Name)</header>
+                            </div>
+                            <div class="card-footer">
+                                <a href="~/SpareParts/Details/@item.Id" class="btnDetails">Ver más</a>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="card">
+                        <p>The stock is empty.</p>
+                    </div>
+                    <div class="card">
+                        <p>The stock is empty.</p>
+                    </div>
+                    <div class="card">
+                        <p>The stock is empty.</p>
+                    </div>
+                    <div class="card">
+                        <p>The stock is empty.</p>
+                    </div>
+                }
+            </div>
+        </div>
+
+    </div>
 
 </div>
-

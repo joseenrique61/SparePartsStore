@@ -64,3 +64,7 @@ body {
     font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 }
 
+.content {
+    margin-top: 80px;
+}
+
