@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SPSAPI.Data;
 using SPSAPI.Utilities;
 using SPSModels.Models;
@@ -20,12 +21,12 @@ namespace SPSAPI.Controllers
         }
 
         [HttpPost]
-		[Route("/register")]
+		[Route("register")]
 		public async Task<IActionResult> Register([FromBody] Client client)
 		{
-			if (client == null || client.User == null)
+			if (client == null || client.User == null || string.IsNullOrEmpty(client.User.Email) || string.IsNullOrEmpty(client.User.Password))
 			{
-				return BadRequest();
+				return Unauthorized("Invalid user");
 			}
 
 			try
@@ -37,12 +38,13 @@ namespace SPSAPI.Controllers
 				await _context.Client.AddAsync(client);
 				await _context.SaveChangesAsync();
 
-				return Ok(new { Token = _tokenGenerator.Generate(client.User.Email, "Client") });
+				return Ok(new JWTToken { Token = _tokenGenerator.Generate(client.User.Email, UserTypes.Client) });
 			}
 			catch
 			{
 				return BadRequest();
 			}
 		}
+
 	}
 }

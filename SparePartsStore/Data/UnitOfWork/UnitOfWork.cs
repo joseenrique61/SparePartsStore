@@ -4,10 +4,17 @@ namespace SparePartsStoreWeb.Data.UnitOfWork
 {
 	public class UnitOfWork : IUnitOfWork
 	{
-		public ISparePartRepository SparePart { get; } = new SparePartRepository();
+		public ISparePartRepository SparePart { get; }
 
-		public ICategoryRepository Category { get; } = new CategoryRepository();
+		public ICategoryRepository Category { get; }
 
-		public IClientRepository Client { get; } = new ClientRepository();
+		public IClientRepository Client { get; }
+
+		public UnitOfWork(ISparePartRepository sparePart, ICategoryRepository category, IClientRepository client)
+		{
+			SparePart = sparePart;
+			Category = category;
+			Client = client;
+		}
 	}
 }

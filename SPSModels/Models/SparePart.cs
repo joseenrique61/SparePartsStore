@@ -23,10 +23,10 @@ namespace SPSModels.Models
 		[Required]
 		public string Image { get; set; }
 
+		[Required]
 		[ForeignKey(nameof(Category))]
 		public int CategoryId { get; set; }
 
-		[Required]
-		public Category Category { get; set; }
+		public Category? Category { get; set; }
 	}
 }

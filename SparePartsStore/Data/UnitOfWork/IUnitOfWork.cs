@@ -7,7 +7,7 @@ namespace SparePartsStoreWeb.Data.UnitOfWork
 		public ISparePartRepository SparePart { get; }
 
 		public ICategoryRepository Category { get; }
-		
+
 		public IClientRepository Client { get; }
 	}
 }

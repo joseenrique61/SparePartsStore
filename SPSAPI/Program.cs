@@ -48,6 +48,7 @@ builder.Services.AddEndpointsApiExplorer();
 // Configure Swagger for use with JWT. Code obtained from https://medium.com/@deidra108/oauth-bearer-token-with-swagger-ui-net-6-0-86835e616deb and modified.
 builder.Services.AddSwaggerGen(options =>
 {
+	options.SwaggerDoc("v1", new OpenApiInfo { Title = "SPSAPI", Version = "v1" });
 	options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
 	{
 		In = ParameterLocation.Header,
