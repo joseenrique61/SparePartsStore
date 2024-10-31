@@ -1,5 +1,7 @@
 ﻿using SparePartsStoreWeb.Data.ApiClient;
-using SparePartsStoreWeb.Data.Repositories;
+using SparePartsStoreWeb.Data.Repositories.CategoryRepository;
+using SparePartsStoreWeb.Data.Repositories.ClientRepository;
+using SparePartsStoreWeb.Data.Repositories.SparePartRepository;
 using SparePartsStoreWeb.Data.UnitOfWork;
 
 // Add services to the container.

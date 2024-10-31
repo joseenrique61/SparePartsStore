@@ -1,8 +1,10 @@
-﻿using SparePartsStoreWeb.Data.Repositories;
+﻿using SparePartsStoreWeb.Data.Repositories.SparePartRepository;
+using SparePartsStoreWeb.Data.Repositories.CategoryRepository;
+using SparePartsStoreWeb.Data.Repositories.ClientRepository;
 
 namespace SparePartsStoreWeb.Data.UnitOfWork
 {
-	public class UnitOfWork : IUnitOfWork
+    public class UnitOfWork : IUnitOfWork
 	{
 		public ISparePartRepository SparePart { get; }
 
