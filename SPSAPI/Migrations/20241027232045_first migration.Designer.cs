@@ -12,7 +12,7 @@ namespace SPSAPI.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
     [Migration("20241027232045_first migration")]
-    partial class firstmigration
+    partial class Firstmigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
