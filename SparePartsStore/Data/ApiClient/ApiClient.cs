@@ -4,16 +4,16 @@
 	{
 		private readonly HttpClient _client;
 
-		private readonly HttpContext _httpContext;
+		private readonly IHttpContextAccessor _httpContextAccessor;
 
 		public ApiClient(HttpClient client, IHttpContextAccessor httpContextAccesor)
 		{
 			_client = client;
 
-			_client.BaseAddress = new Uri("https://localhost:5027/api/");
-			_httpContext = httpContextAccesor.HttpContext!;
+			_client.BaseAddress = new Uri("http://localhost:5027/api/");
+			_httpContextAccessor = httpContextAccesor;
 
-			SetToken(_httpContext.Session.GetString("JWToken") ?? "");
+			SetToken(_httpContextAccessor.HttpContext!.Session.GetString("JWToken") ?? "");
 		}
 
 		private static string GetRoute<T>(string route)
@@ -24,7 +24,7 @@
 		public void SetToken(string token)
 		{
 			_client.DefaultRequestHeaders.Authorization = new("Bearer", token);
-			_httpContext.Session.SetString("JWToken", token);
+			_httpContextAccessor.HttpContext!.Session.SetString("JWToken", token);
 		}
 
 		public async Task<HttpResponseMessage> Get<T>(string route)
