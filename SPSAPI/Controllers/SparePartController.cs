@@ -64,7 +64,7 @@ namespace SPSAPI.Controllers
 			}
 		}
 
-		[HttpPost]
+		[HttpPut]
 		[Route("update")]
 		[Authorize(Roles = UserTypes.Admin)]
 		public async Task<ActionResult> Update([FromBody] SparePart sparePart)
