@@ -87,8 +87,6 @@ if (app.Environment.IsDevelopment())
 // Seed data into the database
 await DataSeeding(app);
 
-app.UseHttpsRedirection();
-
 app.UseAuthorization();
 
 app.MapControllers();
