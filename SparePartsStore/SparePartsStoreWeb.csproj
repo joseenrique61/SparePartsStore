@@ -25,8 +25,4 @@
     <Folder Include="Areas\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Include="wwwroot\SparePartIcon.png" />
-  </ItemGroup>
-
 </Project>
