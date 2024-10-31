@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using SPSAPI.Data;
 using SPSAPI.Utilities;
+using SPSAPI.Utilities.JWTResponseGenerator;
 using SPSModels.Models;
 
 namespace SPSAPI.Controllers
@@ -12,12 +12,12 @@ namespace SPSAPI.Controllers
 	{
 		private readonly ApplicationDBContext _context;
 
-		private readonly IJWTTokenGenerator _tokenGenerator;
-
-        public ClientController(ApplicationDBContext context, IJWTTokenGenerator tokenGenerator)
+		private readonly IJWTResponseGenerator _responseGenerator;
+		
+        public ClientController(ApplicationDBContext context, IJWTResponseGenerator responseGenerator)
         {
             _context = context;
-			_tokenGenerator = tokenGenerator;
+			_responseGenerator = responseGenerator;
         }
 
         [HttpPost]
@@ -38,7 +38,7 @@ namespace SPSAPI.Controllers
 				await _context.Client.AddAsync(client);
 				await _context.SaveChangesAsync();
 
-				return Ok(new JWTToken { Token = _tokenGenerator.Generate(client.User.Email, UserTypes.Client) });
+				return Ok(_responseGenerator.Generate(client.User.Email, UserTypes.Client));
 			}
 			catch
 			{

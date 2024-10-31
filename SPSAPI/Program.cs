@@ -4,7 +4,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using SPSAPI.Data;
 using SPSAPI.DataSeeders;
-using SPSAPI.Utilities;
+using SPSAPI.Utilities.JWTResponseGenerator;
+using SPSAPI.Utilities.JWTTokenGenerator;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -39,6 +40,7 @@ builder.Services.AddScoped<ISparePartDataSeeder, SparePartDataSeeder>();
 
 // Add the token generator to the dependency injection
 builder.Services.AddScoped<IJWTTokenGenerator, JWTTokenGenerator>();
+builder.Services.AddScoped<IJWTResponseGenerator, JWTResponseGenerator>();
 
 builder.Services.AddControllers();
 

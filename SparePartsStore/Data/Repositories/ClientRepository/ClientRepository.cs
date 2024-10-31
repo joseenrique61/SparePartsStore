@@ -20,7 +20,7 @@ namespace SparePartsStoreWeb.Data.Repositories.ClientRepository
                 Password = password
             });
 
-            JWTToken? token = await response.Content.ReadFromJsonAsync<JWTToken>();
+            JWTResponse? token = await response.Content.ReadFromJsonAsync<JWTResponse>();
             if (token == null)
             {
                 return false;
