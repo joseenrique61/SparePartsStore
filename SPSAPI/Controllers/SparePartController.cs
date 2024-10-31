@@ -3,19 +3,20 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SPSAPI.Data;
 using SPSModels.Models;
-using System.Diagnostics;
 
 namespace SPSAPI.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
-	[Authorize]
 	public class SparePartController : ControllerBase
 	{
+		private readonly ILogger _logger;
+
 		private readonly ApplicationDBContext _context;
 
-		public SparePartController(ApplicationDBContext context)
+		public SparePartController(ILogger<SparePartController> logger, ApplicationDBContext context)
 		{
+			_logger = logger;
 			_context = context;
 		}
 
@@ -46,13 +47,9 @@ namespace SPSAPI.Controllers
 
 		[HttpPost]
 		[Route("create")]
+		[Authorize(Roles = UserTypes.Admin)]
 		public async Task<ActionResult> Create([FromBody] SparePart sparePart)
 		{
-			if (sparePart == null)
-			{
-				return NotFound("The SparePart model is not valid.");
-			}
-
 			try
 			{
 				await _context.SparePart.AddAsync(sparePart);
@@ -62,7 +59,51 @@ namespace SPSAPI.Controllers
 			}
 			catch (Exception ex)
 			{
-				Debug.WriteLine(ex.Message);
+				_logger.LogError(ex.Message);
+				return BadRequest();
+			}
+		}
+
+		[HttpPost]
+		[Route("update")]
+		[Authorize(Roles = UserTypes.Admin)]
+		public async Task<ActionResult> Update([FromBody] SparePart sparePart)
+		{
+			try
+			{
+				_context.SparePart.Update(sparePart);
+				await _context.SaveChangesAsync();
+
+				return Ok();
+			}
+			catch (Exception ex)
+			{
+				_logger.LogError(ex.Message);
+				return BadRequest();
+			}
+		}
+
+		[HttpDelete]
+		[Route("delete/{id}")]
+		[Authorize(Roles = UserTypes.Admin)]
+		public async Task<ActionResult> Delete(int id)
+		{
+			try
+			{
+				SparePart? sparePart = await _context.SparePart.FindAsync(id);
+				if (sparePart == null)
+				{
+					return NotFound();
+				}
+				
+				_context.SparePart.Remove(sparePart);
+				await _context.SaveChangesAsync();
+
+				return Ok();
+			}
+			catch (Exception ex)
+			{
+				_logger.LogError(ex.Message);
 				return BadRequest();
 			}
 		}
