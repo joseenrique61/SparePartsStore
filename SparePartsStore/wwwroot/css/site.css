@@ -61,11 +61,13 @@ body {
 }
 
 .material-symbols-outlined {
-    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 30;
 }
 
 .content {
     margin-top: 75px;
+    position: relative;
+    align-items: center;
 }
 
 .carousel-image {
@@ -82,7 +84,7 @@ body {
     height:45px;
 }
 
-//ia help with this css
+/* Ia help with this css */
 .login {
     margin-top: 80px;
     display: flex;
