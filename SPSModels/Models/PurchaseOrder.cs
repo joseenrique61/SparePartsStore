@@ -15,5 +15,7 @@ namespace SPSModels.Models
 		public Client? Client { get; set; }
 
 		public ICollection<Order> Orders { get; set; }
+
+		public bool PurchaseCompleted { get; set; }
 	}
 }

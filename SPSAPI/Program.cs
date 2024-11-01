@@ -7,6 +7,7 @@ using SPSAPI.DataSeeders;
 using SPSAPI.Utilities.JWTResponseGenerator;
 using SPSAPI.Utilities.JWTTokenGenerator;
 using System.Text;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,7 +43,13 @@ builder.Services.AddScoped<ISparePartDataSeeder, SparePartDataSeeder>();
 builder.Services.AddScoped<IJWTTokenGenerator, JWTTokenGenerator>();
 builder.Services.AddScoped<IJWTResponseGenerator, JWTResponseGenerator>();
 
-builder.Services.AddControllers();
+// Add the controllers and prevent them from entering in an infinite loop when serializing recursive objects in JSON. Code made with ChatGPT.
+builder.Services.AddControllers()
+	.AddJsonOptions(options =>
+	{
+		options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+		options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+	});
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
