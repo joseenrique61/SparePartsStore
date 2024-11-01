@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using SPSAPI.Data;
 using SPSAPI.Utilities;
+using SPSAPI.Utilities.JWTResponseGenerator;
 using SPSModels.Models;
 
 namespace SPSAPI.Controllers
@@ -12,12 +13,12 @@ namespace SPSAPI.Controllers
     {
         private readonly ApplicationDBContext _context;
 
-		private readonly IJWTTokenGenerator _tokenGenerator;
+		private readonly IJWTResponseGenerator _responseGenerator;
 
-        public UserController(ApplicationDBContext context, IJWTTokenGenerator tokenGenerator)
+        public UserController(ApplicationDBContext context, IJWTResponseGenerator responseGenerator)
         {
             _context = context;
-			_tokenGenerator = tokenGenerator;
+			_responseGenerator = responseGenerator;
         }
 
 		[HttpPost]
@@ -34,11 +35,11 @@ namespace SPSAPI.Controllers
 			Client? client = await _context.Client.Include(nameof(Client.User)).FirstOrDefaultAsync(c => c.User!.Email == userProvided.Email);
 			if (client != null)
 			{
-				return Ok(new JWTToken { Token = _tokenGenerator.Generate(client.User!.Email, UserTypes.Client) });
+				return Ok(_responseGenerator.Generate(client.User!.Email, UserTypes.Client));
 			}
 			else
 			{
-				return Ok(new JWTToken { Token = _tokenGenerator.Generate(user.Email, UserTypes.Admin) });
+				return Ok(_responseGenerator.Generate(user.Email, UserTypes.Admin));
 			}
 		}
     }

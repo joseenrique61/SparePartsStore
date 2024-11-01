@@ -1,7 +1,7 @@
 ﻿using SparePartsStoreWeb.Data.ApiClient;
 using SPSModels.Models;
 
-namespace SparePartsStoreWeb.Data.Repositories
+namespace SparePartsStoreWeb.Data.Repositories.CategoryRepository
 {
 	public class CategoryRepository : ICategoryRepository
 	{

@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SPSAPI.Data;
 
@@ -10,9 +11,11 @@ using SPSAPI.Data;
 namespace SPSAPI.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20241031170651_Added_orders_and_purchaseOrders")]
+    partial class Added_orders_and_purchaseOrders
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -106,9 +109,6 @@ namespace SPSAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Amount")
-                        .HasColumnType("int");
-
                     b.Property<int>("PurchaseOrderId")
                         .HasColumnType("int");
 
@@ -134,9 +134,6 @@ namespace SPSAPI.Migrations
 
                     b.Property<int>("ClientId")
                         .HasColumnType("int");
-
-                    b.Property<bool>("PurchaseCompleted")
-                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
