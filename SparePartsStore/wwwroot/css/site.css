@@ -61,7 +61,9 @@ body {
 }
 
 .material-symbols-outlined {
-    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 30;
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    height: 45px;
+    width: 45px;
 }
 
 .content {
@@ -80,8 +82,8 @@ body {
 }
 
 .logoimage{
-    width:45px;
-    height:45px;
+    width:30px;
+    height:30px;
 }
 
 /* Ia help with this css */
