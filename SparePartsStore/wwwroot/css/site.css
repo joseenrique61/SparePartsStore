@@ -81,3 +81,21 @@ body {
     width:45px;
     height:45px;
 }
+
+//ia help with this css
+.login {
+    margin-top: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.contentlogin {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* optional: set a minimum height to center vertically */
+}
+

@@ -7,8 +7,8 @@ namespace SparePartsStoreWeb.Controllers
 {
     public class SparePartController : Controller
     {
-        private readonly UnitOfWork _unitOfWork;
-        public SparePartController(UnitOfWork unitOfWork) { 
+        private readonly IUnitOfWork _unitOfWork;
+        public SparePartController(IUnitOfWork unitOfWork) { 
             _unitOfWork = unitOfWork;
         }
 
