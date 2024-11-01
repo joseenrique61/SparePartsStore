@@ -37,6 +37,19 @@ namespace SPSAPI.Controllers
 		}
 
 		[HttpGet]
+		[Route("current/{id}")]
+		public async Task<PurchaseOrder?> GetCurrentByClientId(int id)
+		{
+			return await _context.PurchaseOrders
+				.Include(purchase => purchase.Orders)
+				.ThenInclude(orders => orders.SparePart)
+				.ThenInclude(spare => spare!.Category)
+				.Include(purchase => purchase.Client)
+				.ThenInclude(client => client!.User)
+				.FirstOrDefaultAsync(p => p.Client!.Id == id && !p.PurchaseCompleted);
+		}
+
+		[HttpGet]
 		[Route("byId/{id}")]
 		public async Task<IActionResult> GetById(int id)
 		{

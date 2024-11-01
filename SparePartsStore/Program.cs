@@ -1,6 +1,7 @@
 ﻿using SparePartsStoreWeb.Data.ApiClient;
 using SparePartsStoreWeb.Data.Repositories.CategoryRepository;
 using SparePartsStoreWeb.Data.Repositories.ClientRepository;
+using SparePartsStoreWeb.Data.Repositories.PurchaseOrderRepository;
 using SparePartsStoreWeb.Data.Repositories.SparePartRepository;
 using SparePartsStoreWeb.Data.UnitOfWork;
 
@@ -15,6 +16,7 @@ builder.Services.AddSession();
 // Repositories for the app
 builder.Services.AddScoped<ISparePartRepository, SparePartRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IPurchaseOrderRepository, PurchaseOrderRepository>();
 builder.Services.AddScoped<IClientRepository, ClientRepository>();
 
 // Unit of work
