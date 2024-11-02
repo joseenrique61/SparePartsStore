@@ -63,12 +63,12 @@
                     {
                         <div class="card">
                             <div class="card-body">
-                                <header>Code: @Html.DisplayFor(modelItem => item.Id) </header>
-                                <header>Name: @Html.DisplayFor(modelItem => item.Name)</header>
-                                <header>Category: @Html.DisplayFor(modelItem => item.Category.Name)</header>
+                                <img src="@Html.DisplayFor(modelItem => item.Image)" alt="..." class="image-spareparts">
+                                <header class="nanum-gothic-regular-20px">@Html.DisplayFor(modelItem => item.Name)</header>
+                                <header>@Html.DisplayFor(modelItem => item.Category.Name)</header>
                             </div>
                             <div class="card-footer">
-                                <a href="~/SpareParts/Details/@item.Id" class="btnDetails">Ver más</a>
+                                <a href="~/SparePart/Details/@item.Id" class="btnDetails">Ver más</a>
                             </div>
                         </div>
                     }

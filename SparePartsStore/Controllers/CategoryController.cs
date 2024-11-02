@@ -1,70 +1,68 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using NuGet.Protocol;
 using SparePartsStoreWeb.Data.UnitOfWork;
 using SPSModels.Models;
 
 namespace SparePartsStoreWeb.Controllers
 {
-    public class SparePartController : Controller
+    public class CategoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
-        public SparePartController(IUnitOfWork unitOfWork) { 
+        public CategoryController(IUnitOfWork unitOfWork)
+        {
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<IActionResult> Index() 
+        public async Task<IActionResult> Index()
         {
-            return View(await _unitOfWork.SparePart.GetAll());
+            return View(await _unitOfWork.Category.GetAll());
         }
 
         public async Task<IActionResult> Details(int id)
         {
-            var sparePart = await _unitOfWork.SparePart
+            var category = await _unitOfWork.Category
                  .GetById(id);
-            if (sparePart == null)
+            if (category == null)
             {
                 return NotFound();
             }
 
-            return View(sparePart);
+            return View(category);
         }
 
-        public async Task<IActionResult> Create()
+        public IActionResult Create()
         {
-            ViewData["CategoryId"] = new SelectList(await _unitOfWork.Category.GetAll(),"Id","Name");
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,Stock,Image,CategoryId")] SparePart sparePart)
+        public async Task<IActionResult> Create([Bind("Id,Name")] Category category)
         {
             if (ModelState.IsValid)
             {
-                await _unitOfWork.SparePart.Create(sparePart);
+                await _unitOfWork.Category.Create(category);
                 return RedirectToAction(nameof(Index));
             }
-            return View(sparePart);
+            return View(category);
         }
 
         public async Task<IActionResult> Edit(int id)
         {
-            var sparePart = await _unitOfWork.SparePart.GetById(id);
-            if (sparePart == null)
+            var category = await _unitOfWork.Category.GetById(id);
+            if (category == null)
             {
                 return NotFound();
             }
-            return View(sparePart);
+            return View(category);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Stock,Image,CategoryId")] SparePart sparePart)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Category category)
         {
-            if (id != sparePart.Id)
+            if (id != category.Id)
             {
                 return NotFound();
             }
@@ -73,11 +71,11 @@ namespace SparePartsStoreWeb.Controllers
             {
                 try
                 {
-                    await _unitOfWork.SparePart.Update(sparePart);
+                    await _unitOfWork.Category.Update(category);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!SparePartExist(sparePart.Id))
+                    if (!CategoryExist(category.Id))
                     {
                         return NotFound();
                     }
@@ -88,37 +86,37 @@ namespace SparePartsStoreWeb.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(sparePart);
+            return View(category);
         }
 
         public async Task<IActionResult> Delete(int id)
         {
-            var sparePart = await _unitOfWork.SparePart
+            var category = await _unitOfWork.Category
                  .GetById(id);
-            if (sparePart == null)
+            if (category == null)
             {
                 return NotFound();
             }
 
-            return View(sparePart);
+            return View(category);
         }
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var sparePart = await _unitOfWork.SparePart.GetById(id);
-            if (sparePart != null)
+            var category = await _unitOfWork.Category.GetById(id);
+            if (category != null)
             {
-                await _unitOfWork.SparePart.Delete(id);
+                await _unitOfWork.Category.Delete(id);
             }
 
             return RedirectToAction(nameof(Index));
         }
 
-        private bool SparePartExist(int id)
+        private bool CategoryExist(int id)
         {
-            if (_unitOfWork.SparePart.GetById(id) != null)
+            if (_unitOfWork.Category.GetById(id) != null)
             {
                 return true;
             }
