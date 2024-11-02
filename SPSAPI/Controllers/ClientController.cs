@@ -38,7 +38,7 @@ namespace SPSAPI.Controllers
 				await _context.Client.AddAsync(client);
 				await _context.SaveChangesAsync();
 
-				return Ok(_responseGenerator.Generate(client.User.Email, UserTypes.Client));
+				return Ok(_responseGenerator.Generate(client.User.Email, UserTypes.Client, client.Id));
 			}
 			catch
 			{

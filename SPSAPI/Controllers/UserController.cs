@@ -35,11 +35,11 @@ namespace SPSAPI.Controllers
 			Client? client = await _context.Client.Include(nameof(Client.User)).FirstOrDefaultAsync(c => c.User!.Email == userProvided.Email);
 			if (client != null)
 			{
-				return Ok(_responseGenerator.Generate(client.User!.Email, UserTypes.Client));
+				return Ok(_responseGenerator.Generate(client.User!.Email, UserTypes.Client, client.Id));
 			}
 			else
 			{
-				return Ok(_responseGenerator.Generate(user.Email, UserTypes.Admin));
+				return Ok(_responseGenerator.Generate(user.Email, UserTypes.Admin, user.Id));
 			}
 		}
     }

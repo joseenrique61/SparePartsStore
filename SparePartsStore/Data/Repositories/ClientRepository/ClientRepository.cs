@@ -32,6 +32,7 @@ namespace SparePartsStoreWeb.Data.Repositories.ClientRepository
             _client.SetToken(token.Token);
             _contextAccessor.HttpContext!.Session.SetString("Email", token.Email);
             _contextAccessor.HttpContext!.Session.SetString("Role", token.Role);
+            _contextAccessor.HttpContext!.Session.SetInt32("ClientId", token.ClientId);
 
             return true;
         }
