@@ -115,3 +115,11 @@ body {
     min-height: 100vh; 
 }
 
+.contentcreateaccount {
+    margin-top: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
