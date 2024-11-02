@@ -12,13 +12,14 @@ namespace SPSAPI.Utilities.JWTResponseGenerator
             _tokenGenerator = tokenGenerator;
         }
 
-        public JWTResponse Generate(string email, string role)
+        public JWTResponse Generate(string email, string role, int clientId)
         {
             return new()
             {
                 Token = _tokenGenerator.Generate(email, role),
                 Email = email,
-                Role = role
+                Role = role,
+                ClientId = clientId
             };
         }
     }
