@@ -28,6 +28,13 @@ body {
     font-style: normal;
 }
 
+.nanum-gothic-regular-20px {
+    font-family: "Nanum Gothic", sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    font-style: normal;
+}
+
 .card {
     width: 15rem;
     float: left;
@@ -37,16 +44,16 @@ body {
     margin-bottom: 20px;
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+    padding-block-end: 30px;
     text-align: center;
 }
 
 .card-footer {
-    margin-top: 10px;
+    background-color: #fff;
 }
 
 .btnDetails {
-    background-color: #292929;
+    background-color: #000000;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -62,10 +69,14 @@ body {
 
 .material-symbols-outlined {
     font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    height: 45px;
+    width: 45px;
 }
 
 .content {
-    margin-top: 80px;
+    margin-top: 75px;
+    position: relative;
+    align-items: center;
 }
 
 .carousel-image {
@@ -77,12 +88,17 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.logoimage{
-    width:45px;
-    height:45px;
+.logo-image {
+    width:30px;
+    height:30px;
 }
 
-//ia help with this css
+.image-spareparts {
+    width: 150px;
+    height: 150px;
+}
+
+/* Ia help with this css */
 .login {
     margin-top: 80px;
     display: flex;
@@ -92,10 +108,18 @@ body {
     padding: 20px;
 }
 
-.contentlogin {
+.content-login {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh; 
+}
+
+.contentcreateaccount {
+    margin-top: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 

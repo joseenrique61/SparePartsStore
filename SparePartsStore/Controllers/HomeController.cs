@@ -19,8 +19,7 @@ namespace SparePartsStoreWeb.Controllers
 
 		public async Task<IActionResult> Index()
 		{
-			//return View(await _unitOfWork.SparePart.GetAll());
-			return View();
+			return View(await _unitOfWork.SparePart.GetAll());
 		}
 
 		public IActionResult Privacy()

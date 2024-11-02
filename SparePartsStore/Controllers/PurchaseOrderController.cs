@@ -5,24 +5,16 @@ using SparePartsStoreWeb.Data.UnitOfWork;
 
 namespace SparePartsStoreWeb.Controllers
 {
-    public class ClientController : Controller
+    public class PurchaseOrderController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
-        public ClientController(IUnitOfWork unitOfWork)
+        public PurchaseOrderController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
-
-        public async Task<IActionResult> Login()
-        {
-            return View();
-        }
-
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> CartInfo()
         {
             return View();
         }
     }
 }
-
-
