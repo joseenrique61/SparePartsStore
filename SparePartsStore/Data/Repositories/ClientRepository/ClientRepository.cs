@@ -7,14 +7,17 @@ namespace SparePartsStoreWeb.Data.Repositories.ClientRepository
     {
         private readonly IApiClient _client;
 
-        public ClientRepository(IApiClient client)
+        private readonly IHttpContextAccessor _contextAccessor;
+
+        public ClientRepository(IApiClient client, IHttpContextAccessor contextAccessor)
         {
             _client = client;
+            _contextAccessor = contextAccessor;
         }
 
         public async Task<bool> Login(string email, string password)
         {
-            var response = await _client.Post("login", new User()
+            HttpResponseMessage response = await _client.Post("login", new User()
             {
                 Email = email,
                 Password = password
@@ -25,8 +28,18 @@ namespace SparePartsStoreWeb.Data.Repositories.ClientRepository
             {
                 return false;
             }
+
             _client.SetToken(token.Token);
+            _contextAccessor.HttpContext!.Session.SetString("Email", token.Email);
+            _contextAccessor.HttpContext!.Session.SetString("Role", token.Role);
+
             return true;
+        }
+
+        public async Task<bool> Register(Client client)
+        {
+            HttpResponseMessage response = await _client.Post("register", client);
+            return response.IsSuccessStatusCode;
         }
     }
 }
