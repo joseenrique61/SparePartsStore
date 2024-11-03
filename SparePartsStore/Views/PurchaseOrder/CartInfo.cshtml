@@ -6,9 +6,10 @@
 <div class="content">
 <div class="input-group mb-3">
   <span  class="input-group-text" >Name</span>
-        <span type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" asp-for="Name" value="Name" readonly>
+  <span type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" asp-for="Name" value="Name" readonly></span>
 </div>
-    
+    @if (Model != null)
+    {
         @foreach (var order in Model.Orders)
         {
             <div class="product-card">
@@ -30,7 +31,7 @@
                 </div>
             </div>
         }
-    
+    } 
 <div class="input-group mb-3">
   <span class="input-group-text">Total</span>
         <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" readonly>
