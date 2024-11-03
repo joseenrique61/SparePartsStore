@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SPSAPI.Data;
 using SPSAPI.Utilities;
 using SPSAPI.Utilities.JWTResponseGenerator;
@@ -46,5 +47,15 @@ namespace SPSAPI.Controllers
 			}
 		}
 
+		[HttpGet]
+		[Route("byId/{id}")]
+		public async Task<IActionResult> GetById(int id)
+		{
+			Client? client = await _context.Client
+				.Include(nameof(Client.User))
+				.FirstOrDefaultAsync(c => c.Id == id);
+
+			return client != null ? Ok(client) : NotFound();
+		}
 	}
 }

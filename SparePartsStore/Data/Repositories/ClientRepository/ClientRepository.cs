@@ -47,5 +47,16 @@ namespace SparePartsStoreWeb.Data.Repositories.ClientRepository
             HttpResponseMessage response = await _client.Post("register", client);
             return response.IsSuccessStatusCode;
         }
+
+        public async Task<Client?> GetById(int id)
+        {
+            HttpResponseMessage response = await _client.Get<Client>($"byId/{id}");
+            if (response.IsSuccessStatusCode)
+            {
+                Client client = (await response.Content.ReadFromJsonAsync<Client>())!;
+                return client;
+            }
+            return null;
+        }
     }
 }
