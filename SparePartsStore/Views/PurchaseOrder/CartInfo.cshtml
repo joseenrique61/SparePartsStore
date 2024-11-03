@@ -8,8 +8,30 @@
   <span  class="input-group-text" >Name</span>
         <span type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" asp-for="Name" value="Name" readonly>
 </div>
-
-
+    @if (Model.Orders != null)
+    {
+        @foreach (var order in Model.Orders)
+        {
+            <div class="product-card">
+                <div class="product-content">
+                    <div>
+                        <h3 class="product-title">Producto</h3>
+                        <div class="product-info">
+                            <p class="info-line">
+                                <span class="info-label">Cantidad:</span>
+                                <span class="info-value">5</span>
+                            </p>
+                            <p class="info-line">
+                                <span class="info-label">Precio:</span>
+                                <span class="info-value">$99.99</span>
+                            </p>
+                        </div>
+                    </div>
+                    <button class="delete-button">Eliminar</button>
+                </div>
+            </div>
+        }
+    }
 <div class="input-group mb-3">
   <span class="input-group-text">Total</span>
         <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" readonly>
