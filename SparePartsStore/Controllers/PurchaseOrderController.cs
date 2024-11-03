@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SparePartsStoreWeb.Data.UnitOfWork;
+using SPSModels.Models;
 
 namespace SparePartsStoreWeb.Controllers
 {
@@ -14,7 +15,8 @@ namespace SparePartsStoreWeb.Controllers
         }
         public async Task<IActionResult> CartInfo()
         {
-            return View();
+            PurchaseOrder purchaseOrder = await _unitOfWork.PurchaseOrder.GetCurrentByClientId((int)HttpContext.Session.GetInt32("ClientId")!);
+            return View(purchaseOrder);
         }
     }
 }

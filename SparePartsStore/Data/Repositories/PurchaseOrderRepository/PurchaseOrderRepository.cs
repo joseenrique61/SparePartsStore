@@ -42,14 +42,10 @@ namespace SparePartsStoreWeb.Data.Repositories.PurchaseOrderRepository
 			return null;
 		}
 
-		public async Task<PurchaseOrder?> GetCurrentByClientId(int id)
+		public async Task<PurchaseOrder> GetCurrentByClientId(int id)
 		{
 			HttpResponseMessage response = await _client.Get<PurchaseOrder>($"current/{id}");
-			if (response.IsSuccessStatusCode)
-			{
-				return await response.Content.ReadFromJsonAsync<PurchaseOrder>();
-			}
-			return null;
+			return (await response.Content.ReadFromJsonAsync<PurchaseOrder>())!;
 		}
 
 		public async Task<bool> Create(PurchaseOrder purchaseOrder)

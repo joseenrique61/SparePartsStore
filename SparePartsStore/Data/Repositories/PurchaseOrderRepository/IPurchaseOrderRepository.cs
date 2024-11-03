@@ -6,7 +6,7 @@ namespace SparePartsStoreWeb.Data.Repositories.PurchaseOrderRepository
 	{
 		public Task<List<PurchaseOrder>?> GetAll();
 
-		public Task<PurchaseOrder?> GetCurrentByClientId(int id);
+		public Task<PurchaseOrder> GetCurrentByClientId(int id);
 
 		public Task<PurchaseOrder?> GetById(int id);
 
