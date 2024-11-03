@@ -8,7 +8,7 @@
   <span  class="input-group-text" >Name</span>
         <span type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" asp-for="Name" value="Name" readonly>
 </div>
-    @if (Model.Orders != null)
+    @if (Model)
     {
         @foreach (var order in Model.Orders)
         {

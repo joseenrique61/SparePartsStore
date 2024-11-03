@@ -18,5 +18,17 @@ namespace SparePartsStoreWeb.Controllers
             PurchaseOrder purchaseOrder = await _unitOfWork.PurchaseOrder.GetCurrentByClientId((int)HttpContext.Session.GetInt32("ClientId")!);
             return View(purchaseOrder);
         }
+
+        private bool PurchaseOrderExist(int id)
+        {
+            if (_unitOfWork.PurchaseOrder.GetCurrentByClientId(id)!= null)
+            {
+                return true;
+                
+            }
+            return false;
+        }
+
+
     }
 }
