@@ -21,6 +21,10 @@ namespace SPSModels.Models
 		public int Stock { get; set; }
 
 		[Required]
+		[Range(0, int.MaxValue)]
+		public double Price { get; set; }
+
+		[Required]
 		public string Image { get; set; }
 
 		[Required]
