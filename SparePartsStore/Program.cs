@@ -4,6 +4,7 @@ using SparePartsStoreWeb.Data.Repositories.ClientRepository;
 using SparePartsStoreWeb.Data.Repositories.PurchaseOrderRepository;
 using SparePartsStoreWeb.Data.Repositories.SparePartRepository;
 using SparePartsStoreWeb.Data.UnitOfWork;
+using SparePartsStoreWeb.Utilities;
 
 // Add services to the container.
 var builder = WebApplication.CreateBuilder(args);
@@ -21,6 +22,9 @@ builder.Services.AddScoped<IClientRepository, ClientRepository>();
 
 // Unit of work
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+// Authentication
+builder.Services.AddScoped<IAuthenticator, Authenticator>();
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();

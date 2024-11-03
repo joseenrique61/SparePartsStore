@@ -55,6 +55,7 @@ namespace SPSAPI.Controllers
 					ClientId = id,
 					PurchaseCompleted = false
 				});
+				await _context.SaveChangesAsync();
 
 				return (await _context.PurchaseOrders
 					.Include(purchase => purchase.Client)
