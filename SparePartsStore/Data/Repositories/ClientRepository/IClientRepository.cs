@@ -6,5 +6,7 @@ namespace SparePartsStoreWeb.Data.Repositories.ClientRepository
     {
         public Task<bool> Login(string email, string password);
         public Task<bool> Register(Client client);
+
+        public Task<Client?> GetById(int id);
     }
 }
