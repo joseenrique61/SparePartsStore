@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SparePartsStoreWeb.Data.UnitOfWork;
+using SPSModels.Models;
 
 namespace SparePartsStoreWeb.Controllers
 {
@@ -16,5 +17,17 @@ namespace SparePartsStoreWeb.Controllers
         {
             return View();
         }
+
+        private bool PurchaseOrderExist(int id)
+        {
+            if (_unitOfWork.PurchaseOrder.GetCurrentByClientId(id)!= null)
+            {
+                return true;
+                
+            }
+            return false;
+        }
+
+
     }
 }
