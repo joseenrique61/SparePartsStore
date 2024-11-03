@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SparePartsStoreWeb.Data.UnitOfWork;
 using SPSModels.Models;
@@ -23,21 +24,20 @@ namespace SparePartsStoreWeb.Controllers
             return View();
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            ViewData["UserId"] = new SelectList(await _unitOfWork.Category.GetAll(), "Id", "Name");
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,UserId,Name,Address,City,Country")] Client client)
+        public async Task<IActionResult> Create([Bind("Id,Name,Address,City,Country")] Client client)
         {
             if (ModelState.IsValid)
             {
-                if (await _unitOfWork.Client.Register(client) == true)
-                {
-                    return RedirectToAction(nameof(Login));
-                } 
+                await _unitOfWork.Client.Register(client);
+                return RedirectToAction(nameof(Login));
             }
             return View(client);
         }
