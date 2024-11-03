@@ -123,10 +123,28 @@ body {
     flex-direction: column;
 }
 
-/* Ia /
+.whatsapp-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 999;
+    transition: transform 0.3s ease;
+}
+
+    .whatsapp-button:hover {
+        transform: scale(1.1);
+    }
+
+    .whatsapp-button img {
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        box-shadow: 2px 2px 6px rgba(0,0,0,0.4);
+
+        /* Ia /
 
 /* Contenedor principal del producto */
-/*.product-card {
+        /*.product-card {
     border: 1px solid #e2e8f0;
     padding: 16px;
     border-radius: 8px;
@@ -134,45 +152,38 @@ body {
     margin: 16px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }*/
-
- /*Contenedor flexible para la distribución del contenido*/
-./*product-content {
+        /*Contenedor flexible para la distribución del contenido*/
+        . /*product-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 16px;
 }*/
-
-/* Estilos para el título del producto */
-/*.product-title {
+        /* Estilos para el título del producto */
+        /*.product-title {
     margin: 0 0 8px 0;
     font-size: 18px;
     color: #1a202c;
 }*/
-
-/* Contenedor de la información del producto */
-/*.product-info {
+        /* Contenedor de la información del producto */
+        /*.product-info {
     color: #4a5568;
     font-size: 14px;
 }*/
-
-/* Estilos para cada línea de información */
-/*.info-line {
+        /* Estilos para cada línea de información */
+        /*.info-line {
     margin: 4px 0;
 }*/
-
-/* Etiquetas de los campos */
-/*.info-label {
+        /* Etiquetas de los campos */
+        /*.info-label {
     font-weight: 500;
 }*/
-
-/* Valores de los campos */
-/*.info-value {
+        /* Valores de los campos */
+        /*.info-value {
     margin-left: 4px;
 }*/
-
-/* Estilos del botón eliminar */
-/*.delete-button {
+        /* Estilos del botón eliminar */
+        /*.delete-button {
     background-color: #ef4444;
     color: white;
     border: none;
