@@ -35,21 +35,30 @@ namespace SparePartsStoreWeb.Controllers
 			return View(user);
         }
 
-		public IActionResult Create()
+		public IActionResult Register()
 		{
-			return View();
+			return View(new Client
+			{
+				User = new()
+			});
 		}
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Create([Bind("Id,Name,Address,City,Country")] Client client)
+		public async Task<IActionResult> Register(Client client)
 		{
-			if (ModelState.IsValid)
+			if (!ModelState.IsValid)
 			{
-				await _unitOfWork.Client.Register(client);
-				return RedirectToAction(nameof(Login));
+				return View(client);
 			}
-			return View(client);
+			if (!await _unitOfWork.Client.Register(client))
+			{
+				ViewData["Error"] = "The user is not valid.";
+				return View(client);
+			}
+
+			await _unitOfWork.Client.Login(client.User!.Email, client.User!.Password!);
+			return RedirectToAction("Index", "Home");
 		}
 	}
 }
