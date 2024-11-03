@@ -12,7 +12,8 @@ namespace SparePartsStoreWeb.Data.Repositories.SparePartRepository
             _client = client;
         }
 
-        public async Task<List<SparePart>?> GetAll()
+        public async Task<List<SparePart>?> 
+            GetAll()
         {
             HttpResponseMessage response = await _client.Get<SparePart>("all");
             if (response.IsSuccessStatusCode)

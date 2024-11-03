@@ -17,6 +17,7 @@ namespace SparePartsStoreWeb.Controllers
 
         public async Task<IActionResult> Index() 
         {
+            ViewBag.CategoryId = new List<Category>(await _unitOfWork.Category.GetAll());
             return View(await _unitOfWork.SparePart.GetAll());
         }
 
