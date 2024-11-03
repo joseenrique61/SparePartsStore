@@ -3,7 +3,6 @@
 }
 
 <div class="content-login">
-    
             <form>
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Email</label>
@@ -14,12 +13,15 @@
                     <label for="exampleInputPassword1" class="form-label">Password</label>
                     <input type="password" class="form-control" id="exampleInputPassword1">
                 </div>
-            <div class="d-flex justify-content-center flex-column align-items-center">
-                <button type="submit" class="btn btn-success mb-2 w-50">Next</button>
-                <a type="button" class="btn btn-primary w-50" asp-area="" asp-controller="Client" asp-action="Create">Create account</a>
-            </div>
-                
+                <div class="d-flex justify-content-center flex-column align-items-center">
+                    <button type="submit" class="btn btn-success mb-2 w-50">Next</button>
+                    <a type="button" class="btn btn-primary w-50" asp-area="" asp-controller="Client" asp-action="Create">Create account</a>
+                </div>
             </form>
+</div>
 
-    </div>
-
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
