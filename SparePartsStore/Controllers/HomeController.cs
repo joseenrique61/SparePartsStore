@@ -30,8 +30,12 @@ namespace SparePartsStoreWeb.Controllers
 		{
 			return View();
 		}
-
-		public IActionResult Logout()
+        public IActionResult Contact()
+        {
+            return View();
+        }
+     
+        public IActionResult Logout()
 		{
 			_client.SetToken("");
 			HttpContext.Session.SetString("Role", "");
