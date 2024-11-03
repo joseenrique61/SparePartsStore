@@ -17,16 +17,24 @@ namespace SparePartsStoreWeb.Controllers
 
         public IActionResult Login()
         {
-            if (HttpContext.Session.GetInt32("ClientId") != null && HttpContext.Session.GetString("Email") != null && HttpContext.Session.GetString("Role") != null) {
-                return View(_unitOfWork.Client.Login(HttpContext.Session.GetString("Email"), HttpContext.Session.GetString("Role")));
-            }
-
             return View();
         }
 
-        public async Task<IActionResult> Create()
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(User user)
         {
-            ViewData["UserId"] = new SelectList(await _unitOfWork.Category.GetAll(), "Id", "Name");
+            if (!ModelState.IsValid)
+            {
+                return View(user);
+            }
+
+            await _unitOfWork.Client.Login(user.Email, user.Password!);
+            return RedirectToAction("Index", "home");
+        }
+
+        public IActionResult Create()
+        {
             return View();
         }
 
