@@ -4,7 +4,7 @@ using SPSModels.Models;
 
 namespace SparePartsStoreWeb.Controllers
 {
-	public class ClientController : Controller
+	public class ClientController : BaseController
 	{
 		private readonly IUnitOfWork _unitOfWork;
 		public ClientController(IUnitOfWork unitOfWork)
@@ -26,9 +26,14 @@ namespace SparePartsStoreWeb.Controllers
 				return View(user);
 			}
 
-			await _unitOfWork.Client.Login(user.Email, user.Password!);
-			return RedirectToAction("Index", "home");
-		}
+			if (await _unitOfWork.Client.Login(user.Email, user.Password!))
+			{
+                return RedirectToAction("Index", "home");
+            }
+
+			ViewData["Error"] = "Incorrect email or password.";
+			return View(user);
+        }
 
 		public IActionResult Create()
 		{

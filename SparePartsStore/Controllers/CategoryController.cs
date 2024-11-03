@@ -6,7 +6,7 @@ using SPSModels.Models;
 
 namespace SparePartsStoreWeb.Controllers
 {
-    public class CategoryController : Controller
+    public class CategoryController : BaseController
     {
         private readonly IUnitOfWork _unitOfWork;
         public CategoryController(IUnitOfWork unitOfWork)

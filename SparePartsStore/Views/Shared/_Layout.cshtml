@@ -31,26 +31,45 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="SparePart" asp-action="Index">Spare Parts</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Category" asp-action="Index">Categories</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">About Us</a>
                         </li>
+
+                        @if (ViewBag.Role == UserTypes.Admin)
+                        {
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="SparePart" asp-action="Index">Spare Parts</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="Category" asp-action="Index">Categories</a>
+							</li>
+						}
                     </ul>
-                    <ul class="navbar-nav align-content-sm-end">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="PurchaseOrder" asp-action="CartInfo"> <img src="~/ShoppingCartIcon.png" alt="Cart Icon" class="logo-image" /> </a>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav align-content-sm-end">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Client" asp-action="Login"> <img src="~/PersonIcon.png" alt="Person Icon" class="logo-image" /> Login </a>
-                        </li>
-                        
-                    </ul>
+
+                    @if (ViewBag.Role == UserTypes.Client)
+                    {
+						<ul class="navbar-nav align-content-sm-end">
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="PurchaseOrder" asp-action="CartInfo"> <img src="~/ShoppingCartIcon.png" alt="Cart Icon" class="logo-image" /> </a>
+							</li>
+						</ul>
+					}
+
+                    @if (ViewBag.Role != "")
+                    {
+						<ul class="navbar-nav align-content-sm-end">
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Logout">Log out</a>
+							</li>
+						</ul>
+                    }
+                    else
+                    {
+						<ul class="navbar-nav align-content-sm-end">
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="Client" asp-action="Login"> <img src="~/PersonIcon.png" alt="Person Icon" class="logo-image" /> Login </a>
+							</li>
+						</ul>
+					}
                 </div>
             </div>
         </nav>

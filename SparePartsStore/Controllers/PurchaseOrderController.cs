@@ -6,7 +6,7 @@ using SPSModels.Models;
 
 namespace SparePartsStoreWeb.Controllers
 {
-    public class PurchaseOrderController : Controller
+    public class PurchaseOrderController : BaseController
     {
         private readonly IUnitOfWork _unitOfWork;
         public PurchaseOrderController(IUnitOfWork unitOfWork)

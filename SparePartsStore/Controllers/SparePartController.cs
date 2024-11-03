@@ -8,7 +8,7 @@ using SPSModels.Models;
 
 namespace SparePartsStoreWeb.Controllers
 {
-    public class SparePartController : Controller
+    public class SparePartController : BaseController
     {
         private readonly IUnitOfWork _unitOfWork;
         public SparePartController(IUnitOfWork unitOfWork) { 
