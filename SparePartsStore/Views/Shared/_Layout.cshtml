@@ -36,7 +36,7 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contact">Contact Us</a>
                         </li>
-
+                        
                         @if (ViewBag.Role == UserTypes.Admin)
                         {
 							<li class="nav-item">
@@ -51,7 +51,10 @@
                     @if (ViewBag.Role == UserTypes.Client)
                     {
 						<ul class="navbar-nav align-content-sm-end">
-							<li class="nav-item">
+							<form class="d-flex">
+                                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                            </form>
+                            <li class="nav-item">
 								<a class="nav-link text-dark" asp-area="" asp-controller="PurchaseOrder" asp-action="CartInfo"> <img src="~/ShoppingCartIcon.png" alt="Cart Icon" class="logo-image" /> </a>
 							</li>
 						</ul>
@@ -59,7 +62,11 @@
 
                     @if (ViewBag.Role != "")
                     {
+
 						<ul class="navbar-nav align-content-sm-end">
+                            <form class="d-flex">
+                                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                            </form>
 							<li class="nav-item">
 								<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Logout">Log out</a>
 							</li>
@@ -68,6 +75,9 @@
                     else
                     {
 						<ul class="navbar-nav align-content-sm-end">
+                            <form class="d-flex">
+                                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                            </form>
 							<li class="nav-item">
 								<a class="nav-link text-dark" asp-area="" asp-controller="Client" asp-action="Login">@* <img src="~/PersonIcon.png" alt="Person Icon" class="logo-image" /> *@Log in</a>
 							</li>
