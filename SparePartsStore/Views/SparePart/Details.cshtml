@@ -50,15 +50,19 @@
 
             @if (ViewBag.Role == "")
             {
-                <div>
+                <div class="row">
+                    <a href="~/Client/Login" class="btn btn-primary col-auto">Add</a>
+                    <!--
                     <button class="btn btn-primary col-auto" onclick="showAlert()">Add</button>
+                    <script type="text/javascript">
+                        function showAlert() {
+                            alert("You need to login or create an account.");
+                        }
+                    </script>
+                    -->
                 </div>
 
-                <script type="text/javascript">
-                    function showAlert() {
-                        alert("You need to login or create an account.");
-                    }
-                </script>
+
             }
         </div>
     </div>
