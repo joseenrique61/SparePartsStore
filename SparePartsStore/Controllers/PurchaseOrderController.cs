@@ -27,5 +27,30 @@ namespace SparePartsStoreWeb.Controllers
 			PurchaseOrder purchaseOrder = await _unitOfWork.PurchaseOrder.GetCurrentByClientId((int)HttpContext.Session.GetInt32("ClientId")!);
 			return View(purchaseOrder);
 		}
-	}
+
+        [HttpPost]
+        public async Task<IActionResult> RemoveFromCart(SparePart sparePart)
+        {
+            int? clientId = HttpContext.Session.GetInt32("ClientId");
+            if (clientId == null)
+            {
+                return RedirectToAction("Login", "Client");
+            }
+
+            PurchaseOrder purchaseOrder = await _unitOfWork.PurchaseOrder.GetCurrentByClientId((int)clientId);
+
+
+            var existingOrder = purchaseOrder.Orders.FirstOrDefault(o => o.SparePartId == sparePart.Id);
+
+            if (existingOrder != null)
+            {
+
+                purchaseOrder.Orders.Remove(existingOrder);
+
+
+                await _unitOfWork.PurchaseOrder.Update(purchaseOrder);
+            }
+            return RedirectToAction("CartInfo", "PurchaseOrder");
+        }
+    }
 }

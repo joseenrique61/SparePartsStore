@@ -27,7 +27,9 @@
                             </p>
                         </div>
                     </div>
-                    <button type="submit" class="delete-button" id="deleteButton" asp-controller="SparePart" asp-action="RemoveFromCart">Delete</button>
+                    <form asp-action="RemoveFromCart">
+                        <button type="submit" class="delete-button">Delete</button>
+                    </form>
                 </div>
             </div>
         }
