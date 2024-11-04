@@ -19,6 +19,7 @@ html {
 
 body {
   margin-bottom: 60px;
+  --bs-body-color: black;
 }
 
 .nanum-gothic-regular {
@@ -33,27 +34,6 @@ body {
     font-size: 20px;
     font-weight: 700;
     font-style: normal;
-}
-
-.img {
-    width: 100%;
-}
-
-.card {
-    width: 15rem;
-    float: left;
-    border-radius: 10px;
-    margin-top: 20px;
-    margin-left: 20px;
-    margin-bottom: 20px;
-    background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding-block-end: 30px;
-    text-align: center;
-}
-
-.card-footer {
-    background-color: #fff;
 }
 
 .btnDetails {
@@ -83,13 +63,37 @@ body {
     align-items: center;
 }
 
+img {
+    width: 100%;
+}
+
 .carousel-image {
-    width: 1080px;
-    height: 425px;
-    margin-top: 20px;
-    margin-bottom: 50px;
+    height: 100%;
+    object-fit: fill;
+}
+
+.carousel-inner, .carousel-item {
+    height: 100%;
+}
+
+.carousel-inner {
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.carousel-caption {
+    background-color: white;
+    opacity: 90%;
+    border-radius: 1px;
+    box-shadow: 0px 0px 5px 10px white;
+}
+
+.carousel-caption h5 {
+    color: black;
+}
+
+.carousel-caption p {
+    color: var(--bs-body-color);
+    margin-bottom: 0;
 }
 
 .logo-image {
@@ -98,8 +102,8 @@ body {
 }
 
 .image-spareparts {
-    width: 150px;
     height: 150px;
+    object-fit: cover;
 }
 
 /* Ia help with this css */
@@ -202,6 +206,3 @@ body {
     .delete-button:hover {
         background-color: #e03131;
     }
-
-    
-

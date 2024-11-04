@@ -1,47 +1,52 @@
 ﻿@model IEnumerable<SparePart>
 
 @{
-    ViewData["Title"] = "Search Items";
+	ViewData["Title"] = "Search results";
 }
 
 <div class="content">
-    <h2>Search Items</h2>
-    <h5>Available</h5>
-    <hr />
+	<h2>Search results</h2>
+	<hr />
 
-    <div class="container text-center">
-        <div class="row row-cols-auto">
-            @if (Model != null && Model.Any())
-            {
-                @foreach (var item in Model)
-                {
-                    <div class="card">
-                        <div class="card-body">
-                            <img src="@Html.DisplayFor(modelItem => item.Image)" alt="..." class="image-spareparts">
-                            <header class="nanum-gothic-regular-20px">@Html.DisplayFor(modelItem => item.Name)</header>
-                            <header>@Html.DisplayFor(modelItem => item.Category.Name)</header>
-                        </div>
-                        <div class="card-footer">
-                            <a href="~/SparePart/Details/@item.Id" class="btnDetails">More Details</a>
-                        </div>
-                    </div>
-                }
-            }
-            else
-            {
-                <div class="card">
-                    <p>The stock is empty.</p>
-                </div>
-                <div class="card">
-                    <p>The stock is empty.</p>
-                </div>
-                <div class="card">
-                    <p>The stock is empty.</p>
-                </div>
-                <div class="card">
-                    <p>The stock is empty.</p>
-                </div>
-            }
-        </div>
-    </div>
+	<div class="container text-center">
+		@if (Model != null && Model.Any())
+		{
+			<div class="row text-start justify-content-start">
+				<label for="filterByCategoryCard" class="align-self-center col-auto">Filter by Category:</label>
+				<div class="col-3">
+					<select id="filterByCategoryCard" class="border-success border-3 form-control">
+						<option value="">All</option>
+						@foreach (var category in ViewBag.CategoryId)
+						{
+							<option value="@category.Id">@category.Name</option>
+						}
+					</select>
+				</div>
+			</div>
+
+			<div class="row row-cols-5 g-4 my-2">
+				@foreach (var item in Model)
+				{
+					<div>
+						<div class="card" data-category-id="@item.CategoryId">
+							<div class="card-body">
+								<img src="@Html.DisplayFor(modelItem => item.Image)" class="image-spareparts">
+								<header class="nanum-gothic-regular-20px">@Html.DisplayFor(modelItem => item.Name)</header>
+								<header>@Html.DisplayFor(modelItem => item.Category!.Name)</header>
+							</div>
+							<div class="card-footer p-4">
+								<a href="~/SparePart/Details/@item.Id" class="btnDetails">More Details</a>
+							</div>
+						</div>
+					</div>
+				}
+			</div>
+		}
+		else
+		{
+			<div class="row text-start mt-3">
+				<p>There are no items with that name.</p>
+			</div>
+		}
+	</div>
 </div>

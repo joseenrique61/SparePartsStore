@@ -58,14 +58,13 @@ namespace SparePartsStoreWeb.Controllers
             return NotFound();
         }
 
-
         public async Task<IActionResult> AddToCart(int amount, SparePart sparePart)
         {
             sparePart = (await _unitOfWork.SparePart.GetById(sparePart.Id))!;
 
             if (amount > sparePart.Stock || amount <= 0)
             {
-                ViewData["Error"] = "Invalid amount.";
+                TempData["Error"] = "Invalid amount.";
                 return RedirectToAction(nameof(Details), new { id = sparePart.Id });
             }
 
@@ -86,10 +85,6 @@ namespace SparePartsStoreWeb.Controllers
 
             return RedirectToAction("CartInfo", "PurchaseOrder");
         }
-
-
-       
-
 
         public async Task<IActionResult> Create()
         {

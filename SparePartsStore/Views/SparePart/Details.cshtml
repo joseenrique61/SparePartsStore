@@ -31,8 +31,7 @@
                     <a asp-action="Index">Back to List</a>
                 </div>
             }
-
-            @if (ViewBag.Role == UserTypes.Client)
+            else if (ViewBag.Role == UserTypes.Client)
             {
                 <form asp-action="AddToCart" id="addForm">
                     <input hidden asp-for="Id" />
@@ -41,28 +40,18 @@
 
                         <a class="btn btn-secondary col-auto disabled" id="decreaseButton" onclick="DecreaseAmount()">-</a>
                         <p class="col-auto my-auto" id="amount">0</p>
-                        <a class="btn btn-success col-auto" id="increaseButton" onclick="IncreaseAmount(@Model.Stock)">+</a>
+                        <a class="btn btn-success col-auto" id="increaseButton" onclick="IncreaseAmount(@Model!.Stock)">+</a>
 
-                        <button type="submit" class="btn btn-primary col-auto" id="addButton" onclick="AddToCart()" style="margin-left:20px">Add</button>
+                        <button type="submit" class="btn btn-primary col-auto ms-3 disabled" id="addButton" onclick="AddToCart()">Buy</button>
+                        <span class="text-danger col-auto align-self-center">@TempData["Error"]</span>
                     </div>
                 </form>
             }
-
-            @if (ViewBag.Role == "")
+            else if (ViewBag.Role == "")
             {
                 <div class="row">
-                    <a href="~/Client/Login" class="btn btn-primary col-auto">Add</a>
-                    <!--
-                    <button class="btn btn-primary col-auto" onclick="showAlert()">Add</button>
-                    <script type="text/javascript">
-                        function showAlert() {
-                            alert("You need to login or create an account.");
-                        }
-                    </script>
-                    -->
+                    <a asp-action="Login" asp-controller="Client" class="btn btn-primary col-auto">Buy</a>
                 </div>
-
-
             }
         </div>
     </div>

@@ -21,9 +21,9 @@ $(document).ready(function () {
 
         cards.forEach(function (card) {
             if (selectedCategory === "" || card.getAttribute("data-category-id") === selectedCategory) {
-                card.style.display = "block";
+                card.parentElement.style.display = "block";
             } else {
-                card.style.display = "none";
+                card.parentElement.style.display = "none";
             }
         });
     });
@@ -41,11 +41,13 @@ function AddToCart() {
 function IncreaseAmount(max) {
     const increaseButton = document.getElementById("increaseButton")
     const decreaseButton = document.getElementById("decreaseButton")
+    const buyButton = document.getElementById("addButton")
     let amount = parseInt(document.getElementById("amount").innerText)
 
     amount += 1
 
     decreaseButton.classList.remove("disabled")
+    buyButton.classList.remove("disabled")
     if (amount >= max) {
         increaseButton.classList.add("disabled")
     }
@@ -56,6 +58,7 @@ function IncreaseAmount(max) {
 function DecreaseAmount() {
     const increaseButton = document.getElementById("increaseButton")
     const decreaseButton = document.getElementById("decreaseButton")
+    const buyButton = document.getElementById("addButton")
     let amount = parseInt(document.getElementById("amount").innerText)
 
     amount -= 1
@@ -63,6 +66,7 @@ function DecreaseAmount() {
     increaseButton.classList.remove("disabled")
     if (amount <= 0) {
         decreaseButton.classList.add("disabled")
+        buyButton.classList.add("disabled")
     }
 
     document.getElementById("amount").innerText = amount
