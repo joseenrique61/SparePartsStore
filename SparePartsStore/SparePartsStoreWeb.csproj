@@ -28,8 +28,4 @@
     <ProjectReference Include="..\SPSModels\SPSModels.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\BuyProduct\" />
-  </ItemGroup>
-
 </Project>
