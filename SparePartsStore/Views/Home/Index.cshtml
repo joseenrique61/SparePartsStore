@@ -12,7 +12,9 @@
             <img src="https://static3.therichestimages.com/wordpress/wp-content/uploads/2015/11/1622053-4961x3307-2013-Mercedes-Benz-Vision-Gran-Turismo-concept-e1446483647459.jpg" class="card-img-top" alt="...">
         </div>
         -->
-        <h1 class="display-4">Welcome to SpareParts Store</h1>
+        <h1 class="display-4 text-center" style="font-weight: 700; font-family: 'Roboto', sans-serif; color: #333;">
+            Welcome to <span style="color: #78c2ad;">SpareParts Store</span>
+        </h1>
 
         <div id="carouselExampleIndicators" class="carousel slide">
             <div class="carousel-indicators">
@@ -56,8 +58,8 @@
         <p class="nanum-gothic-regular">SEE OUR CATALOG</p>
 
         <div class="container justify-content-lg-evenly">
-            <label for="filterByCategory" class="mb-2">Filter by Category:</label>
-            <select id="filterByCategory" class="form-control">
+            <label for="filterByCategoryCard" class="mb-2">Filter by Category:</label>
+            <select id="filterByCategoryCard" class="form-control">
                 <option value="">All</option>
                 @foreach (var category in ViewBag.CategoryId)
                 {
@@ -104,19 +106,4 @@
         </div>
     </div>
 </div>
-
-<script type="text/javascript">
-    document.getElementById("filterByCategory").addEventListener("change", function () {
-        var selectedCategory = this.value;
-        var cards = document.querySelectorAll(".card");
-
-        cards.forEach(function (card) {
-            if (selectedCategory === "" || card.getAttribute("data-category-id") === selectedCategory) {
-                card.style.display = "block";
-            } else {
-                card.style.display = "none";
-            }
-        });
-    });
-</script>
 
