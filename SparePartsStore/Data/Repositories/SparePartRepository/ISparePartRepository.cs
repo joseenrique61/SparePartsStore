@@ -8,7 +8,7 @@ namespace SparePartsStoreWeb.Data.Repositories.SparePartRepository
 
         public Task<SparePart?> GetById(int id);
 
-        public Task<SparePart?> GetByCategory(string categoryName);
+        public Task<List<SparePart>?> GetByCategory(string categoryName);
 
         public Task<bool> Create(SparePart sparePart);
 

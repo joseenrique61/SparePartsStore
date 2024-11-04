@@ -33,29 +33,10 @@ namespace SparePartsStoreWeb.Controllers
 
         public async Task<IActionResult> DetailsList(string name)
         {
-            var sparePart = await _unitOfWork.SparePart
-                    .GetAll();
-
-            List<SparePart> filterItems = new List<SparePart>();
-
-            if (sparePart != null)
-            {
-                foreach (var spare in sparePart) 
-                {
-                    if (spare.Name == name)
-                    {
-                        filterItems.Add(spare);
-                    }
-                }
-            }
-
-            if (filterItems != null)
-            {
-                IEnumerable<SparePart> itemList = filterItems;
-                return View(itemList);
-            }
-
-            return NotFound();
+            ViewBag.CategoryId = await _unitOfWork.Category.GetAll();
+            IEnumerable<SparePart>? spareParts = (await _unitOfWork.SparePart.GetAll())?
+                .Where(sp => sp.Name.Contains(name, StringComparison.InvariantCultureIgnoreCase));
+            return spareParts == null ? NotFound() : View(spareParts);
         }
 
         public async Task<IActionResult> AddToCart(int amount, SparePart sparePart)

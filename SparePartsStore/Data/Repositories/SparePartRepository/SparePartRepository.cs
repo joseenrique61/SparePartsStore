@@ -33,12 +33,12 @@ namespace SparePartsStoreWeb.Data.Repositories.SparePartRepository
             return null;
         }
 
-        public async Task<SparePart?> GetByCategory(string categoryName)
+        public async Task<List<SparePart>?> GetByCategory(string categoryName)
         {
             HttpResponseMessage response = await _client.Get<SparePart>($"byCategoryName/{categoryName}");
             if (response.IsSuccessStatusCode)
             {
-                return await response.Content.ReadFromJsonAsync<SparePart>();
+                return await response.Content.ReadFromJsonAsync<List<SparePart>>();
             }
             return null;
         }

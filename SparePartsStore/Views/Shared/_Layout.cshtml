@@ -1,111 +1,106 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <link rel="shortcut icon" href="~/IconPage.png" type="image/x-icon">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - SparePartsStore</title>
-    <link rel="stylesheet" href="~/css/mint.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/SparePartsStoreWeb.styles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=home" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=person" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+	<meta charset="utf-8" />
+	<link rel="shortcut icon" href="~/IconPage.png" type="image/x-icon">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"] - SparePartsStore</title>
+	<link rel="stylesheet" href="~/css/mint.css" />
+	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/SparePartsStoreWeb.styles.css" asp-append-version="true" />
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body>
-    <header>
-        <nav class="navbar fixed-top navbar-expand-sm navbar-toggleable-sm navbar-light bg-primary border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                    <img src="https://www.svgrepo.com/show/438317/auto-loan.svg" alt="Home Icon" class="logo-image" />
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">About Us</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contact">Contact Us</a>
-                        </li>
-                        
-                        @if (ViewBag.Role == UserTypes.Admin)
-                        {
-							<li class="nav-item">
-								<a class="nav-link text-dark" asp-area="" asp-controller="SparePart" asp-action="Index">Spare Parts</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link text-dark" asp-area="" asp-controller="Category" asp-action="Index">Categories</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link text-dark" asp-area="" asp-controller="PurchaseOrder" asp-action="PurchaseOrderListAdmin">Purchase orders</a>
+	<header>
+		<nav class="navbar fixed-top navbar-expand-sm navbar-toggleable-sm navbar-light bg-primary border-bottom box-shadow mb-3">
+			<div class="container-fluid">
+				<a class="navbar-brand ms-2" asp-area="" asp-controller="Home" asp-action="Index">
+					<img src="~/IconPage.png" style="height:30px; width:30px" />
+					SpareParts Store
+				</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+						aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+					<ul class="navbar-nav flex-grow-1">
+						<li class="nav-item">
+							<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">About us</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contact">Contact us</a>
+						</li>
+					</ul>
+
+					<ul class="navbar-nav align-content-sm-end">
+						<form class="d-flex" asp-controller="SparePart" asp-action="DetailsList" method="get">
+							<input class="form-control me-2" type="search" name="name" placeholder="Search" aria-label="Search">
+						</form>
+						@if (ViewBag.Role != "")
+						{
+							<li class="nav-item dropdown">
+								<button class="btn btn-secondary dropdown-toggle text-dark" data-bs-toggle="dropdown" aria-expanded="false">
+									@ViewBag.Email
+								</button>
+								<ul class="dropdown-menu">
+									@if (ViewBag.Role == UserTypes.Client)
+									{
+										<li class="dropdown-item">
+											<a class="nav-link text-dark" asp-area="" asp-controller="PurchaseOrder" asp-action="CartInfo">Shopping Cart</a>
+										</li>
+										<li class="dropdown-item">
+											<a class="nav-link text-dark" asp-area="" asp-controller="PurchaseOrder" asp-action="PurchaseOrderListClient">Purchase orders</a>
+										</li>
+									}
+									else if (ViewBag.Role == UserTypes.Admin)
+									{
+										<li class="dropdown-item">
+											<a class="nav-link text-dark" asp-area="" asp-controller="SparePart" asp-action="Index">Spare Parts</a>
+										</li>
+										<li class="dropdown-item">
+											<a class="nav-link text-dark" asp-area="" asp-controller="Category" asp-action="Index">Categories</a>
+										</li>
+										<li class="dropdown-item">
+											<a class="nav-link text-dark" asp-area="" asp-controller="PurchaseOrder" asp-action="PurchaseOrderListAdmin">Purchase orders</a>
+										</li>
+									}
+									<li class="dropdown-item">
+										<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Logout">Log out</a>
+									</li>
+								</ul>
 							</li>
 						}
-                    </ul>
-
-                    @if (ViewBag.Role == UserTypes.Client)
-                    {
-						<ul class="navbar-nav align-content-sm-end">
-                            <li class="nav-item">
-								<a class="nav-link text-dark" asp-area="" asp-controller="PurchaseOrder" asp-action="CartInfo"> <img src="~/ShoppingCartIcon.png" alt="Cart Icon" class="logo-image" /> </a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link text-dark" asp-area="" asp-controller="PurchaseOrder" asp-action="PurchaseOrderListClient">Purchase orders</a>
-							</li>
-						</ul>
-					}
-
-                    @if (ViewBag.Role != "")
-                    {
-						<ul class="navbar-nav align-content-sm-end">
-                            <form class="d-flex" asp-controller="SparePart" asp-action="DetailsList" method="get">
-                                <input class="form-control me-2" type="search" name="name" placeholder="Search" aria-label="Search">
-                            </form>
-							<li class="nav-item">
-								<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Logout">Log out</a>
-							</li>
-						</ul>
-                    }
-                    else
-                    {
-						<ul class="navbar-nav align-content-sm-end">
-                            <form class="d-flex" asp-controller="SparePart" asp-action="DetailsList" method="get">
-                                <input class="form-control me-2" type="search" name="name" placeholder="Search" aria-label="Search">
-                            </form>
+						else
+						{
 							<li class="nav-item">
 								<a class="nav-link text-dark" asp-area="" asp-controller="Client" asp-action="Login">Log in</a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link text-dark" asp-area="" asp-controller="Client" asp-action="Register">Register</a>
 							</li>
-						</ul>
-					}
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+						}
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<div class="container">
+		<main role="main" class="pb-3">
+			@RenderBody()
+		</main>
+	</div>
 
-    <footer class="border-top footer text-muted bg-primary">
-        <div class="container text-black">
-            &copy; SparePartsStore - <a class="text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">About Us</a>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+	<footer class="border-top footer text-muted bg-primary">
+		<div class="container text-black">
+			&copy; SparePartsStore - <a class="text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">About Us</a>
+		</div>
+	</footer>
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="~/js/site.js" asp-append-version="true"></script>
+	@await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
