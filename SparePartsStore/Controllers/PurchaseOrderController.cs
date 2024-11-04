@@ -28,8 +28,7 @@ namespace SparePartsStoreWeb.Controllers
 			return View(purchaseOrder);
 		}
 
-        [HttpPost]
-        public async Task<IActionResult> RemoveFromCart(SparePart sparePart)
+        public async Task<IActionResult> RemoveFromCart(int sparePartId)
         {
             int? clientId = HttpContext.Session.GetInt32("ClientId");
             if (clientId == null)
@@ -40,7 +39,7 @@ namespace SparePartsStoreWeb.Controllers
             PurchaseOrder purchaseOrder = await _unitOfWork.PurchaseOrder.GetCurrentByClientId((int)clientId);
 
 
-            var existingOrder = purchaseOrder.Orders.FirstOrDefault(o => o.SparePartId == sparePart.Id);
+            var existingOrder = purchaseOrder.Orders.FirstOrDefault(o => o.SparePartId == sparePartId);
 
             if (existingOrder != null)
             {

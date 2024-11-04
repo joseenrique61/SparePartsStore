@@ -27,7 +27,7 @@
                             </p>
                         </div>
                     </div>
-                    <form asp-action="RemoveFromCart">
+                    <form asp-action="RemoveFromCart" asp-all-route-sparePartId="@order.SparePartId">
                         <button type="submit" class="delete-button">Delete</button>
                     </form>
                 </div>
