@@ -43,16 +43,15 @@
                         <p class="col-auto my-auto" id="amount">0</p>
                         <a class="btn btn-success col-auto" id="increaseButton" onclick="IncreaseAmount(@Model.Stock)">+</a>
 
-                        <button type="submit" class="btn btn-primary col-auto" id="addButton" onclick="AddToCart()"><img src="~/ShoppingCartIcon.png" alt="Home Icon" class="logo-image" /></button>
+                        <button type="submit" class="btn btn-primary col-auto" id="addButton" onclick="AddToCart()" style="margin-left:20px">Add</button>
                     </div>
                 </form>
             }
 
             @if (ViewBag.Role == "")
             {
-                <hr />
                 <div>
-                    <button class="btn btn-primary col-auto" onclick="showAlert()"><img src="~/ShoppingCartIcon.png" alt="Home Icon" class="logo-image" /></button>
+                    <button class="btn btn-primary col-auto" onclick="showAlert()">Add</button>
                 </div>
 
                 <script type="text/javascript">

@@ -1,0 +1,47 @@
+﻿@model IEnumerable<SparePart>
+
+@{
+    ViewData["Title"] = "Search Items";
+}
+
+<div class="content">
+    <h2>Search Items</h2>
+    <h5>Available</h5>
+    <hr />
+
+    <div class="container text-center">
+        <div class="row row-cols-auto">
+            @if (Model != null && Model.Any())
+            {
+                @foreach (var item in Model)
+                {
+                    <div class="card">
+                        <div class="card-body">
+                            <img src="@Html.DisplayFor(modelItem => item.Image)" alt="..." class="image-spareparts">
+                            <header class="nanum-gothic-regular-20px">@Html.DisplayFor(modelItem => item.Name)</header>
+                            <header>@Html.DisplayFor(modelItem => item.Category.Name)</header>
+                        </div>
+                        <div class="card-footer">
+                            <a href="~/SparePart/Details/@item.Id" class="btnDetails">More Details</a>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="card">
+                    <p>The stock is empty.</p>
+                </div>
+                <div class="card">
+                    <p>The stock is empty.</p>
+                </div>
+                <div class="card">
+                    <p>The stock is empty.</p>
+                </div>
+                <div class="card">
+                    <p>The stock is empty.</p>
+                </div>
+            }
+        </div>
+    </div>
+</div>

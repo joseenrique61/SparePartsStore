@@ -22,7 +22,7 @@ namespace SparePartsStoreWeb.Controllers
         public async Task<IActionResult> Details(int id)
         {
             var sparePart = await _unitOfWork.SparePart
-                 .GetById(id);
+                    .GetById(id);
             if (sparePart == null)
             {
                 return NotFound();
@@ -30,6 +30,34 @@ namespace SparePartsStoreWeb.Controllers
 
             return View(sparePart);
         }
+
+        public async Task<IActionResult> DetailsList(string name)
+        {
+            var sparePart = await _unitOfWork.SparePart
+                    .GetAll();
+
+            List<SparePart> filterItems = new List<SparePart>();
+
+            if (sparePart != null)
+            {
+                foreach (var spare in sparePart) 
+                {
+                    if (spare.Name == name)
+                    {
+                        filterItems.Add(spare);
+                    }
+                }
+            }
+
+            if (filterItems != null)
+            {
+                IEnumerable<SparePart> itemList = filterItems;
+                return View(itemList);
+            }
+
+            return NotFound();
+        }
+
 
         public async Task<IActionResult> AddToCart(int amount, SparePart sparePart)
         {
