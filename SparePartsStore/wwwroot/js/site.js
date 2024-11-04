@@ -23,3 +23,7 @@ function AddToCart() {
 
     addForm.setAttribute("action", addForm.getAttribute("action") + "?amount=" + amount);
 }
+
+function RemoveFromCart() {
+  
+}
