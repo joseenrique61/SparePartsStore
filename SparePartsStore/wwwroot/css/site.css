@@ -126,7 +126,7 @@ body {
     align-items: center;
     flex-direction: column;
 }
-
+/* Ia */
 .whatsapp-button {
     position: fixed;
     bottom: 20px;
@@ -146,59 +146,62 @@ body {
         box-shadow: 2px 2px 6px rgba(0,0,0,0.4);
     }
 
-        /* Ia /
 
-/* Contenedor principal del producto */
-        /*.product-card {
-    border: 1px solid #e2e8f0;
+.product-card {
+    border: 1px solid #ddd;
     padding: 16px;
     border-radius: 8px;
     max-width: 400px;
-    margin: 16px;
+    background-color: white;
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-}*/
-        /*Contenedor flexible para la distribución del contenido*/
-         /*product-content {
+}
+
+.product-content {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     gap: 16px;
-}*/
-        /* Estilos para el título del producto */
-        /*.product-title {
-    margin: 0 0 8px 0;
-    font-size: 18px;
-    color: #1a202c;
-}*/
-        /* Contenedor de la información del producto */
-        /*.product-info {
-    color: #4a5568;
+}
+
+.product-title {
+    margin: 0;
+    font-size: 16px;
+    color: #333;
+    font-weight: 600;
+}
+
+.product-info {
+    margin-top: 8px;
+    color: #666;
     font-size: 14px;
-}*/
-        /* Estilos para cada línea de información */
-        /*.info-line {
+}
+
+.info-line {
     margin: 4px 0;
-}*/
-        /* Etiquetas de los campos */
-        /*.info-label {
-    font-weight: 500;
-}*/
-        /* Valores de los campos */
-        /*.info-value {
+}
+
+.info-label {
+    font-weight: normal;
+}
+
+.info-value {
     margin-left: 4px;
-}*/
-        /* Estilos del botón eliminar */
-        /*.delete-button {
-    background-color: #ef4444;
+}
+
+.delete-button {
+    background-color: #f03e3e;
     color: white;
     border: none;
-    padding: 8px 16px;
-    border-radius: 6px;
+    padding: 6px 12px;
+    border-radius: 4px;
     cursor: pointer;
     font-size: 14px;
-    transition: background-color 0.2s ease;
+    font-weight: normal;
 }
 
     .delete-button:hover {
-        background-color: #dc2626;
-    }*/
+        background-color: #e03131;
+    }
+
+    
+
