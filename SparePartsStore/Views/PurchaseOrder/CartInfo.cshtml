@@ -6,7 +6,7 @@
 <div class="content">
 <div class="input-group mb-3">
   <span  class="input-group-text" >Name</span>
-  <span type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" asp-for="Name" value="Name" readonly></span>
+        <span type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" readonly>@Model.Client.Name</span>
 </div>
     @if (Model != null)
     {
@@ -39,6 +39,6 @@
 </div>
 <br />
     <div class="form-group">
-        <input type="submit" value="Buy" class="btn btn-success" />
+        <a type="button" class="btn btn-success" asp-area="" asp-controller="Home" asp-action="Index">Buy</a>
     </div>
 </div>
