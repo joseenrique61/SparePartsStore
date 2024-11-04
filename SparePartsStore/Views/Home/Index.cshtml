@@ -55,6 +55,16 @@
 
         <p class="nanum-gothic-regular">SEE OUR CATALOG</p>
 
+        <div class="container justify-content-lg-evenly">
+            <label for="filterByCategory" class="mb-2">Filter by Category:</label>
+            <select id="filterByCategory" class="form-control">
+                <option value="">All</option>
+                @foreach (var category in ViewBag.CategoryId)
+                {
+                    <option value="@category.Id">@category.Name</option>
+                }
+            </select>
+        </div>
 
 
         <div class="container text-center">
@@ -63,7 +73,7 @@
                 {
                     @foreach (var item in Model)
                     {
-                        <div class="card">
+                        <div class="card" data-category-id="@item.CategoryId">
                             <div class="card-body">
                                 <img src="@Html.DisplayFor(modelItem => item.Image)" alt="..." class="image-spareparts">
                                 <header class="nanum-gothic-regular-20px">@Html.DisplayFor(modelItem => item.Name)</header>
@@ -92,7 +102,21 @@
                 }
             </div>
         </div>
-
     </div>
-
 </div>
+
+<script type="text/javascript">
+    document.getElementById("filterByCategory").addEventListener("change", function () {
+        var selectedCategory = this.value;
+        var cards = document.querySelectorAll(".card");
+
+        cards.forEach(function (card) {
+            if (selectedCategory === "" || card.getAttribute("data-category-id") === selectedCategory) {
+                card.style.display = "block";
+            } else {
+                card.style.display = "none";
+            }
+        });
+    });
+</script>
+

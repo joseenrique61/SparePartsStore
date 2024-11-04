@@ -21,13 +21,21 @@ namespace SparePartsStoreWeb.Controllers
 			_client = client;
 		}
 
-		public async Task<IActionResult> Index()
-		{
-            ViewBag.CategoryId = await _unitOfWork.Category.GetAll();
-            return View(await _unitOfWork.SparePart.GetAll());
-		}
+        public async Task<IActionResult> Index(int? categoryId)
+        {
+            var spareParts = await _unitOfWork.SparePart.GetAll();
 
-		public IActionResult Privacy()
+            if (categoryId.HasValue)
+            {
+                spareParts = spareParts.Where(s => s.CategoryId == categoryId.Value).ToList();
+            }
+
+            ViewBag.CategoryId = await _unitOfWork.Category.GetAll(); 
+            return View(spareParts);
+        }
+
+
+        public IActionResult Privacy()
 		{
 			return View();
 		}
