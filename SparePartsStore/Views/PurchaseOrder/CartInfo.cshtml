@@ -1,45 +1,48 @@
 ﻿@model PurchaseOrder
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-@{
-}
 <div class="content">
-<div class="input-group mb-3">
-  <span  class="input-group-text" >Name</span>
-        <span type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" readonly>@Model.Client.Name</span>
-</div>
-    @if (Model != null)
-    {
-        @foreach (var order in Model.Orders)
-        {
-            <div class="product-card">
-                <div class="product-content">
-                    <div>
-                    <h3 class="product-title" >@order.SparePart.Name</h3>
-                        <div class="product-info">
-                            <p class="info-line">
-                                <span class="info-label">Amount:</span>
-                            <span class="info-value">@order.Amount</span>
-                            </p>
-                            <p class="info-line">
-                                <span class="info-label">Price:</span>
-                                <span class="info-value">@order.SparePart.Price</span>
-                            </p>
-                        </div>
-                    </div>
-                    <button type="submit" class="delete-button" id="deleteButton" asp-controller="SparePart" asp-action="RemoveFromCart">Delete</button>
-                </div>
-            </div>
-        }
-    } 
-    <br />
-<div class="input-group mb-3">
-  <span class="input-group-text">Total</span>
-        <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" readonly>
-        <span class="input-group-text">$</span>
-</div>
-<br />
-    <div class="form-group">
-        <a type="button" class="btn btn-success" asp-area="" asp-controller="Home" asp-action="Index">Buy</a>
-    </div>
+	<div class="input-group mb-3">
+		<span class="input-group-text">Name</span>
+		<span type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" readonly>@Model.Client.Name</span>
+	</div>
+	@if (Model != null)
+	{
+		@foreach (var order in Model.Orders)
+		{
+			<div class="product-card">
+				<div class="product-content">
+					<div>
+						<h3 class="product-title">@order.SparePart!.Name</h3>
+						<div class="product-info">
+							<p class="info-line">
+								<span class="info-label">Amount:</span>
+								<span class="info-value">@order.Amount</span>
+							</p>
+							<p class="info-line">
+								<span class="info-label">Price:</span>
+								<span class="info-value">@order.SparePart.Price</span>
+							</p>
+						</div>
+					</div>
+					<button type="submit" class="delete-button" id="deleteButton" asp-controller="SparePart" asp-action="RemoveFromCart">Delete</button>
+				</div>
+			</div>
+		}
+	}
+	<br />
+	<div class="input-group mb-3">
+		<span class="input-group-text">Total</span>
+		<input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" readonly>
+		<span class="input-group-text">$</span>
+	</div>
+	<br />
+
+	@if (Model!.Orders.Count > 0)
+	{
+		<form asp-action="Buy">
+			<div class="form-group">
+				<button type="submit" class="btn btn-success">Buy</button>
+			</div>
+		</form>
+	}
 </div>

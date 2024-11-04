@@ -53,7 +53,8 @@ namespace SPSAPI.Controllers
 				await _context.PurchaseOrders.AddAsync(new PurchaseOrder
 				{
 					ClientId = id,
-					PurchaseCompleted = false
+					PurchaseCompleted = false,
+					Orders = []
 				});
 				await _context.SaveChangesAsync();
 
@@ -115,7 +116,7 @@ namespace SPSAPI.Controllers
 				return NotFound();
 			}
 
-			if (purchaseOrders[0].Client!.User!.Email != email || role != UserTypes.Admin)
+			if (purchaseOrders[0].Client!.User!.Email != email && role != UserTypes.Admin)
 			{
 				return Unauthorized();
 			}

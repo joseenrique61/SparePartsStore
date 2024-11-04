@@ -1,0 +1,26 @@
+﻿@model IEnumerable<PurchaseOrder>
+
+@{
+	ViewData["Title"] = "Purchase orders";
+}
+
+<div class="content">
+	<h3>Purchase Orders</h3>
+	<ul class="list-group my-4">
+		@foreach (PurchaseOrder purchaseOrder in Model.Where(p => p.PurchaseCompleted))
+		{
+			<li class="list-group-item pt-3">
+				<h6><strong>Total:</strong> $@purchaseOrder.Orders.Sum(o => o.Amount * o.SparePart!.Price)</h6>
+				<p><strong>Items:</strong></p>
+				<ul class="list-group">
+					@foreach (Order order in purchaseOrder.Orders)
+					{
+						<li class="list-group-item pt-3">
+							<p>@order.SparePart!.Name: @order.Amount, $@(order.Amount * order.SparePart!.Price)</p>
+						</li>
+					}
+				</ul>
+			</li>
+		}
+	</ul>
+</div>

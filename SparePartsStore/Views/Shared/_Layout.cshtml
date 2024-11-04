@@ -45,6 +45,9 @@
 							<li class="nav-item">
 								<a class="nav-link text-dark" asp-area="" asp-controller="Category" asp-action="Index">Categories</a>
 							</li>
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="PurchaseOrder" asp-action="PurchaseOrderListAdmin">Purchase orders</a>
+							</li>
 						}
                     </ul>
 
@@ -54,12 +57,14 @@
                             <li class="nav-item">
 								<a class="nav-link text-dark" asp-area="" asp-controller="PurchaseOrder" asp-action="CartInfo"> <img src="~/ShoppingCartIcon.png" alt="Cart Icon" class="logo-image" /> </a>
 							</li>
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="PurchaseOrder" asp-action="PurchaseOrderListClient">Purchase orders</a>
+							</li>
 						</ul>
 					}
 
                     @if (ViewBag.Role != "")
                     {
-
 						<ul class="navbar-nav align-content-sm-end">
                             <form class="d-flex" asp-controller="SparePart" asp-action="DetailsList" method="get">
                                 <input class="form-control me-2" type="search" name="name" placeholder="Search" aria-label="Search">
@@ -76,7 +81,7 @@
                                 <input class="form-control me-2" type="search" name="name" placeholder="Search" aria-label="Search">
                             </form>
 							<li class="nav-item">
-								<a class="nav-link text-dark" asp-area="" asp-controller="Client" asp-action="Login">@* <img src="~/PersonIcon.png" alt="Person Icon" class="logo-image" /> *@Log in</a>
+								<a class="nav-link text-dark" asp-area="" asp-controller="Client" asp-action="Login">Log in</a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link text-dark" asp-area="" asp-controller="Client" asp-action="Register">Register</a>
