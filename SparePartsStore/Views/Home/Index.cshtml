@@ -58,8 +58,8 @@
         <p class="nanum-gothic-regular">SEE OUR CATALOG</p>
 
         <div class="container justify-content-lg-evenly">
-            <label for="filterByCategory" class="mb-2">Filter by Category:</label>
-            <select id="filterByCategory" class="form-control">
+            <label for="filterByCategoryCard" class="mb-2">Filter by Category:</label>
+            <select id="filterByCategoryCard" class="form-control">
                 <option value="">All</option>
                 @foreach (var category in ViewBag.CategoryId)
                 {
@@ -106,19 +106,4 @@
         </div>
     </div>
 </div>
-
-<script type="text/javascript">
-    document.getElementById("filterByCategory").addEventListener("change", function () {
-        var selectedCategory = this.value;
-        var cards = document.querySelectorAll(".card");
-
-        cards.forEach(function (card) {
-            if (selectedCategory === "" || card.getAttribute("data-category-id") === selectedCategory) {
-                card.style.display = "block";
-            } else {
-                card.style.display = "none";
-            }
-        });
-    });
-</script>
 

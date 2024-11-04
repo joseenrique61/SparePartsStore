@@ -2,6 +2,7 @@
     document.getElementById('filterByCategory').addEventListener('change', (event) => {
         const selectedCategory = event.target.value;
         const rows = document.querySelectorAll('#inventory tbody tr');
+
         rows.forEach(row => {
             const categoryId = row.getAttribute('category-id');
             if (selectedCategory === "" || categoryId === selectedCategory) {
@@ -12,6 +13,22 @@
         });
     });
 })
+
+$(document).ready(function () {
+    document.getElementById("filterByCategoryCard").addEventListener("change", function () {
+        var selectedCategory = this.value;
+        var cards = document.querySelectorAll(".card");
+
+        cards.forEach(function (card) {
+            if (selectedCategory === "" || card.getAttribute("data-category-id") === selectedCategory) {
+                card.style.display = "block";
+            } else {
+                card.style.display = "none";
+            }
+        });
+    });
+})
+
 
 function AddToCart() {
     const amount = parseInt(document.getElementById("amount").innerText)
@@ -50,3 +67,4 @@ function DecreaseAmount() {
 
     document.getElementById("amount").innerText = amount
 }
+
