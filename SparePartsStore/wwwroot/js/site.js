@@ -1,6 +1,8 @@
 ﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
 // for details on configuring this project to bundle and minify static web assets.
 
+const { event } = require("jquery");
+
 // Write your JavaScript code.
 
 document.getElementById('filterByCategory').addEventListener('change', (event) => {
@@ -22,8 +24,4 @@ function AddToCart() {
     const addForm = document.getElementById("addForm")
 
     addForm.setAttribute("action", addForm.getAttribute("action") + "?amount=" + amount);
-}
-
-function RemoveFromCart() {
-  
 }
