@@ -153,6 +153,11 @@ namespace SPSAPI.Controllers
 
 				IEnumerable<Order> oldOrders = ordersFromDB.ExceptBy(purchaseOrder.Orders.Select(p => p.Id), p => p.Id);
 				IEnumerable<Order> newOrders = purchaseOrder.Orders.ExceptBy(ordersFromDB.Select(p => p.Id), p => p.Id);
+				
+				foreach (Order order in newOrders)
+				{
+					order.PurchaseOrderId = purchaseOrder.Id;
+				}
 
 				_context.Orders.RemoveRange(oldOrders);
 				await _context.SaveChangesAsync();

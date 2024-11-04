@@ -56,7 +56,7 @@ namespace SparePartsStoreWeb.Data.Repositories.PurchaseOrderRepository
 
 		public async Task<bool> Update(PurchaseOrder purchaseOrder)
 		{
-			HttpResponseMessage response = await _client.Post("update", purchaseOrder);
+			HttpResponseMessage response = await _client.Put("update", purchaseOrder);
 			return response.IsSuccessStatusCode;
 		}
 	}

@@ -15,3 +15,11 @@ document.getElementById('filterByCategory').addEventListener('change', (event) =
         }
     });
 });
+
+function AddToCart() {
+    const amount = parseInt(document.getElementById("amount").innerText)
+
+    const addForm = document.getElementById("addForm")
+
+    addForm.setAttribute("action", addForm.getAttribute("action") + "?amount=" + amount);
+}
