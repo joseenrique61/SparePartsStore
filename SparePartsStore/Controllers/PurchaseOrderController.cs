@@ -51,7 +51,6 @@ namespace SparePartsStoreWeb.Controllers
             }
             return RedirectToAction("CartInfo", "PurchaseOrder");
         }
-    }
 
 		public async Task<IActionResult> PurchaseOrderListAdmin()
 		{
