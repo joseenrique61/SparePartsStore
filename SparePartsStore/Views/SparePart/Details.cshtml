@@ -23,18 +23,44 @@
 
             <hr/>
 
-            <form asp-action="AddToCart" id="addForm">
-                <input hidden asp-for="Id" />
-				<div class="row">
-					<p class="col-auto my-auto">Add to cart: </p>
+            @if (ViewBag.Role == UserTypes.Admin)
+            {
+                <hr />
+                <div>
+                    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+                    <a asp-action="Index">Back to List</a>
+                </div>
+            }
 
-					<a class="btn btn-secondary col-auto disabled" id="decreaseButton" onclick="DecreaseAmount()">-</a>
-					<p class="col-auto my-auto" id="amount">0</p>
-					<a class="btn btn-success col-auto" id="increaseButton" onclick="IncreaseAmount(@Model.Stock)">+</a>
+            @if (ViewBag.Role == UserTypes.Client)
+            {
+                <form asp-action="AddToCart" id="addForm">
+                    <input hidden asp-for="Id" />
+                    <div class="row">
+                        <p class="col-auto my-auto">Add to cart: </p>
 
-                    <button type="submit" class="btn btn-primary col-auto" id="addButton" onclick="AddToCart()">Add</button>
-				</div>
-            </form>
+                        <a class="btn btn-secondary col-auto disabled" id="decreaseButton" onclick="DecreaseAmount()">-</a>
+                        <p class="col-auto my-auto" id="amount">0</p>
+                        <a class="btn btn-success col-auto" id="increaseButton" onclick="IncreaseAmount(@Model.Stock)">+</a>
+
+                        <button type="submit" class="btn btn-primary col-auto" id="addButton" onclick="AddToCart()"><img src="~/ShoppingCartIcon.png" alt="Home Icon" class="logo-image" /></button>
+                    </div>
+                </form>
+            }
+
+            @if (ViewBag.Role == "")
+            {
+                <hr />
+                <div>
+                    <button class="btn btn-primary col-auto" onclick="showAlert()"><img src="~/ShoppingCartIcon.png" alt="Home Icon" class="logo-image" /></button>
+                </div>
+
+                <script type="text/javascript">
+                    function showAlert() {
+                        alert("You need to login or create an account.");
+                    }
+                </script>
+            }
         </div>
     </div>
 </div>
