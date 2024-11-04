@@ -23,7 +23,8 @@ namespace SparePartsStoreWeb.Controllers
 
 		public async Task<IActionResult> Index()
 		{
-			return View(await _unitOfWork.SparePart.GetAll());
+            ViewBag.CategoryId = await _unitOfWork.Category.GetAll();
+            return View(await _unitOfWork.SparePart.GetAll());
 		}
 
 		public IActionResult Privacy()
