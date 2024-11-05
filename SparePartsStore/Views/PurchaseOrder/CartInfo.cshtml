@@ -1,48 +1,42 @@
 ﻿@model PurchaseOrder
 
-<div class="content">
-	<div class="input-group mb-3">
-		<span class="input-group-text">Name</span>
-		<span type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" readonly>@Model.Client.Name</span>
-	</div>
-	@if (Model != null)
-	{
+<div class="content row">
+	<div class="col-7 align-self-start">
 		@foreach (var order in Model.Orders)
 		{
-			<div class="product-card">
-				<div class="product-content">
-					<div>
-						<h3 class="product-title">@order.SparePart!.Name</h3>
-						<div class="product-info">
-							<p class="info-line">
-								<span class="info-label">Amount:</span>
-								<span class="info-value">@order.Amount</span>
-							</p>
-							<p class="info-line">
-								<span class="info-label">Price:</span>
-								<span class="info-value">@order.SparePart.Price</span>
-							</p>
-						</div>
+			<div class="card mb-2">
+				<div class="card-body row px-4">
+					<div class="row col-9 align-self-start">
+						<h5><strong>@order.SparePart!.Name</strong></h5>
+						<p><strong>Amount: </strong>@order.Amount</p>
+						<p><strong>Price: </strong>$@(order.Amount * order.SparePart!.Price)</p>
 					</div>
-					<button type="submit" class="delete-button" id="deleteButton" asp-controller="SparePart" asp-action="RemoveFromCart">Delete</button>
+					<form asp-action="RemoveFromCart" asp-route-sparePartId="@order.SparePartId" class="col align-self-center">
+						<button type="submit" class="btn btn-danger w-100">Delete</button>
+					</form>
 				</div>
 			</div>
 		}
-	}
-	<br />
-	<div class="input-group mb-3">
-		<span class="input-group-text">Total</span>
-		<input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" readonly>
-		<span class="input-group-text">$</span>
 	</div>
-	<br />
 
-	@if (Model!.Orders.Count > 0)
-	{
-		<form asp-action="Buy">
-			<div class="form-group">
-				<button type="submit" class="btn btn-success">Buy</button>
-			</div>
-		</form>
-	}
+	<div class="card col-5 align-self-start">
+		<div class="input-group mt-3">
+			<span class="input-group-text">Name</span>
+			<span type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" readonly>@Model.Client.Name</span>
+		</div>
+		<br />
+		<div class="input-group my-3">
+			<span class="input-group-text">Total</span>
+			<input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" value="@Model.Orders.Sum(o => o.Amount * o.SparePart!.Price)" readonly>
+			<span class="input-group-text">$</span>
+		</div>
+		@if (Model!.Orders.Count > 0)
+		{
+			<form asp-action="Buy">
+				<div class="form-group mb-3">
+					<button type="submit" class="btn btn-success">Buy</button>
+				</div>
+			</form>
+		}
+	</div>
 </div>

@@ -45,7 +45,7 @@ namespace SparePartsStoreWeb.Controllers
             {
 
                 purchaseOrder.Orders.Remove(existingOrder);
-
+				purchaseOrder.Client = null;
 
                 await _unitOfWork.PurchaseOrder.Update(purchaseOrder);
             }
