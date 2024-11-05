@@ -60,8 +60,8 @@
 				<div class="form-group row mb-3">
 					<label asp-for="Image" class="control-label col-2 col-form-label"></label>
 					<div class="col-10">
-						<input hidden asp-for="Image" />
-						<input type="file" class="form-control" id="imgInput"/>
+						<input type="text" asp-for="Image" class="visually-hidden"/>
+						<input type="file" asp-for="Image" class="form-control" id="imgInput"/>
 						<span asp-validation-for="Image" class="text-danger"></span>
 					</div>
 				</div>
