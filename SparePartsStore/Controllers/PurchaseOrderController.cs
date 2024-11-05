@@ -37,6 +37,11 @@ namespace SparePartsStoreWeb.Controllers
 
 		public async Task<IActionResult> RemoveFromCart(int sparePartId)
 		{
+			if (!_authenticator.Authenticate(UserTypes.Client))
+			{
+				return RedirectToAction("Login", "Client");
+			}
+
 			int? clientId = HttpContext.Session.GetInt32("ClientId");
 			if (clientId == null)
 			{
@@ -85,6 +90,11 @@ namespace SparePartsStoreWeb.Controllers
 
 		public async Task<IActionResult> Buy()
 		{
+			if (!_authenticator.Authenticate(UserTypes.Client))
+			{
+				return RedirectToAction("Login", "Client");
+			}
+
 			int? clientId = HttpContext.Session.GetInt32("ClientId");
 			if (clientId == null)
 			{

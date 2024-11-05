@@ -1,5 +1,9 @@
 ﻿@model PurchaseOrder
 
+@{
+	ViewData["Title"] = "Shopping Cart";
+}
+
 <div class="content row">
 	<div class="col-7 align-self-start">
 		@foreach (var order in Model.Orders)

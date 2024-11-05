@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using SparePartsStoreWeb.Data.UnitOfWork;
+using SparePartsStoreWeb.Utilities;
 using SPSModels.Models;
 
 namespace SparePartsStoreWeb.Controllers
@@ -9,16 +10,24 @@ namespace SparePartsStoreWeb.Controllers
 	{
 		private readonly IUnitOfWork _unitOfWork;
 
+		private readonly IAuthenticator _authenticator;
+
 		private readonly IWebHostEnvironment _webHostEnvironment;
 
-		public SparePartController(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
+		public SparePartController(IUnitOfWork unitOfWork, IAuthenticator authenticator, IWebHostEnvironment webHostEnvironment)
 		{
 			_unitOfWork = unitOfWork;
+			_authenticator = authenticator;
 			_webHostEnvironment = webHostEnvironment;
 		}
 
 		public async Task<IActionResult> Index()
 		{
+			if (!_authenticator.Authenticate(UserTypes.Admin))
+			{
+				return RedirectToAction("Login", "Client");
+			}
+
 			ViewBag.CategoryId = await _unitOfWork.Category.GetAll();
 			return View(await _unitOfWork.SparePart.GetAll());
 		}
@@ -52,6 +61,11 @@ namespace SparePartsStoreWeb.Controllers
 
 		public async Task<IActionResult> AddToCart(int amount, SparePart sparePart)
 		{
+			if (!_authenticator.Authenticate(UserTypes.Client))
+			{
+				return RedirectToAction("Login", "Client");
+			}
+			
 			sparePart = (await _unitOfWork.SparePart.GetById(sparePart.Id))!;
 
 			if (amount > sparePart.Stock || amount <= 0)
@@ -94,6 +108,11 @@ namespace SparePartsStoreWeb.Controllers
 
 		public async Task<IActionResult> Create()
 		{
+			if (!_authenticator.Authenticate(UserTypes.Admin))
+			{
+				return RedirectToAction("Login", "Client");
+			}
+
 			ViewData["CategoryId"] = new SelectList(await _unitOfWork.Category.GetAll(), "Id", "Name");
 			return View();
 		}
@@ -102,6 +121,11 @@ namespace SparePartsStoreWeb.Controllers
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> Create([Bind("Id,Name,Description,Stock,Price,Image,CategoryId")] SparePart sparePart)
 		{
+			if (!_authenticator.Authenticate(UserTypes.Admin))
+			{
+				return RedirectToAction("Login", "Client");
+			}
+			
 			IFormFile file = HttpContext.Request.Form.Files[0];
 
 			string fileName = Guid.NewGuid().ToString();
@@ -129,6 +153,11 @@ namespace SparePartsStoreWeb.Controllers
 
 		public async Task<IActionResult> Edit(int id)
 		{
+			if (!_authenticator.Authenticate(UserTypes.Admin))
+			{
+				return RedirectToAction("Login", "Client");
+			}
+			
 			ViewData["CategoryId"] = new SelectList(await _unitOfWork.Category.GetAll(), "Id", "Name");
 			var sparePart = await _unitOfWork.SparePart.GetById(id);
 			if (sparePart == null)
@@ -142,6 +171,11 @@ namespace SparePartsStoreWeb.Controllers
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Stock,Price,CategoryId")] SparePart sparePart)
 		{
+			if (!_authenticator.Authenticate(UserTypes.Admin))
+			{
+				return RedirectToAction("Login", "Client");
+			}
+
 			if (id != sparePart.Id)
 			{
 				return NotFound();
@@ -188,6 +222,11 @@ namespace SparePartsStoreWeb.Controllers
 
 		public async Task<IActionResult> Delete(int id)
 		{
+			if (!_authenticator.Authenticate(UserTypes.Admin))
+			{
+				return RedirectToAction("Login", "Client");
+			}
+
 			await _unitOfWork.SparePart.Delete(id);
 			return RedirectToAction(nameof(Index));
 		}
