@@ -27,7 +27,7 @@
 			{
 				<div class="form-group row">
 					<a asp-action="Index" class="btn btn-secondary col-auto me-2"><i class="bi bi-box-arrow-left"></i> Back</a>
-					<button type="submit" class="btn btn-warning col-auto"><i class="bi bi-pencil-square"></i> Edit</button>
+					<a asp-action="Edit" asp-controller="SparePart" asp-route-id="@Model.Id" class="btn btn-warning col-auto"><i class="bi bi-pencil-square"></i> Edit</a>
 				</div>
 			}
 			else if (ViewBag.Role == UserTypes.Client)

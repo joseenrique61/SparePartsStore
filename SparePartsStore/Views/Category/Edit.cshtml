@@ -1,17 +1,17 @@
 ﻿@model Category
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit";
 }
 
 <div class="content">
-    <h1>Add New Category</h1>
+    <h1>@Model.Name</h1>
 
     <h4>Category</h4>
     <hr />
     <div class="row">
         <div class="col-md">
-            <form asp-action="Create">
+            <form asp-action="Edit">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 
 				<div class="form-group row mb-3">
@@ -25,7 +25,7 @@
 				<div class="row justify-content-center mt-5">
 					<div class="form-group row col-auto">
 						<a asp-action="Index" class="btn btn-secondary col-auto me-2"><i class="bi bi-box-arrow-left"></i> Back</a>
-						<button type="submit" class="btn btn-success col-auto"><i class="bi bi-plus-square"></i> Create</button>
+						<button type="submit" class="btn btn-warning col-auto"><i class="bi bi-pencil-square"></i> Edit</button>
 					</div>
 				</div>
             </form>
