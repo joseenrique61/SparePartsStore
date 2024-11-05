@@ -56,4 +56,6 @@ app.MapRazorPages();
 
 app.UseSession();
 
+app.UseRequestLocalization("en-US", "es-EC");
+
 app.Run();
