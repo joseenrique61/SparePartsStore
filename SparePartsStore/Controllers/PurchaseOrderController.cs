@@ -25,32 +25,39 @@ namespace SparePartsStoreWeb.Controllers
 			}
 
 			PurchaseOrder purchaseOrder = await _unitOfWork.PurchaseOrder.GetCurrentByClientId((int)HttpContext.Session.GetInt32("ClientId")!);
+
+			List<string> warnings = purchaseOrder.Orders
+				.Where(o => o.Amount > o.SparePart!.Stock)
+				.Select(o => o.SparePart!.Name)
+				.ToList();
+			ViewBag.Warnings = warnings;
+
 			return View(purchaseOrder);
 		}
 
-        public async Task<IActionResult> RemoveFromCart(int sparePartId)
-        {
-            int? clientId = HttpContext.Session.GetInt32("ClientId");
-            if (clientId == null)
-            {
-                return RedirectToAction("Login", "Client");
-            }
+		public async Task<IActionResult> RemoveFromCart(int sparePartId)
+		{
+			int? clientId = HttpContext.Session.GetInt32("ClientId");
+			if (clientId == null)
+			{
+				return RedirectToAction("Login", "Client");
+			}
 
-            PurchaseOrder purchaseOrder = await _unitOfWork.PurchaseOrder.GetCurrentByClientId((int)clientId);
+			PurchaseOrder purchaseOrder = await _unitOfWork.PurchaseOrder.GetCurrentByClientId((int)clientId);
 
 
-            var existingOrder = purchaseOrder.Orders.FirstOrDefault(o => o.SparePartId == sparePartId);
+			var existingOrder = purchaseOrder.Orders.FirstOrDefault(o => o.SparePartId == sparePartId);
 
-            if (existingOrder != null)
-            {
+			if (existingOrder != null)
+			{
 
-                purchaseOrder.Orders.Remove(existingOrder);
+				purchaseOrder.Orders.Remove(existingOrder);
 				purchaseOrder.Client = null;
 
-                await _unitOfWork.PurchaseOrder.Update(purchaseOrder);
-            }
-            return RedirectToAction("CartInfo", "PurchaseOrder");
-        }
+				await _unitOfWork.PurchaseOrder.Update(purchaseOrder);
+			}
+			return RedirectToAction("CartInfo", "PurchaseOrder");
+		}
 
 		public async Task<IActionResult> PurchaseOrderListAdmin()
 		{
@@ -78,18 +85,31 @@ namespace SparePartsStoreWeb.Controllers
 
 		public async Task<IActionResult> Buy()
 		{
-            int? clientId = HttpContext.Session.GetInt32("ClientId");
-            if (clientId == null)
-            {
-                return RedirectToAction("Login", "Client");
-            }
+			int? clientId = HttpContext.Session.GetInt32("ClientId");
+			if (clientId == null)
+			{
+				return RedirectToAction("Login", "Client");
+			}
 
-            PurchaseOrder purchaseOrder = await _unitOfWork.PurchaseOrder.GetCurrentByClientId((int)clientId);
+			PurchaseOrder purchaseOrder = await _unitOfWork.PurchaseOrder.GetCurrentByClientId((int)clientId);
 			purchaseOrder.PurchaseCompleted = true;
-            purchaseOrder.Client = null;
-            await _unitOfWork.PurchaseOrder.Update(purchaseOrder);
+			purchaseOrder.Client = null;
+			await _unitOfWork.PurchaseOrder.Update(purchaseOrder);
 
-            return RedirectToAction("Index", "Home");
+			List<SparePart> spareParts = (await _unitOfWork.SparePart.GetAll())!;
+			foreach (SparePart sparePart in spareParts)
+			{
+				Order? order = purchaseOrder.Orders.FirstOrDefault(o => o.SparePartId == sparePart.Id);
+				if (order == null)
+				{
+					continue;
+				}
+
+				sparePart.Stock -= order.Amount;
+				await _unitOfWork.SparePart.Update(sparePart);
+			}
+
+			return RedirectToAction("Index", "Home");
 		}
 	}
 }

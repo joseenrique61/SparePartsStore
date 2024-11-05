@@ -11,9 +11,17 @@
 						<p><strong>Amount: </strong>@order.Amount</p>
 						<p><strong>Price: </strong>$@(order.Amount * order.SparePart!.Price)</p>
 					</div>
-					<form asp-action="RemoveFromCart" asp-route-sparePartId="@order.SparePartId" class="col align-self-center">
-						<button type="submit" class="btn btn-danger w-100">Delete</button>
-					</form>
+					<div class="row col align-self-center">
+						@if (ViewBag.Warnings.Contains(order.SparePart!.Name))
+						{
+							<div>
+								<p class="text-danger"><i class="bi bi-exclamation-triangle-fill"></i> There is not enough stock.</p>
+							</div>
+						}
+						<form asp-action="RemoveFromCart" asp-route-sparePartId="@order.SparePartId" class="col">
+							<button type="submit" class="btn btn-danger w-100">Delete</button>
+						</form>
+					</div>
 				</div>
 			</div>
 		}
@@ -34,7 +42,13 @@
 		{
 			<form asp-action="Buy">
 				<div class="form-group mb-3">
-					<button type="submit" class="btn btn-success">Buy</button>
+					<button type="submit" class="btn btn-success @(ViewBag.Warnings.Count > 0 ? "disabled" : "")">
+						@if (ViewBag.Warnings.Count > 0)
+						{
+							<i class="bi bi-exclamation-triangle-fill"></i>
+						}
+						Buy
+					</button>
 				</div>
 			</form>
 		}

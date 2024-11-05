@@ -32,6 +32,13 @@ namespace SparePartsStoreWeb.Controllers
 				return NotFound();
 			}
 
+			if (HttpContext.Session.GetString("Role") == UserTypes.Client)
+			{
+				PurchaseOrder purchaseOrder = await _unitOfWork.PurchaseOrder.GetCurrentByClientId((int)HttpContext.Session.GetInt32("ClientId")!);
+				Order? order = purchaseOrder.Orders.FirstOrDefault(o => o.SparePartId == id);
+				ViewBag.AmountOnCart = order == null ? 0 : order.Amount;
+			}
+
 			return View(sparePart);
 		}
 
@@ -60,11 +67,25 @@ namespace SparePartsStoreWeb.Controllers
 			}
 
 			PurchaseOrder purchaseOrder = await _unitOfWork.PurchaseOrder.GetCurrentByClientId((int)clientId);
-			purchaseOrder.Orders.Add(new Order
+			Order? order = purchaseOrder.Orders.FirstOrDefault(o => o.SparePartId == sparePart.Id);
+			if (order == null)
 			{
-				SparePartId = sparePart.Id,
-				Amount = amount
-			});
+				purchaseOrder.Orders.Add(new Order
+				{
+					SparePartId = sparePart.Id,
+					Amount = amount
+				});
+			}
+			else
+			{
+				if (order.Amount + amount > sparePart.Stock)
+				{
+					TempData["Error"] = "Invalid amount.";
+					return RedirectToAction(nameof(Details), new { id = sparePart.Id });
+				}
+				order.Amount += amount;
+			}
+
 			purchaseOrder.Client = null;
 			await _unitOfWork.PurchaseOrder.Update(purchaseOrder);
 

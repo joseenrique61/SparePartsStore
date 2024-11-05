@@ -154,6 +154,7 @@ namespace SPSAPI.Controllers
 
 				IEnumerable<Order> oldOrders = ordersFromDB.ExceptBy(purchaseOrder.Orders.Select(p => p.Id), p => p.Id);
 				IEnumerable<Order> newOrders = purchaseOrder.Orders.ExceptBy(ordersFromDB.Select(p => p.Id), p => p.Id);
+				IEnumerable<Order> sameOrders = ordersFromDB.IntersectBy(purchaseOrder.Orders.Select(p => p.Id), p => p.Id);
 				
 				foreach (Order order in newOrders)
 				{
@@ -164,6 +165,17 @@ namespace SPSAPI.Controllers
 				await _context.SaveChangesAsync();
 
 				await _context.Orders.AddRangeAsync(newOrders);
+				await _context.SaveChangesAsync();
+
+				foreach (Order order in sameOrders)
+				{
+					Order updatedOrder = purchaseOrder.Orders.FirstOrDefault(o => o.Id == order.Id)!;
+					if (updatedOrder.Amount != order.Amount)
+					{
+						order.Amount = updatedOrder.Amount;
+					}
+				}
+				_context.Orders.UpdateRange(sameOrders);
 				await _context.SaveChangesAsync();
 
 				purchaseOrder.Orders.Clear();

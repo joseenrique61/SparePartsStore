@@ -39,7 +39,12 @@
 
 						<a class="btn btn-secondary col-auto disabled" id="decreaseButton" onclick="DecreaseAmount()">-</a>
 						<p class="col-auto my-auto" id="amount">0</p>
-						<a class="btn btn-success col-auto" id="increaseButton" onclick="IncreaseAmount(@Model!.Stock)">+</a>
+						<a class="btn btn-success col-auto @(Model!.Stock - ViewBag.AmountOnCart == 0 ? "disabled" : "")" id="increaseButton" onclick="IncreaseAmount(@(Model!.Stock - ViewBag.AmountOnCart))">+</a>
+
+						@if (ViewBag.AmountOnCart > 0)
+						{
+							<p class="btn btn-warning text-black col-auto my-auto ms-3 disabled" id="amount">Current amount on cart: @ViewBag.AmountOnCart</p>
+						}
 
 						<button type="submit" class="btn btn-primary col-auto ms-3 disabled" id="addButton" onclick="AddToCart()">Buy</button>
 						<span class="text-danger col-auto align-self-center">@TempData["Error"]</span>
