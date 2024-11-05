@@ -1,49 +1,83 @@
-﻿@model 			SparePart
+﻿@model SparePart
 
 @{
-    ViewData["Title"] = "Edit";
+	ViewData["Title"] = "Edit";
 }
 
 <div class="content">
-    <h1>Edit</h1>
+	<h1>Edit Spare Part</h1>
 
-    <h4>SparePart</h4>
-    <hr />
-    <div class="row">
-        <div class="col-md-4">
-            <form asp-action="Edit">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <input type="hidden" asp-for="Id" />
-                <div class="form-group">
-                    <label asp-for="Name" class="control-label"></label>
-                    <input asp-for="Name" class="form-control" />
-                    <span asp-validation-for="Name" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Description" class="control-label"></label>
-                    <input asp-for="Description" class="form-control" />
-                    <span asp-validation-for="Description" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Stock" class="control-label"></label>
-                    <input asp-for="Stock" class="form-control" />
-                    <span asp-validation-for="Stock" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Save" class="btn btn-primary" />
-                </div>
-            </form>
-        </div>
-    </div>
+	<h4>@Model.Name</h4>
+	<hr />
+	<div class="row">
+		<div class="col-4">
+			<img id="imgFrame" class="border border-3 rounded-2" style="height:100%" src="@Model.Image"/>
+		</div>
+		<div class="col-md">
+			<form asp-action="Edit" enctype="multipart/form-data">
+				<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-    <div>
-        <a asp-action="Index">Back to List</a>
-    </div>
+				<div class="form-group row mb-3">
+					<label asp-for="Name" class="control-label col-2 col-form-label"></label>
+					<div class="col-10">
+						<input asp-for="Name" class="form-control" />
+						<span asp-validation-for="Name" class="text-danger"></span>
+					</div>
+				</div>
 
-    @section Scripts {
-        @{
-            await Html.RenderPartialAsync("_ValidationScriptsPartial");
-        }
-    }
+				<div class="form-group row mb-3">
+					<label asp-for="Price" class="control-label col-2 col-form-label"></label>
+					<div class="col-10">
+						<input asp-for="Price" class="form-control" />
+						<span asp-validation-for="Price" class="text-danger"></span>
+					</div>
+				</div>
 
+				<div class="form-group row mb-3">
+					<label asp-for="Description" class="control-label col-2 col-form-label"></label>
+					<div class="col-10">
+						<input asp-for="Description" class="form-control" />
+						<span asp-validation-for="Description" class="text-danger"></span>
+					</div>
+				</div>
+
+				<div class="form-group row mb-3">
+					<label asp-for="Stock" class="control-label col-2 col-form-label"></label>
+					<div class="col-10">
+						<input asp-for="Stock" class="form-control" />
+						<span asp-validation-for="Stock" class="text-danger"></span>
+					</div>
+				</div>
+
+				<div class="form-group row mb-3">
+					<label asp-for="CategoryId" class="control-label col-2 col-form-label"></label>
+					<div class="col-10">
+						<select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+						<span asp-validation-for="CategoryId" class="text-danger"></span>
+					</div>
+				</div>
+
+				<div class="form-group row mb-3">
+					<label asp-for="Image" class="control-label col-2 col-form-label"></label>
+					<div class="col-10">
+						<input hidden asp-for="Image" />
+						<input type="file" class="form-control" id="imgInput"/>
+						<span asp-validation-for="Image" class="text-danger"></span>
+					</div>
+				</div>
+
+				<div class="row justify-content-center mt-5">
+					<div class="form-group row col-3">
+						<a asp-action="Index" class="btn btn-secondary col-auto me-2"><i class="bi bi-box-arrow-left"></i> Back</a>
+						<button type="submit" class="btn btn-warning col-auto"><i class="bi bi-pencil-square"></i> Edit</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
 </div>
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}

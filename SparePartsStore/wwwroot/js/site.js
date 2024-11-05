@@ -1,34 +1,64 @@
 ﻿$(document).ready(function () {
-    document.getElementById('filterByCategory').addEventListener('change', (event) => {
-        const selectedCategory = event.target.value;
-        const rows = document.querySelectorAll('#inventory tbody tr');
+    const filterByCategory = document.getElementById('filterByCategory')
+    if (filterByCategory) {
+        filterByCategory.addEventListener('change', (event) => {
+            const selectedCategory = event.target.value;
+            const rows = document.querySelectorAll('#inventory tbody tr');
 
-        rows.forEach(row => {
-            const categoryId = row.getAttribute('category-id');
-            if (selectedCategory === "" || categoryId === selectedCategory) {
-                row.style.display = "";
-            } else {
-                row.style.display = "none";
-            }
+            rows.forEach(row => {
+                const categoryId = row.getAttribute('category-id');
+                if (selectedCategory === "" || categoryId === selectedCategory) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
         });
-    });
-})
+    }
 
-$(document).ready(function () {
-    document.getElementById("filterByCategoryCard").addEventListener("change", function () {
-        var selectedCategory = this.value;
-        var cards = document.querySelectorAll(".card");
+    const filterByCategoryCard = document.getElementById("filterByCategoryCard")
+    if (filterByCategoryCard) {
+        filterByCategoryCard.addEventListener("change", function () {
+            var selectedCategory = this.value;
+            var cards = document.querySelectorAll(".card");
 
-        cards.forEach(function (card) {
-            if (selectedCategory === "" || card.getAttribute("data-category-id") === selectedCategory) {
-                card.parentElement.style.display = "block";
-            } else {
-                card.parentElement.style.display = "none";
-            }
+            cards.forEach(function (card) {
+                if (selectedCategory === "" || card.getAttribute("data-category-id") === selectedCategory) {
+                    card.parentElement.style.display = "block";
+                } else {
+                    card.parentElement.style.display = "none";
+                }
+            });
         });
-    });
-})
+    }
 
+    const modal1 = document.getElementById('modal1')
+    if (modal1) {
+        modal1.addEventListener('show.bs.modal', event => {
+            const button = event.relatedTarget
+
+            const id = button.getAttribute('data-bs-id')
+
+            const deleteForm = document.getElementById("deleteForm")
+            deleteForm.setAttribute("action", deleteForm.getAttribute("action") + "/" + id)
+        })
+    }
+
+    const imgInput = document.getElementById("imgInput")
+    if (imgInput) {
+        imgInput.addEventListener("change", event => {
+            var selectedFile = event.target.files[0];
+            var reader = new FileReader();
+
+            var imgFrame = document.getElementById("imgFrame");
+            reader.onload = function (event) {
+                imgFrame.src = event.target.result;
+            };
+
+            reader.readAsDataURL(selectedFile);
+        })
+    }
+})
 
 function AddToCart() {
     const amount = parseInt(document.getElementById("amount").innerText)
@@ -71,4 +101,3 @@ function DecreaseAmount() {
 
     document.getElementById("amount").innerText = amount
 }
-

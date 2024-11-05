@@ -1,72 +1,105 @@
 ﻿@model IEnumerable<SPSModels.Models.SparePart>
 
 @{
-    ViewData["Title"] = "Index";
+	ViewData["Title"] = "Inventory";
 }
 
 <div class="content">
-    <h1>Inventory</h1>
+	<div class="row mt-4 mb-3">
+		<h2 class="col-auto me-5">@ViewData["Title"]</h2>
+		<a class="btn btn-success align-self-center col-auto" asp-action="Create"><i class="bi bi-plus-square"></i> Create new spare part</a>
+	</div>
 
-    <p>
-        <a asp-action="Create">Add New</a>
-    </p>
+	<div class="row text-start justify-content-start">
+		<label for="filterByCategory" class="align-self-center col-auto">Filter by Category:</label>
+		<div class="col-3">
+			<select id="filterByCategory" class="border-success border-3 form-control">
+				<option value="">All</option>
+				@foreach (var category in ViewBag.CategoryId)
+				{
+					<option value="@category.Id">@category.Name</option>
+				}
+			</select>
+		</div>
+	</div>
 
-    <div>
-        <label for="filterByCategory" class="mb-2">Filter by Category:</label>
-        <select id="filterByCategory" class="form-control">
-            <option value="">All</option>
-            @foreach (var category in ViewBag.CategoryId)
-            {
-                <option value="@category.Id">@category.Name</option>
-            }
-        </select>
-    </div>
+	<table id="inventory" class="table table-striped table-bordered align-middle mt-3">
+		<thead>
+			<tr>
+				<th>
+					@Html.DisplayNameFor(model => model.Name)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.Description)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.Price)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.Stock)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.Category)
+				</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in Model)
+			{
+				<tr category-id="@item.CategoryId">
+					<td>
+						@Html.DisplayFor(modelItem => item.Name)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Description)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Price)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Stock)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Category!.Name)
+					</td>
+					<td>
+						<a class="btn btn-primary" asp-action="Details" asp-route-id="@item.Id">
+							<i class="bi-search"></i>
+							Details
+						</a>
+						<a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id">
+							<i class="bi-pencil-square"></i>
+							Edit
+						</a>
+						<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal1" data-bs-id="@item.Id">
+							<i class="bi-trash"></i>
+							Delete
+						</button>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>
 
-    <table id="inventory" class="table table-striped table-bordered" style="width:100%">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Description)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Price)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Stock)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Category)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr category-id="@item.CategoryId">
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Description)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Stock)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Category.Name)
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+<div class="modal fade" id="modal1" tabindex="-1" aria-labelledby="modal1Label" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1 class="modal-title fs-5" id="modal1Label">Are you sure you want to delete this spare part?</h1>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<p>This action is not reversible.</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
 
+				<form id="deleteForm" asp-action="Delete" method="post">
+					<button type="submit" class="btn btn-danger">Delete</button>
+				</form>
+			</div>
+		</div>
+	</div>
 </div>

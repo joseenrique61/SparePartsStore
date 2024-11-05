@@ -37,7 +37,10 @@
 
 					<ul class="navbar-nav align-content-sm-end">
 						<form class="d-flex" asp-controller="SparePart" asp-action="DetailsList" method="get">
-							<input class="form-control me-2" type="search" name="name" placeholder="Search" aria-label="Search">
+							<div class="input-group">
+								<span class="input-group-text"><i class="bi-search"></i></span>
+								<input class="form-control me-2" type="search" name="name" placeholder="Search" aria-label="Search">
+							</div>
 						</form>
 						@if (ViewBag.Role != "")
 						{
@@ -58,7 +61,7 @@
 									else if (ViewBag.Role == UserTypes.Admin)
 									{
 										<li class="dropdown-item">
-											<a class="nav-link text-dark" asp-area="" asp-controller="SparePart" asp-action="Index">Spare Parts</a>
+											<a class="nav-link text-dark" asp-area="" asp-controller="SparePart" asp-action="Index">Inventory</a>
 										</li>
 										<li class="dropdown-item">
 											<a class="nav-link text-dark" asp-area="" asp-controller="Category" asp-action="Index">Categories</a>

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SPSModels.Models
@@ -22,6 +23,7 @@ namespace SPSModels.Models
 
 		[Required]
 		[Range(0, int.MaxValue)]
+		[DataType(DataType.Currency)]
 		public double Price { get; set; }
 
 		[Required]
@@ -29,6 +31,7 @@ namespace SPSModels.Models
 
 		[Required]
 		[ForeignKey(nameof(Category))]
+		[DisplayName("Category")]
 		public int CategoryId { get; set; }
 
 		public Category? Category { get; set; }

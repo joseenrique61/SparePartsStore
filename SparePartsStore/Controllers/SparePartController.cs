@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using SparePartsStoreWeb.Data.UnitOfWork;
 using SPSModels.Models;
 
@@ -9,8 +8,12 @@ namespace SparePartsStoreWeb.Controllers
     public class SparePartController : BaseController
     {
         private readonly IUnitOfWork _unitOfWork;
-        public SparePartController(IUnitOfWork unitOfWork) { 
+
+        private readonly IWebHostEnvironment _webHostEnvironment;
+
+        public SparePartController(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment) { 
             _unitOfWork = unitOfWork;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         public async Task<IActionResult> Index() 
@@ -75,19 +78,37 @@ namespace SparePartsStoreWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,Stock,Image,CategoryId")] SparePart sparePart)
+        public async Task<IActionResult> Create([Bind("Id,Name,Description,Stock,Price,Image,CategoryId")] SparePart sparePart)
         {
-            if (ModelState.IsValid)
+            IFormFile file = HttpContext.Request.Form.Files[0];
+
+            string fileName = Guid.NewGuid().ToString();
+            string imagePath = $@"\images\{fileName}{Path.GetExtension(file.FileName)}";
+            string fullPath = _webHostEnvironment.WebRootPath + imagePath;
+
+            sparePart.Image = imagePath;
+
+			ModelState.ClearValidationState("Image");
+			if (!TryValidateModel(sparePart, "Image"))
+			{
+				ViewData["CategoryId"] = new SelectList(await _unitOfWork.Category.GetAll(), "Id", "Name");
+				return View(sparePart);
+			}
+
+			using (FileStream fileStream = new (fullPath, FileMode.Create))
             {
-                await _unitOfWork.SparePart.Create(sparePart);
-                return RedirectToAction(nameof(Index));
+                file.CopyTo(fileStream);
             }
-            return View(sparePart);
+
+			await _unitOfWork.SparePart.Create(sparePart);
+
+			return RedirectToAction(nameof(Index));
         }
 
         public async Task<IActionResult> Edit(int id)
         {
-            var sparePart = await _unitOfWork.SparePart.GetById(id);
+			ViewData["CategoryId"] = new SelectList(await _unitOfWork.Category.GetAll(), "Id", "Name");
+			var sparePart = await _unitOfWork.SparePart.GetById(id);
             if (sparePart == null)
             {
                 return NotFound();
@@ -97,58 +118,50 @@ namespace SparePartsStoreWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Stock,Image,CategoryId")] SparePart sparePart)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Stock,Price,CategoryId")] SparePart sparePart)
         {
             if (id != sparePart.Id)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            IFormFileCollection files = HttpContext.Request.Form.Files;
+            if (files.Count > 0)
             {
-                try
-                {
-                    await _unitOfWork.SparePart.Update(sparePart);
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!SparePartExist(sparePart.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(sparePart);
-        }
+                IFormFile file = files[0];
 
-        public async Task<IActionResult> Delete(int id)
-        {
-            var sparePart = await _unitOfWork.SparePart
-                 .GetById(id);
-            if (sparePart == null)
+				string fileName = Guid.NewGuid().ToString();
+				string imagePath = $@"\images\{fileName}{Path.GetExtension(file.FileName)}";
+				string fullPath = _webHostEnvironment.WebRootPath + imagePath;
+
+				sparePart.Image = imagePath;
+
+				ModelState.ClearValidationState("Image");
+				if (!TryValidateModel(sparePart, "Image"))
+				{
+					ViewData["CategoryId"] = new SelectList(await _unitOfWork.Category.GetAll(), "Id", "Name");
+					return View(sparePart);
+				}
+
+				using (FileStream fileStream = new(fullPath, FileMode.Create))
+				{
+					file.CopyTo(fileStream);
+				}
+			}
+            else
             {
-                return NotFound();
-            }
+                sparePart.Image = (await _unitOfWork.SparePart.GetById(id))!.Image;
 
-            return View(sparePart);
-        }
-
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var sparePart = await _unitOfWork.SparePart.GetById(id);
-            if (sparePart != null)
-            {
-                await _unitOfWork.SparePart.Delete(id);
+				ModelState.ClearValidationState("Image");
+				if (!TryValidateModel(sparePart, "Image"))
+				{
+					ViewData["CategoryId"] = new SelectList(await _unitOfWork.Category.GetAll(), "Id", "Name");
+					return View(sparePart);
+				}
             }
 
-            return RedirectToAction(nameof(Index));
+			await _unitOfWork.SparePart.Update(sparePart);
+			return RedirectToAction(nameof(Index));
         }
 
         private bool SparePartExist(int id)
