@@ -20,6 +20,7 @@ html {
 body {
   margin-bottom: 60px;
   --bs-body-color: black;
+  --bs-border-color: #ACACAC;
 }
 
 .nanum-gothic-regular {
@@ -41,15 +42,13 @@ body {
     color: white;
     border: none;
     padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
     transition: background-color 0.3s ease;
-    text-decoration: none;
+
 }
 
-.btnDetails:hover {
-    background-color: #808080ff;
-}
+    .btnDetails:hover {
+        background-color: #4E4E4E;
+    }
 
 .content {
     margin-top: 75px;
@@ -75,18 +74,20 @@ img {
 }
 
 .carousel-caption {
-    background-color: white;
+    right: 0;
+    left: 0;
+    background-color: black;
     opacity: 90%;
     border-radius: 1px;
-    box-shadow: 0px 0px 5px 10px white;
+    box-shadow: 0px 0px 10px 20px black;
 }
 
 .carousel-caption h5 {
-    color: black;
+    color: white;
 }
 
 .carousel-caption p {
-    color: var(--bs-body-color);
+    color: white;
     margin-bottom: 0;
 }
 
