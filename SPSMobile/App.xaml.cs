@@ -1,12 +1,14 @@
-﻿namespace SPSMobile
+﻿using SPSMobile.Pages;
+
+namespace SPSMobile
 {
 	public partial class App : Application
 	{
-		public App()
+		public App(IServiceProvider serviceProvider)
 		{
 			InitializeComponent();
 
-			MainPage = new NavigationPage(new AppShell());
+			MainPage = new NavigationPage(serviceProvider.GetRequiredService<MainPage>());
 		}
 	}
 }

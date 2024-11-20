@@ -3,7 +3,7 @@
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
             x:Class="SPSMobile.Pages.MainPage"
             Title="MainPage">
-    <FlyoutPage.Resources>
+    <!--<FlyoutPage.Resources>
         <Color x:Key="bgColor">#010101</Color>
         <Color x:Key="fgColor">#F6FAF6</Color>
         <x:Double x:Key="fontSize">20</x:Double>
@@ -13,10 +13,10 @@
             <Setter Property="Background" Value="{StaticResource bgColor}" />
             <Setter Property="TextColor" Value="{StaticResource fgColor}" />
         </Style>
-    </FlyoutPage.Resources>
+    </FlyoutPage.Resources>-->
 
     <FlyoutPage.Flyout>
-        <ContentPage>
+        <ContentPage Title="MainPage">
             <Button 
                 Style="{DynamicResource baseButtonStyle}"
                 Text="My Profile"
