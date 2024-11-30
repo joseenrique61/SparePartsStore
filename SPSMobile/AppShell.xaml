@@ -3,27 +3,38 @@
     x:Class="SPSMobile.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:SPSMobile.Pages"
+    xmlns:home="clr-namespace:SPSMobile.Pages.Home"
+    xmlns:products="clr-namespace:SPSMobile.Pages.Products"
+    xmlns:user="clr-namespace:SPSMobile.Pages.User"
     Shell.FlyoutBehavior="Flyout"
     Title="SPSMobile">
 
     <FlyoutItem Title="Home" Icon="dotnet_bot.png">
         <ShellContent
             Title="Home"
-            ContentTemplate="{DataTemplate local:MainPage}"
+            ContentTemplate="{DataTemplate home:MainPage}"
             Route="MainPage" 
             Icon="Dotnet_bot.png"
         />
         <ShellContent
-            Title="My Profile"
-            ContentTemplate="{DataTemplate local:ClientPage}"
-            Route="ClientPage"
+            Title="Information"
+            ContentTemplate="{DataTemplate home:InformationPage}"
+            Route="InformationPage"
+            Icon="Dotnet_bot.png"
+        />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Products" Icon="dotnet_bot.png" >
+        <ShellContent
+            Title="Categories"
+            ContentTemplate="{DataTemplate products:CategoriesPage}"
+            Route="CategoryPage"
             Icon="Dotnet_bot.png"
         />
         <ShellContent
-            Title="My Profile"
-            ContentTemplate="{DataTemplate local:ClientPage}"
-            Route="ClientPage"
+            Title="Spare parts"
+            ContentTemplate="{DataTemplate products:SparepartsPage}"
+            Route="SparePartPage"
             Icon="Dotnet_bot.png"
         />
     </FlyoutItem>
@@ -31,24 +42,9 @@
     <FlyoutItem Title="Profile" Icon="dotnet_bot.png" >
         <ShellContent
             Title="My Profile"
-            ContentTemplate="{DataTemplate local:ClientPage}"
+            ContentTemplate="{DataTemplate user:ClientPage}"
             Route="ClientPage"
             Icon="Dotnet_bot.png"
-        />
-        <ShellContent
-            Title="Information"
-            ContentTemplate="{DataTemplate local:InformationPage}"
-            Route="InformationPage"
-            Icon="Dotnet_bot.png"
-        />
-    </FlyoutItem>
-
-    <FlyoutItem Title="Help" Icon="dotnet_bot.png" >
-        <ShellContent
-        Title="My Profile"
-        ContentTemplate="{DataTemplate local:ClientPage}"
-        Route="ClientPage"
-        Icon="Dotnet_bot.png"
         />
     </FlyoutItem>
 

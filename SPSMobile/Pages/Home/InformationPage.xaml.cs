@@ -1,4 +1,4 @@
-namespace SPSMobile.Pages;
+namespace SPSMobile.Pages.Home;
 
 public partial class InformationPage : ContentPage
 {
