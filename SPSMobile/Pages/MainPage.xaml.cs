@@ -2,10 +2,8 @@
 
 namespace SPSMobile.Pages
 {
-	public partial class MainPage : FlyoutPage
+	public partial class MainPage : ContentPage
     {
-		int count = 0;
-
 		private readonly IUnitOfWork _unitOfWork;
 
 		private readonly IServiceProvider _serviceProvider;

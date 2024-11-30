@@ -8,7 +8,7 @@ namespace SPSMobile
 		{
 			InitializeComponent();
 
-			MainPage = new NavigationPage(serviceProvider.GetRequiredService<MainPage>());
+			MainPage = new AppShell();
 		}
 	}
 }

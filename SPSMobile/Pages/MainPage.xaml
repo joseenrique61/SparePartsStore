@@ -1,9 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<FlyoutPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
             x:Class="SPSMobile.Pages.MainPage"
+            xmlns:local="clr-namespace:SPSMobile.Pages"
             Title="MainPage">
-    <!--<FlyoutPage.Resources>
+    <ContentPage.Resources>
         <Color x:Key="bgColor">#010101</Color>
         <Color x:Key="fgColor">#F6FAF6</Color>
         <x:Double x:Key="fontSize">20</x:Double>
@@ -13,27 +14,19 @@
             <Setter Property="Background" Value="{StaticResource bgColor}" />
             <Setter Property="TextColor" Value="{StaticResource fgColor}" />
         </Style>
-    </FlyoutPage.Resources>-->
+    </ContentPage.Resources>
 
-    <FlyoutPage.Flyout>
-        <ContentPage Title="MainPage">
-            <Button 
-                Style="{DynamicResource baseButtonStyle}"
-                Text="My Profile"
-                Clicked="Button_Clicked"
+    <VerticalStackLayout Padding="20">
+        <Label HorizontalTextAlignment="Center">
+            "Welcome to SpareParts Store"
+        </Label>
+        <Grid RowDefinitions="*,*,*,*" ColumnDefinitions="*,50,*">
+            <Image
+                Source=""/>
+            <Label
+                Text=""
                 />
-        </ContentPage>
-    </FlyoutPage.Flyout>
-
-    <FlyoutPage.Detail>
-        <ContentPage>
-            <VerticalStackLayout Padding="20" VerticalOptions="Center">
-                <Label 
-                    Text="¡Welcome to SpareParts Store!"/>
-                <Image Source="Resources/Images/radiador.png"/>
-                <Image Source="Resources/Images/motor.png"/>
-                <Image Source="Resources/Images/freno.png"/>
-            </VerticalStackLayout>
-        </ContentPage>
-    </FlyoutPage.Detail>
-</FlyoutPage>
+        </Grid>
+    </VerticalStackLayout>
+    
+</ContentPage>
