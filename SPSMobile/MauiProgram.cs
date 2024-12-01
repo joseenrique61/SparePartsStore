@@ -43,7 +43,7 @@ namespace SPSMobile
 			// Pages
 			string pagesNamespace = "SPSMobile.Pages";
 			IEnumerable<Type> pages = from type in Assembly.GetExecutingAssembly().GetTypes()
-					where type.IsClass && type.Namespace == pagesNamespace
+					where type.IsClass && type.Namespace!.Contains(pagesNamespace)
 					select type;
 			foreach (Type type in pages)
 			{
