@@ -10,20 +10,17 @@ using System.Text;
 using System.Threading.Tasks;
 public class MainViewModel
 {
-    //private readonly IUnitOfWork _unitOfWork;i
+    private readonly IUnitOfWork _unitOfWork;
     public ObservableCollection<string> Images { get; set; }
-    //public ObservableCollection<SparePart> SpareParts { get; set; }
-    public MainViewModel()
+    public ObservableCollection<SparePart> SpareParts { get; set; }
+    public MainViewModel(IUnitOfWork unitOfWork)
     {
-        //_unitOfWork = unitOfWork;
+        _unitOfWork = unitOfWork;
 
-        //SpareParts = new SparepartsViewModel(_unitOfWork).SpareParts;
-        Images = new ObservableCollection<string>
-        {
-            "freno.jpeg",
-            "motor.jpeg",
-            "radiador.webp"
-        };
+        var sparePartsViewModel = new SparepartsViewModel(_unitOfWork);
+        SpareParts = sparePartsViewModel.SpareParts;
 
+        var imageViewModel = new ImagesViewModel();
+        Images = imageViewModel.Image;
     }
 }

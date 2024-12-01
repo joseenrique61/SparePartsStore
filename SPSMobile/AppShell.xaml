@@ -3,22 +3,20 @@
     x:Class="SPSMobile.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:home="clr-namespace:SPSMobile.Pages.Home"
-    xmlns:products="clr-namespace:SPSMobile.Pages.Products"
-    xmlns:user="clr-namespace:SPSMobile.Pages.User"
+    xmlns:local="clr-namespace:SPSMobile.Pages"
     Shell.FlyoutBehavior="Flyout"
     Title="SpareParts Store">
 
     <FlyoutItem Title="Home" Icon="dotnet_bot.png">
         <ShellContent
             Title="Home"
-            ContentTemplate="{DataTemplate home:MainPage}"
+            ContentTemplate="{DataTemplate local:MainPage}"
             Route="MainPage" 
             Icon="Dotnet_bot.png"
         />
         <ShellContent
             Title="Information"
-            ContentTemplate="{DataTemplate home:InformationPage}"
+            ContentTemplate="{DataTemplate local:InformationPage}"
             Route="InformationPage"
             Icon="Dotnet_bot.png"
         />
@@ -27,13 +25,13 @@
     <FlyoutItem Title="Products" Icon="dotnet_bot.png" >
         <ShellContent
             Title="Categories"
-            ContentTemplate="{DataTemplate products:CategoriesPage}"
-            Route="CategoryPage"
+            ContentTemplate="{DataTemplate local:CategoriesPage}"
+            Route="CatgoriesPage"
             Icon="Dotnet_bot.png"
         />
         <ShellContent
             Title="Spare parts"
-            ContentTemplate="{DataTemplate products:SparepartsPage}"
+            ContentTemplate="{DataTemplate local:SparepartsPage}"
             Route="SparePartPage"
             Icon="Dotnet_bot.png"
         />
@@ -42,7 +40,7 @@
     <FlyoutItem Title="Profile" Icon="dotnet_bot.png" >
         <ShellContent
             Title="My Profile"
-            ContentTemplate="{DataTemplate user:ClientPage}"
+            ContentTemplate="{DataTemplate local:ClientPage}"
             Route="ClientPage"
             Icon="Dotnet_bot.png"
         />

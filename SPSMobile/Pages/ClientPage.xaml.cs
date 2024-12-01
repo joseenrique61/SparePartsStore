@@ -1,4 +1,4 @@
-namespace SPSMobile.Pages.User;
+namespace SPSMobile.Pages;
 
 public partial class ClientPage : ContentPage
 {

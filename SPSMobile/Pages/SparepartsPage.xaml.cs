@@ -1,4 +1,4 @@
-namespace SPSMobile.Pages.Products;
+namespace SPSMobile.Pages;
 
 public partial class SparepartsPage : ContentPage
 {
