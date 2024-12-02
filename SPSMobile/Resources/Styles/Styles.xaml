@@ -17,7 +17,7 @@
     <Style TargetType="Label" x:Key="TittleLabel">
         <Setter Property="FontSize" Value="35"/>
         <Setter Property="TextColor" Value="Black"/>
-        <Setter Property="FontFamily" Value="OpenSans-SemiBold"/>
+        <Setter Property="FontFamily" Value="OpenSans-Semibold"/>
         <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
         <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
     </Style>
