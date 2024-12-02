@@ -2,13 +2,10 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SPSMobile.Pages.MainPage"
-             Title="MainPage">
+             Title="Main Menu">
     <ScrollView>
-        <VerticalStackLayout Spacing="40">
-            <Label 
-                Text="Welcome to SpareParts Store"
-                VerticalOptions="Center" 
-                HorizontalOptions="Center" />
+        <VerticalStackLayout Spacing="35">
+            <Label Text="Welcome to SpareParts Store" Style="{StaticResource TittleLabel}" />
 
             <CarouselView 
                 ItemsSource="{Binding Images}" 
@@ -26,11 +23,13 @@
                 </CarouselView.ItemTemplate>
             </CarouselView>
 
+            <Label Text="Our products" Style="{StaticResource BodyLabel}" />
+
             <!-- ItemsSource="{Binding SpareParts} -->
-            <CollectionView x:Name="collectionItems">
+            <CollectionView x:Name="collectionItems" HorizontalOptions="Center">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Grid Padding="10">
+                        <Grid Padding="10" BackgroundColor="DimGrey" HorizontalOptions="Center">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
@@ -50,16 +49,12 @@
                             <Label Grid.Row="1"
                             Grid.Column="1"
                             Text="{Binding Price}"
-                            FontAttributes="Italic"
+                            FontAttributes="None"
                             VerticalOptions="End" />
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-
-            <Grid RowDefinitions="200,200" ColumnDefinitions="200,200" >
-                
-            </Grid>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

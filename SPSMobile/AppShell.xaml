@@ -7,44 +7,48 @@
     Shell.FlyoutBehavior="Flyout"
     Title="SpareParts Store">
 
-    <FlyoutItem Title="Home" Icon="dotnet_bot.png">
+    <Shell.FlyoutHeader>
+        <Grid BackgroundColor="DarkRed" HeightRequest="150">
+            <Image Source="spareparts.png" Aspect="AspectFit" Opacity=".5"/>
+        </Grid>
+    </Shell.FlyoutHeader>
+
+    <FlyoutItem Title="Home" Icon="{StaticResource HomeIcon}">
         <ShellContent
             Title="Home"
             ContentTemplate="{DataTemplate local:MainPage}"
             Route="MainPage" 
-            Icon="Dotnet_bot.png"
+            Icon="{StaticResource HomeIcon}"
         />
         <ShellContent
             Title="Information"
             ContentTemplate="{DataTemplate local:InformationPage}"
             Route="InformationPage"
-            Icon="Dotnet_bot.png"
+            Icon="{StaticResource InfoIcon}"
         />
     </FlyoutItem>
 
-    <FlyoutItem Title="Products" Icon="dotnet_bot.png" >
+    <FlyoutItem Title="Products" Icon="{StaticResource ProductsIcon}" >
         <ShellContent
             Title="Categories"
             ContentTemplate="{DataTemplate local:CategoriesPage}"
             Route="CatgoriesPage"
-            Icon="Dotnet_bot.png"
+            Icon="{StaticResource CategoryIcon}"
         />
         <ShellContent
             Title="Spare parts"
             ContentTemplate="{DataTemplate local:SparepartsPage}"
             Route="SparePartPage"
-            Icon="Dotnet_bot.png"
+            Icon="{StaticResource CarIcon}"
         />
     </FlyoutItem>
 
-    <FlyoutItem Title="Profile" Icon="dotnet_bot.png" >
+    <FlyoutItem Title="Profile" Icon="{StaticResource ProfileIcon}" >
         <ShellContent
             Title="My Profile"
             ContentTemplate="{DataTemplate local:ClientPage}"
             Route="ClientPage"
-            Icon="Dotnet_bot.png"
+            Icon="{StaticResource ProfileIcon}"
         />
     </FlyoutItem>
-
-
 </Shell>

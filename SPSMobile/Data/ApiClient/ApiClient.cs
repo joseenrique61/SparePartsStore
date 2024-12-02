@@ -28,6 +28,7 @@ namespace SPSMobile.Data.ApiClient
 
 		public async Task<HttpResponseMessage> Get<T>(string route)
 		{
+			
 			return await _client.GetAsync(GetRoute<T>(route));
 		}
 

@@ -9,13 +9,17 @@ public partial class MainPage : ContentPage
     private readonly IUnitOfWork _unitOfOfWork;
     public MainPage(IUnitOfWork unitOfWork)
 	{
-		InitializeComponent();
         _unitOfOfWork = unitOfWork;
-        
-        var mainViewModel = new MainViewModel(_unitOfOfWork);
-        //BindingContext = new MainViewModel(_unitOfOfWork);
+
+		InitializeComponent();
+        LoadDependencies();
+    }
+
+    public async void LoadDependencies() 
+    {
+        var mainViewModel = new MainViewModel();
 
         carouselItems.ItemsSource = mainViewModel.Images;
-        collectionItems.ItemsSource = mainViewModel.SpareParts;
+        collectionItems.ItemsSource = await _unitOfOfWork.SparePart.GetAll();
     }
 }
