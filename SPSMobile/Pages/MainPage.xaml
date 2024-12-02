@@ -12,6 +12,7 @@
 
             <CarouselView 
                 ItemsSource="{Binding Images}" 
+                x:Name="carouselItems"
                 Loop="False"
                 HeightRequest="400">
                 <CarouselView.ItemsLayout>
@@ -25,22 +26,32 @@
                 </CarouselView.ItemTemplate>
             </CarouselView>
 
-            <CollectionView ItemsSource="{Binding SpareParts}" Grid.Row="1" Grid.ColumnSpan="2">
+            <!-- ItemsSource="{Binding SpareParts} -->
+            <CollectionView x:Name="collectionItems">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Grid>
+                        <Grid Padding="10">
                             <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-                            <Label Text="{Binding Name}" Grid.Row="0" Grid.Column="0" />
-                            <!--<Label Text="{Binding Description}" Grid.Row="0" Grid.Column="1" />
-<Label Text="{Binding Price}" Grid.Row="0" Grid.Column="2" />-->
-
+                            <Image Grid.RowSpan="2"
+                            Source="{Binding Image}"
+                            Aspect="AspectFill"
+                            HeightRequest="60"
+                            WidthRequest="60" />
+                            <Label Grid.Column="1"
+                            Text="{Binding Name}"
+                            FontAttributes="Bold" />
+                            <Label Grid.Row="1"
+                            Grid.Column="1"
+                            Text="{Binding Price}"
+                            FontAttributes="Italic"
+                            VerticalOptions="End" />
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

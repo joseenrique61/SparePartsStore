@@ -24,8 +24,13 @@ namespace SPSMobile.Data.ViewModels
             var _spareParts = await _unitOfWork.SparePart.GetAll();
             if (_spareParts != null) 
             {
-                SpareParts = new ObservableCollection<SparePart>(_spareParts.ToArray());
-            } 
+                SpareParts = new ObservableCollection<SparePart>(_spareParts.AsEnumerable<SparePart>());
+                /*
+                foreach (var sparePart in SpareParts) 
+                { 
+                    Console.WriteLine(sparePart.Name);
+                }*/
+            }
         }
     }
 }
