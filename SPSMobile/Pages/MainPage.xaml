@@ -26,23 +26,24 @@
             <Label Text="Our products" Style="{StaticResource BodyLabel}" />
 
             <!-- ItemsSource="{Binding SpareParts} -->
-            <CollectionView x:Name="collectionItems" HorizontalOptions="Center">
+            <CollectionView x:Name="collectionItems" HorizontalOptions="Center" ItemsSource="{Binding SpareParts}">
                 <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Padding="10" BackgroundColor="DimGrey" HorizontalOptions="Center">
+                    <DataTemplate >
+                        <Grid Padding="10" BackgroundColor="White" HorizontalOptions="Center">
                             <Grid.RowDefinitions>
+                                <RowDefinition Height="50" />
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="50" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <Image Grid.RowSpan="2"
                             Source="{Binding Image}"
                             Aspect="AspectFill"
-                            HeightRequest="60"
-                            WidthRequest="60" />
+                            HeightRequest="50"
+                            WidthRequest="50" />
                             <Label Grid.Column="1"
                             Text="{Binding Name}"
                             FontAttributes="Bold" />
@@ -51,6 +52,9 @@
                             Text="{Binding Price}"
                             FontAttributes="None"
                             VerticalOptions="End" />
+                            <Button
+                                Text="More"
+                                Clicked="More_Details"/>
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
