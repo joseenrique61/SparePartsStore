@@ -91,6 +91,9 @@
 	  <MauiXaml Update="Pages\CategoriesPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Pages\ProductPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\SparepartsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

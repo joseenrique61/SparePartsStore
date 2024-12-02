@@ -11,14 +11,12 @@ using System.Threading.Tasks;
 namespace SPSMobile.Data.ViewModels;
 public class MainViewModel
 {
-    public ObservableCollection<string> Images { get; set; }
-    public MainViewModel()
+    public ObservableCollection<string> Images { get; set; } = new ObservableCollection<string>
     {
-        Images = new ObservableCollection<string>
-        {
-            "freno.jpeg",
+        "freno.jpeg",
             "motor.jpeg",
             "radiador.webp"
-        };
-    }
+    };
+
+    public ObservableCollection<SparePart> SpareParts { get; set; }
 }

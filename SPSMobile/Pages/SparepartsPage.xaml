@@ -9,7 +9,7 @@
             Text="Filter By Category"
             Style="{StaticResource SubHeadline}"
             />
-        <CollectionView x:Name="collectionItems" HorizontalOptions="Center">
+        <CollectionView x:Name="collectionItems" HorizontalOptions="Center" ItemsSource="{Binding SpareParts}">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Grid Padding="10" BackgroundColor="DimGrey" HorizontalOptions="Center">
