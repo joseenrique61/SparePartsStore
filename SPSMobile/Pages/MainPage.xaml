@@ -4,14 +4,16 @@
              x:Class="SPSMobile.Pages.MainPage"
              Title="Main Menu">
     <ScrollView>
-        <VerticalStackLayout Spacing="35">
-            <Label Text="Welcome to SpareParts Store" Style="{StaticResource TittleLabel}" />
+        <VerticalStackLayout Spacing="20" >
+            <Label Text="WELCOME" Style="{StaticResource TittleLabel}" CharacterSpacing="10"/>
+            <Label Text="to SpareParts Store" Style="{StaticResource SubHeadline}" TextColor="Black" />
 
             <CarouselView 
                 ItemsSource="{Binding Images}" 
                 x:Name="carouselItems"
+                HorizontalScrollBarVisibility="Never"
                 Loop="False"
-                HeightRequest="400">
+                HeightRequest="400" >
                 <CarouselView.ItemsLayout>
                     <LinearItemsLayout Orientation="Horizontal"
                                        ItemSpacing="20"/>
@@ -23,49 +25,82 @@
                 </CarouselView.ItemTemplate>
             </CarouselView>
 
-            <Label Text="Our products" Style="{StaticResource BodyLabel}" />
+            <Label Text="Our products" Style="{StaticResource SubHeadline}" TextColor="Black" />
 
-            <!-- ItemsSource="{Binding SpareParts} -->
-            <CollectionView 
-                x:Name="collectionItems" 
-                HorizontalOptions="Center" 
-                ItemsSource="{Binding SpareParts}" 
-                SelectionMode="Single"
-                SelectionChanged="spareCollection_SelectionChanged">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate >
-                        <Grid Padding="10" BackgroundColor="White" HorizontalOptions="Center">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="50" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="50" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <Image Grid.RowSpan="2"
-                            Source="{Binding Image}"
-                            Aspect="AspectFit"
-                            HeightRequest="50"
-                            WidthRequest="50" />
-                            <Label Grid.Column="1"
-                            Text="{Binding Name}"
-                            FontAttributes="Bold" />
-                            <Label Grid.Row="1"
-                            Grid.Column="1"
-                            Text="{Binding Price}"
-                            FontAttributes="None"
-                            VerticalOptions="End" />
-                            <Button
-                            Grid.Row="2"
-                            Grid.ColumnSpan="2"
-                            Text="More"
-                            Clicked="More_Details" />
-                        </Grid>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+            <!-- Categories Filter -->
+            <Picker x:Name="CategoryPicker"
+                    Title="Select a Category"
+                    HorizontalOptions="Center"
+                    WidthRequest="300"
+                    ItemsSource="{Binding Categories}"
+                    ItemDisplayBinding="{Binding Name}"
+                    SelectedIndexChanged="OnCategorySelected" />
+
+            <!-- {Binding SpareParts} -->
+            <Grid RowDefinitions=".2*,.8*">
+                <CollectionView 
+                    Grid.Row="1"
+                    x:Name="collectionItems" 
+                    HorizontalOptions="Center" 
+                    ItemsSource="{Binding SpareParts}" 
+                    SelectionMode="Single"
+                    SelectionChanged="spareCollection_SelectionChanged" >
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout
+                            Orientation="Vertical"
+                            Span="2"
+                            VerticalItemSpacing="30" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border 
+                                Padding="16,8"
+                                Background="White"
+                                HeightRequest="150"
+                                HorizontalOptions="Center"
+                                Stroke="DimGray"
+                                StrokeShape="RoundRectangle 10,10,10,10"
+                                StrokeThickness="0.5"
+                                WidthRequest="400" >
+                                <Grid Padding="10" BackgroundColor="White" HorizontalOptions="Center">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="50" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="100" />
+                                        <ColumnDefinition Width="200" />
+                                    </Grid.ColumnDefinitions>
+                                    <Image Grid.RowSpan="3"
+                                        Source="{Binding Image}"
+                                        Aspect="AspectFit"
+                                        HeightRequest="50"
+                                        WidthRequest="50" />
+                                    <Label Grid.Column="1"
+                                        VerticalOptions="Center"
+                                        Text="{Binding Name}"
+                                        FontSize="Subtitle"  
+                                        FontAttributes="Bold" />
+                                    <Label Grid.Row="1"
+                                        Grid.Column="1"
+                                        Text="{Binding Price, StringFormat='Precio: {0:C}'}" 
+                                        
+                                        TextColor="Green"
+                                        VerticalOptions="Start" />
+                                    <Button
+                                        Grid.Row="2"
+                                        Grid.Column="2"
+                                        Text="More"
+                                        WidthRequest="200"
+                                        Clicked="More_Details" 
+                                        BackgroundColor="DarkRed" />
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Grid>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

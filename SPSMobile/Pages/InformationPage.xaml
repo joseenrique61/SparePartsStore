@@ -4,63 +4,65 @@
              x:Class="SPSMobile.Pages.InformationPage"
              Title="Information">
     <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="15">
+        <VerticalStackLayout Padding="10" Spacing="15" >
             <!-- Título -->
             <Label Text="Contact us"
-                   FontSize="24"
+                   FontSize="Large"
                    FontAttributes="Bold"
                    HorizontalOptions="Center" />
 
-            <!-- Texto principal -->
-            <Label Text="We are located 2 blocks from Carolina between Eloy Alfaro and Shyris, we make deliveries to the entire country for an additional cost. Contact us at the following email or WhatsApp by clicking the button below."
-                   FontSize="16"
-                   LineBreakMode="WordWrap" />
+            <VerticalStackLayout HorizontalOptions="Center" MaximumWidthRequest="400" MinimumWidthRequest="800" Spacing="10">
+                <!-- Texto principal -->
+                <Label Text="We are located 2 blocks from Carolina between Eloy Alfaro and Shyris, we make deliveries to the entire country for an additional cost. Contact us at the following email or WhatsApp by clicking the button below."
+                       FontSize="Body"
+                       LineBreakMode="WordWrap" />          
 
-            <!-- Correo -->
-            <Label>
-                <Label.FormattedText>
-                    <FormattedString>
-                        <Span Text="Email: " FontAttributes="Bold" />
-                        <Span Text="sps@gmail.com" TextColor="Blue">
-                            <Span.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding EmailTapCommand}" CommandParameter="mailto:sps@gmail.com" />
-                            </Span.GestureRecognizers>
-                        </Span>
-                    </FormattedString>
-                </Label.FormattedText>
-            </Label>
-
-            <!-- Información de sucursal -->
-            <VerticalStackLayout Spacing="5">
-                <Label Text="Carolina"
-                       FontSize="20"
-                       FontAttributes="Bold" />
-                <Label Text="Punto de entrega para compras por Internet." FontSize="16" />
-                <Label Text="Eloy Alfaro E7-76 y Av. Shyris, Sector La Carolina." FontSize="16" />
-                <Label Text="Our schedule: 06:00 – 19:00. Saturday 09:00 – 14:00." FontSize="16" />
+                <!-- Correo -->
                 <Label>
                     <Label.FormattedText>
                         <FormattedString>
-                            <Span Text="Cell Phone Number: " FontAttributes="Bold" />
-                            <Span Text="0999999999" TextColor="Blue">
+                            <Span Text="Email: " FontAttributes="Bold" FontSize="Body"/>
+                            <Span Text="sps@gmail.com" TextColor="Blue" FontSize="Body">
                                 <Span.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding PhoneTapCommand}" CommandParameter="tel:0999999999" />
+                                    <TapGestureRecognizer Command="{Binding EmailTapCommand}" CommandParameter="mailto:sps@gmail.com"/>
                                 </Span.GestureRecognizers>
                             </Span>
                         </FormattedString>
                     </Label.FormattedText>
                 </Label>
-            </VerticalStackLayout>
 
-            <!-- Botón de WhatsApp -->
-            <ImageButton Source="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/2062095_application_chat_communication_logo_whatsapp_icon.svg/2048px-2062095_application_chat_communication_logo_whatsapp_icon.svg.png"
-                         WidthRequest="50"
-                         HeightRequest="50"
-                         BackgroundColor="Transparent">
-                <ImageButton.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding WhatsAppTapCommand}" CommandParameter="https://wa.me/593995854703" />
-                </ImageButton.GestureRecognizers>
-            </ImageButton>
+                <!-- Información de sucursal -->
+                <VerticalStackLayout Spacing="5">
+                    <Label Text="Carolina"
+                           FontSize="Body"
+                           FontAttributes="Bold" />
+                    <Label Text="Punto de entrega para compras por Internet." FontSize="Body" />
+                    <Label Text="Eloy Alfaro E7-76 y Av. Shyris, Sector La Carolina." FontSize="Body" />
+                    <Label Text="Our schedule: 06:00 – 19:00. Saturday 09:00 – 14:00." FontSize="Body" />
+                    <Label>
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Cell Phone Number: " FontAttributes="Bold" FontSize="Body"/>
+                                <Span Text="0999999999" TextColor="Blue" FontSize="Body">
+                                    <Span.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding PhoneTapCommand}" CommandParameter="tel:0999999999" />
+                                    </Span.GestureRecognizers>
+                                </Span>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </VerticalStackLayout>
+
+                <!-- Botón de WhatsApp -->
+                <ImageButton Source="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/2062095_application_chat_communication_logo_whatsapp_icon.svg/2048px-2062095_application_chat_communication_logo_whatsapp_icon.svg.png"
+                             WidthRequest="50"
+                             HeightRequest="50"
+                             BackgroundColor="Transparent">
+                    <ImageButton.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding WhatsAppTapCommand}" CommandParameter="https://wa.me/593995854703"/>
+                    </ImageButton.GestureRecognizers>
+                </ImageButton>
+            </VerticalStackLayout>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

@@ -28,7 +28,7 @@ public partial class SparepartsPage : ContentPage
         BindingContext = mainViewModel;
     }
 
-    private void pareCollection_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    private void spareCollection_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         if (e.CurrentSelection.Count != 0)
         {
