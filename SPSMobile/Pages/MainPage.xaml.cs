@@ -30,7 +30,7 @@ public partial class MainPage : ContentPage
         BindingContext = _mainViewModel;
     }
 
-    private void spareCollection_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    private void SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         if (e.CurrentSelection.Count != 0)
         {

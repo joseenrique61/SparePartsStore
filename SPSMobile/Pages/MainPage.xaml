@@ -44,7 +44,7 @@
                     HorizontalOptions="Center" 
                     ItemsSource="{Binding SpareParts}" 
                     SelectionMode="Single"
-                    SelectionChanged="spareCollection_SelectionChanged" >
+                    SelectionChanged="SelectionChanged" >
                     <CollectionView.ItemsLayout>
                         <GridItemsLayout
                             Orientation="Vertical"
