@@ -9,7 +9,7 @@ public partial class MainPage : ContentPage
 {
     private readonly IUnitOfWork _unitOfOfWork;
     private readonly IServiceProvider _serviceProvider;
-    private MainViewModel _mainViewModel; 
+    private SparePartsViewModel _sparePartsViewModel; 
     public MainPage(IUnitOfWork unitOfWork, IServiceProvider serviceProvider)
 	{
         _unitOfOfWork = unitOfWork;
@@ -19,15 +19,16 @@ public partial class MainPage : ContentPage
         LoadDependencies();
     }
 
-    public async void LoadDependencies() 
+    public void LoadDependencies() 
     {
-        _mainViewModel = new MainViewModel
-        {
+        _sparePartsViewModel = new SparePartsViewModel();
+        /*
+         {
             SpareParts = new ObservableCollection<SparePart>((await _unitOfOfWork.SparePart.GetAll())!),
             Categories = new ObservableCollection<Category>((await _unitOfOfWork.Category.GetAll())!)
-        };
+        };*/
 
-        BindingContext = _mainViewModel;
+        BindingContext = _sparePartsViewModel;
     }
 
     private void SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -41,48 +42,61 @@ public partial class MainPage : ContentPage
         }
     }
 
-    private async void OnCategorySelected(object sender, EventArgs e)
+    private void OnCategorySelected(object sender, EventArgs e)
     {
         var selectedCategory = (Category)CategoryPicker.SelectedItem;
-        var mainViewModel = new MainViewModel
-        {
+        var sparePartsViewModel = new SparePartsViewModel();
+        /*
+         {
             SpareParts = new ObservableCollection<SparePart>((await _unitOfOfWork.SparePart.GetAll())!),
             Categories = new ObservableCollection<Category>((await _unitOfOfWork.Category.GetAll())!)
-        };
+        };*/
 
-        //IEnumerable<SparePart> Categories;
         IEnumerable<SparePart> FilteredSpareParts;
 
         if (selectedCategory != null)
         {
-            FilteredSpareParts = _mainViewModel.SpareParts
+            FilteredSpareParts = _sparePartsViewModel.SpareParts
                 .Where(sp => sp.CategoryId == selectedCategory.Id)
-                .ToList();
+                .AsEnumerable();
+            /*if (!FilteredSpareParts.Any()) 
+            { 
+                selectedCategory = null;
+                CategoryPicker.SelectedItem = null;
+            }*/
         }
         else
         {
-            FilteredSpareParts = _mainViewModel.SpareParts;
+            FilteredSpareParts = _sparePartsViewModel.SpareParts;
         }
 
-        if (!FilteredSpareParts.Any()) 
-            mainViewModel.SpareParts = new ObservableCollection<SparePart>(FilteredSpareParts);
+        if (!FilteredSpareParts.Any())
+        {
+            sparePartsViewModel.SpareParts = _sparePartsViewModel.SpareParts;
+            selectedCategory = null;
+            CategoryPicker.SelectedItem = null;
+        }
 
         /*
          var mainViewModelFromApi = (MainViewModel)BindingContext;
         mainViewModelFromApi.SpareParts = new ObservableCollection<SparePart>(FilteredSpareParts);
                 OnPropertyChanged(nameof(mainViewModelFromApi.SpareParts));
-*/
+        */
 
         /*var mainViewModel = new MainViewModel
         {
             SpareParts = new ObservableCollection<SparePart>(FilteredSpareParts)
         };*/
 
-        BindingContext = mainViewModel;
+        BindingContext = sparePartsViewModel;
     }
 
-    private void More_Details(object sender, EventArgs e)
-    {
-        Navigation.PushModalAsync(_serviceProvider.GetRequiredService<ProductPage>());
-    }
+    /*
+      private void More_Details(object sender, EventArgs e)
+     {
+         var product = (SparePart)e.;
+         Navigation.PushAsync(new ProductPage(product));
+
+         collectionItems.SelectedItem = null;
+     }*/
 }

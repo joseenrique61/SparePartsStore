@@ -54,7 +54,7 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <Border 
-                                Padding="16,8"
+                                Padding="8,4"
                                 Background="White"
                                 HeightRequest="150"
                                 HorizontalOptions="Center"
@@ -74,6 +74,7 @@
                                     </Grid.ColumnDefinitions>
                                     <Image Grid.RowSpan="3"
                                         Source="{Binding Image}"
+                                        HorizontalOptions="Center"
                                         Aspect="AspectFit"
                                         HeightRequest="50"
                                         WidthRequest="50" />
@@ -93,7 +94,6 @@
                                         Grid.Column="2"
                                         Text="More"
                                         WidthRequest="200"
-                                        Clicked="More_Details" 
                                         BackgroundColor="DarkRed" />
                                 </Grid>
                             </Border>

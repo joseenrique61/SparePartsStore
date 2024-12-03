@@ -20,7 +20,7 @@ public partial class SparepartsPage : ContentPage
     }
     public async void LoadDependencies()
     {
-        var mainViewModel = new MainViewModel
+        var mainViewModel = new SparePartsViewModel
         {
             SpareParts = new ObservableCollection<SparePart>((await _unitOfOfWork.SparePart.GetAll())!)
         };
@@ -28,7 +28,7 @@ public partial class SparepartsPage : ContentPage
         BindingContext = mainViewModel;
     }
 
-    private void spareCollection_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    private void SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         if (e.CurrentSelection.Count != 0)
         {
