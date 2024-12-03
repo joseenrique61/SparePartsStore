@@ -14,8 +14,8 @@ public class MainViewModel : INotifyPropertyChanged
 {
     public ObservableCollection<string> Images { get; set; } = new ObservableCollection<string> {"freno.jpeg","motor.jpeg","radiador.webp"};
     public ObservableCollection<SparePart> SpareParts { get; set; }
+    public ObservableCollection<SparePart> FilteredCategories { get; set; }
     public ObservableCollection<Category> Categories { get; set; }
-    public ObservableCollection<Category> FilteredCategories { get; set; }
 
     public event PropertyChangedEventHandler? PropertyChanged
     {
