@@ -20,7 +20,7 @@
                 </CarouselView.ItemsLayout>
                 <CarouselView.ItemTemplate>
                     <DataTemplate>
-                        <Image Source="{Binding}" Aspect="AspectFill"/>
+                        <Image Source="{Binding}" Aspect="AspectFill" />
                     </DataTemplate>
                 </CarouselView.ItemTemplate>
             </CarouselView>

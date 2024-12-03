@@ -10,7 +10,6 @@ public partial class MainPage : ContentPage
     private readonly IUnitOfWork _unitOfOfWork;
     private readonly IServiceProvider _serviceProvider;
     private SparePartsViewModel _sparePartsViewModel; 
-
     public MainPage(IUnitOfWork unitOfWork, IServiceProvider serviceProvider)
 	{
         _unitOfOfWork = unitOfWork;
@@ -30,8 +29,6 @@ public partial class MainPage : ContentPage
         };*/
 
         BindingContext = _sparePartsViewModel;
-
-        CategoryPicker.SelectedIndex = 0;
     }
 
     private void SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -62,22 +59,34 @@ public partial class MainPage : ContentPage
             FilteredSpareParts = _sparePartsViewModel.SpareParts
                 .Where(sp => sp.CategoryId == selectedCategory.Id)
                 .AsEnumerable();
+            /*if (!FilteredSpareParts.Any()) 
+            { 
+                selectedCategory = null;
+                CategoryPicker.SelectedItem = null;
+            }*/
         }
         else
         {
-            DisplayAlert("Alert", "I'm sorry, there are not products in the selected category", "Ok");
             FilteredSpareParts = _sparePartsViewModel.SpareParts;
         }
 
         if (!FilteredSpareParts.Any())
         {
             sparePartsViewModel.SpareParts = _sparePartsViewModel.SpareParts;
+            selectedCategory = null;
             CategoryPicker.SelectedItem = null;
         }
-        else 
+
+        /*
+         var mainViewModelFromApi = (MainViewModel)BindingContext;
+        mainViewModelFromApi.SpareParts = new ObservableCollection<SparePart>(FilteredSpareParts);
+                OnPropertyChanged(nameof(mainViewModelFromApi.SpareParts));
+        */
+
+        /*var mainViewModel = new MainViewModel
         {
-            sparePartsViewModel.SpareParts = new ObservableCollection<SparePart>(FilteredSpareParts);
-        }
+            SpareParts = new ObservableCollection<SparePart>(FilteredSpareParts)
+        };*/
 
         BindingContext = sparePartsViewModel;
     }
