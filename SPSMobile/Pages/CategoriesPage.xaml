@@ -3,10 +3,52 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SPSMobile.Pages.CategoriesPage"
              Title="Categories">
-    <VerticalStackLayout>
-        <Label 
+    <ScrollView>
+        <VerticalStackLayout>
+            <Label 
             Text="Welcome to .NET MAUI!"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
-    </VerticalStackLayout>
+            <CollectionView Grid.Row="1"
+                            x:Name="collectionItems" 
+                            HorizontalOptions="Center" 
+                            ItemsSource="{Binding Categories}" 
+                            SelectionMode="Single"
+                            SelectionChanged="SelectionChanged" >
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical"
+                     Span="2"
+                     VerticalItemSpacing="30" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border Padding="16,8"
+                                Background="White"
+                                HeightRequest="200"
+                                HorizontalOptions="Center"
+                                Stroke="Black"
+                                StrokeShape="RoundRectangle 10,10,10,10"
+                                StrokeThickness="1"
+                                WidthRequest="400">
+                            <Grid Padding="10" BackgroundColor="White" HorizontalOptions="Center">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="50" />
+                                    <RowDefinition Height="50" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100" />
+                                </Grid.ColumnDefinitions>
+                                <Label  
+                                    Grid.Row="1"
+                                    VerticalOptions="Center"
+                                    Text="{Binding Name}"
+                                    FontSize="Medium"
+                                    FontAttributes="Bold" />
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
