@@ -27,4 +27,23 @@ public partial class SparepartsPage : ContentPage
 
         BindingContext = mainViewModel;
     }
+
+    private void pareCollection_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (e.CurrentSelection.Count != 0)
+        {
+            var product = (SparePart)e.CurrentSelection[0];
+            Navigation.PushAsync(new ProductPage(product));
+
+            collectionItems.SelectedItem = null;
+        }
+    }
+
+    private void More_Details(object sender, EventArgs e)
+    {
+        /*if (BindingContext is SPSModels.Models.SparePart sparepart)
+        {
+            Navigation.PushModalAsync(_serviceProvider.GetRequiredService<ProductPage>());
+        }*/
+    }
 }

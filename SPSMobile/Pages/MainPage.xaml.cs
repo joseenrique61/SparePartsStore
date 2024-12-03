@@ -30,6 +30,6 @@ public partial class MainPage : ContentPage
 
     private void More_Details(object sender, EventArgs e)
     {
-        Navigation.PushModalAsync(_serviceProvider.GetRequiredService<Page>());
+        Navigation.PushModalAsync(_serviceProvider.GetRequiredService<ProductPage>());
     }
 }

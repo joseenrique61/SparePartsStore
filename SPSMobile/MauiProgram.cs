@@ -5,6 +5,7 @@ using SPSMobile.Data.Repositories.ClientRepository;
 using SPSMobile.Data.Repositories.PurchaseOrderRepository;
 using SPSMobile.Data.Repositories.SparePartRepository;
 using SPSMobile.Data.UnitOfWork;
+using SPSMobile.Pages;
 using SPSMobile.Utilities;
 using System.Reflection;
 
@@ -39,6 +40,9 @@ namespace SPSMobile
 
 			// Unit of work
 			builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
+			builder.Services.AddTransient<ProductPage>();
+			//builder.Services.AddTransient<CategoriesPage>();
+
 
 			// Pages
 			string pagesNamespace = "SPSMobile.Pages";

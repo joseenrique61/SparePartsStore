@@ -26,7 +26,12 @@
             <Label Text="Our products" Style="{StaticResource BodyLabel}" />
 
             <!-- ItemsSource="{Binding SpareParts} -->
-            <CollectionView x:Name="collectionItems" HorizontalOptions="Center" ItemsSource="{Binding SpareParts}">
+            <CollectionView 
+                x:Name="collectionItems" 
+                HorizontalOptions="Center" 
+                ItemsSource="{Binding SpareParts}" 
+                SelectionMode="Single"
+                SelectionChanged="spareCollection_SelectionChanged">
                 <CollectionView.ItemTemplate>
                     <DataTemplate >
                         <Grid Padding="10" BackgroundColor="White" HorizontalOptions="Center">
@@ -41,7 +46,7 @@
                             </Grid.ColumnDefinitions>
                             <Image Grid.RowSpan="2"
                             Source="{Binding Image}"
-                            Aspect="AspectFill"
+                            Aspect="AspectFit"
                             HeightRequest="50"
                             WidthRequest="50" />
                             <Label Grid.Column="1"
@@ -53,8 +58,10 @@
                             FontAttributes="None"
                             VerticalOptions="End" />
                             <Button
-                                Text="More"
-                                Clicked="More_Details"/>
+                            Grid.Row="2"
+                            Grid.ColumnSpan="2"
+                            Text="More"
+                            Clicked="More_Details" />
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
