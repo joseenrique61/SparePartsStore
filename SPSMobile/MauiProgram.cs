@@ -1,11 +1,11 @@
 ﻿using Microsoft.Extensions.Logging;
 using SPSMobile.Data.ApiClient;
+using SPSMobile.Data.FileManager;
 using SPSMobile.Data.Repositories.CategoryRepository;
 using SPSMobile.Data.Repositories.ClientRepository;
 using SPSMobile.Data.Repositories.PurchaseOrderRepository;
 using SPSMobile.Data.Repositories.SparePartRepository;
 using SPSMobile.Data.UnitOfWork;
-using SPSMobile.Pages;
 using SPSMobile.Utilities;
 using System.Reflection;
 
@@ -28,21 +28,21 @@ namespace SPSMobile
 
 			// Authentication
 			builder.Services.AddSingleton<IAuthenticator, Authenticator>();
+
+			// File manager
+			builder.Services.AddScoped<IFileManager, FileManager>();
 			
-			// API Client
-			builder.Services.AddSingleton<IApiClient, ApiClient>();
+			//// API Client
+			//builder.Services.AddSingleton<IApiClient, ApiClient>();
 
 			// Repositories for the app
-			builder.Services.AddScoped<ISparePartRepository, SparePartRepository>();
-			builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-			builder.Services.AddScoped<IPurchaseOrderRepository, PurchaseOrderRepository>();
-			builder.Services.AddScoped<IClientRepository, ClientRepository>();
+			builder.Services.AddScoped<ISparePartRepository, LocalSparePartRepository>();
+			builder.Services.AddScoped<ICategoryRepository, LocalCategoryRepository>();
+			builder.Services.AddScoped<IPurchaseOrderRepository, LocalPurchaseOrderRepository>();
+			builder.Services.AddScoped<IClientRepository, LocalClientRepository>();
 
 			// Unit of work
 			builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
-			builder.Services.AddTransient<ProductPage>();
-			//builder.Services.AddTransient<CategoriesPage>();
-
 
 			// Pages
 			string pagesNamespace = "SPSMobile.Pages";

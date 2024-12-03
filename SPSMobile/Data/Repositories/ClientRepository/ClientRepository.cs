@@ -5,7 +5,7 @@ using System.Net.Http.Json;
 
 namespace SPSMobile.Data.Repositories.ClientRepository
 {
-	public class ClientRepository : IClientRepository
+	public class ClientRepository
 	{
 		private readonly IApiClient _client;
 

@@ -4,7 +4,7 @@ using System.Net.Http.Json;
 
 namespace SPSMobile.Data.Repositories.CategoryRepository
 {
-	public class CategoryRepository : ICategoryRepository
+	public class CategoryRepository
 	{
 		private readonly IApiClient _client;
 

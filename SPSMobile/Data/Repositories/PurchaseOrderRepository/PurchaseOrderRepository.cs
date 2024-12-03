@@ -4,7 +4,7 @@ using System.Net.Http.Json;
 
 namespace SPSMobile.Data.Repositories.PurchaseOrderRepository
 {
-	public class PurchaseOrderRepository : IPurchaseOrderRepository
+	public class PurchaseOrderRepository
 	{
 		private readonly IApiClient _client;
 

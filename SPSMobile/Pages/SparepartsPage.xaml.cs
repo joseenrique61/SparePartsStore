@@ -18,11 +18,11 @@ public partial class SparepartsPage : ContentPage
         InitializeComponent();
         LoadDependencies();
     }
-    public async void LoadDependencies()
+    public void LoadDependencies()
     {
         var mainViewModel = new SparePartsViewModel
         {
-            SpareParts = new ObservableCollection<SparePart>((await _unitOfOfWork.SparePart.GetAll())!)
+            SpareParts = new ObservableCollection<SparePart>((_unitOfOfWork.SparePart.GetAll())!)
         };
 
         BindingContext = mainViewModel;
