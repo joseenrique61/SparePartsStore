@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SPSMobile.Pages.ShoppingCartPage"
+             Title="My Cart">
+    <VerticalStackLayout>
+        <Label 
+            Text="Shopping Cart"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+
+        <CollectionView ItemsSource="{Binding Orders}" x:Name="OrdersList">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Padding="10" Margin="0,5" BorderColor="Gray" CornerRadius="5">
+                        <VerticalStackLayout>
+                            <!-- Información del repuesto -->
+                            <Label Text="{Binding SparePart.Name}" FontAttributes="Bold" FontSize="18" />
+                            <Label Text="{Binding Amount, StringFormat='Amount: {0}'}" />
+                            <Label Text="{Binding TotalPrice, StringFormat='Price: ${0:F2}'}" />
+
+                            <!-- Warnings -->
+                            <Label Text="There is not enough stock."
+                                       TextColor="Red"
+                                       IsVisible="{Binding IsWarning}" />
+
+                            <!-- Botón Eliminar -->
+                            <Button Text="Delete"
+                                        BackgroundColor="Red"
+                                        TextColor="White"
+                                         />
+                        </VerticalStackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
+</ContentPage>
