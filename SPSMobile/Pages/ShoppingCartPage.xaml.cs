@@ -1,25 +1,35 @@
 using SparePartsStoreWeb.Data.UnitOfWork;
 using SPSMobile.Data.Repositories.PurchaseOrderRepository;
 using SPSMobile.Data.UnitOfWork;
+using SPSMobile.Utilities;
 using SPSModels.Models;
 
 namespace SPSMobile.Pages;
 
 public partial class ShoppingCartPage : ContentPage
 {
-	private PurchaseOrder purchaseOrder;
-    private UnitOfWork _unitOfWork; 
-	public ShoppingCartPage()
+	private readonly IAuthenticator _authenticator;
+    private readonly IUnitOfWork _unitOfWork; 
+	private ClientViewModel _clientViewModel;
+    private PurchaseOrder purchaseOrder;
+	public ShoppingCartPage(IUnitOfWork unitOfWork)
 	{
 		InitializeComponent();
 	}
 
-	public async void LoadDependencies(UnitOfWork unitOfWork) 
+	public void LoadDependencies() 
 	{
-        /*_unitOfWork = unitOfWork;
-		purchaseOrder = await _unitOfWork.PurchaseOrder.GetCurrentByClientId(1);
-        BindingContext = purchaseOrder;*/
+        purchaseOrder = _unitOfWork.PurchaseOrder.GetCurrentByClientId(_authenticator.ClientInfo.ClientId);
+        BindingContext = purchaseOrder;
     }
 
+    private void DeleteSelectedItems(object sender, EventArgs e)
+    {
 
+    }
+
+    private void BuyItems(object sender, EventArgs e)
+    {
+        DisplayAlert("Alert", "¡Thanks for buying!", "Ok");
+    }
 }
