@@ -8,7 +8,7 @@
             <!-- ItemsSource="{Binding SpareParts} -->
             <Label
                 Text="Filter By Category"
-                Style="{StaticResource BodyLabel}" />  
+                Style="{StaticResource BodyLabel}" />
 
             <!-- Categories Filter -->
             <Picker x:Name="CategoryPicker"
@@ -18,7 +18,7 @@
                     ItemsSource="{Binding Categories}"
                     ItemDisplayBinding="{Binding Name}"
                     SelectedIndexChanged="OnCategorySelected" />
-            
+
             <!-- ItemsSource="{Binding SpareParts} -->
             <CollectionView 
                 Grid.Row="1"
@@ -54,11 +54,11 @@
                                     <ColumnDefinition Width="100" />
                                     <ColumnDefinition Width="200" />
                                 </Grid.ColumnDefinitions>
-                                <!--<Image  Grid.RowSpan="2"
-        Source="{Binding Image}"
-        Aspect="AspectFit"
-        HeightRequest="50"
-        WidthRequest="50" />-->
+                                <Image  Grid.RowSpan="2"
+                                        Source="{Binding Image}"
+                                        Aspect="AspectFit"
+                                        HeightRequest="50"
+                                        WidthRequest="50" />
                                 <Label  Grid.Column="1"
                                         VerticalOptions="Center"
                                         Text="{Binding Name}"
@@ -75,7 +75,7 @@
                                         Grid.ColumnSpan="2"
                                         Text="More"
                                         Clicked="More_Details" 
-                                        BackgroundColor="DarkRed"/>
+                                        BackgroundColor="{StaticResource Tertiary}"/>
                             </Grid>
                         </Border>
                     </DataTemplate>

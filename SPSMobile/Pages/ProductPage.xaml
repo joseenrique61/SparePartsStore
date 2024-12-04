@@ -63,7 +63,7 @@
                     <Button Text="Añadir al carrito"
                             Command="{Binding AddToCartCommand}" 
                             Clicked="OnAddToCartClicked"
-                            BackgroundColor="DarkRed" 
+                            BackgroundColor="{StaticResource Primary}" 
                             TextColor="White"
                             FontAttributes="Bold" />
                 </VerticalStackLayout>

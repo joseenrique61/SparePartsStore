@@ -5,7 +5,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:SPSMobile.Pages"
     Shell.FlyoutBehavior="Flyout"
-    Title="SpareParts Store">
+    Title="SpareParts Store"
+    Shell.TabBarForegroundColor="{StaticResource Secondary}"
+    Shell.TabBarTitleColor="{StaticResource Secondary}">
 
     <Shell.FlyoutHeader>
         <Grid BackgroundColor="DarkRed" HeightRequest="150">
@@ -13,13 +15,26 @@
         </Grid>
     </Shell.FlyoutHeader>
 
+    <Shell.TitleView>
+        <HorizontalStackLayout 
+              BackgroundColor="{StaticResource Primary}"
+              VerticalOptions="Fill">
+            <Label x:Name="title" 
+                   FontSize="24" 
+                   FontAttributes="Bold" 
+                   TextColor="Black" 
+                   VerticalOptions="Center"
+                   Margin="10,0,0,0"/>
+        </HorizontalStackLayout>
+    </Shell.TitleView>
+
     <FlyoutItem Title="Home" Icon="{StaticResource HomeIcon}">
         <ShellContent
             Title="Home"
             ContentTemplate="{DataTemplate local:MainPage}"
             Route="MainPage" 
-            Icon="{StaticResource HomeIcon}"
-        />
+            Icon="{StaticResource HomeIcon}"/>
+
         <ShellContent
             Title="Information"
             ContentTemplate="{DataTemplate local:InformationPage}"
