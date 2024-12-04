@@ -60,7 +60,9 @@ namespace SPSMobile.Data.Repositories.CategoryRepository
 				return false;
 			}
 
-			temp = category;
+			int index = categories.IndexOf(temp);
+			categories.Remove(temp);
+			categories.Insert(index, category);
 
 			_fileManager.SaveFile(FileName, categories);
 			return true;

@@ -49,7 +49,7 @@ namespace SPSMobile.Data.Repositories.PurchaseOrderRepository
 				return purchaseOrders[0];
 			}
 
-			PurchaseOrder? purchaseOrder = purchaseOrders.Find(c => c.ClientId == id && c.PurchaseCompleted);
+			PurchaseOrder? purchaseOrder = purchaseOrders.Find(c => c.ClientId == id && !c.PurchaseCompleted);
 			if (purchaseOrder == null)
 			{
 				purchaseOrders.Add(new PurchaseOrder()
@@ -59,6 +59,7 @@ namespace SPSMobile.Data.Repositories.PurchaseOrderRepository
 					PurchaseCompleted = false,
 					Orders = []
 				});
+				_fileManager.SaveFile(FileName, purchaseOrders);
 				return purchaseOrders.Last();
 			}
 			return purchaseOrder;
@@ -93,7 +94,9 @@ namespace SPSMobile.Data.Repositories.PurchaseOrderRepository
 				return false;
 			}
 
-			temp = purchaseOrder;
+			int index = purchaseOrders.IndexOf(temp);
+			purchaseOrders.Remove(temp);
+			purchaseOrders.Insert(index, purchaseOrder);
 
 			_fileManager.SaveFile(FileName, purchaseOrders);
 			return true;

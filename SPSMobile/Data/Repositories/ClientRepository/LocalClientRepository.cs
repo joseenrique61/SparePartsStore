@@ -64,6 +64,10 @@ namespace SPSMobile.Data.Repositories.ClientRepository
 			}
 
 			client.Id = clients.Count != 0 ? clients.Last().Id + 1 : 1;
+			client.UserId = client.Id;
+			client.User!.PasswordHash = PasswordHasher.Hash(client.User!.Password!);
+			client.User.Password = null;
+
 			clients.Add(client);
 			_fileManager.SaveFile(FileName, clients);
 

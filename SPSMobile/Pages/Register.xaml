@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SPSMobile.Pages.Register"
+             Title="Register">
+    <ScrollView Padding="0, 40">
+        <Grid VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+            <StackLayout  VerticalOptions="CenterAndExpand" HorizontalOptions="Center" >
+                <Label Text="Email" FontSize="16"/>
+                <Label HeightRequest="15"/>
+                <Entry x:Name="txtinputEmail"
+                Placeholder="Enter your email" 
+                Keyboard="Default"
+             />
+                <Label HeightRequest="20"/>
+
+                <Label Text="Password" FontSize="16" />
+                <Label HeightRequest="15"/>
+                <Entry x:Name="txtinputPassword"
+             Placeholder="Enter your password"
+             Keyboard="Default"
+             />
+                <Label HeightRequest="20"/>
+
+                <BoxView HeightRequest="1" BackgroundColor="#CCCCCC" Margin="0,0,0,10"/>
+
+                <Label HeightRequest="20"/>
+                <Label Text="Name" FontSize="16"/>
+                <Label HeightRequest="15"/>
+                <Entry x:Name="txtinputName"
+             Placeholder="Enter your name"
+             Keyboard="Default"
+            />
+
+
+                <Label HeightRequest="20"/>
+                <Label Text="Address" FontSize="16"/>
+                <Label HeightRequest="15"/>
+                <Entry x:Name="txtinputAddress"
+            Placeholder="Enter your address"
+            Keyboard="Default"
+            />
+
+
+                <Label HeightRequest="20"/>
+                <Label Text="City" FontSize="16"/>
+                <Label HeightRequest="15"/>
+                <Entry x:Name="txtinputCity"
+            Placeholder="Enter the city you are living on"
+            Keyboard="Default"
+            />
+
+
+                <Label HeightRequest="20"/>
+                <Label Text="Country" FontSize="16"/>
+                <Label HeightRequest="15"/>
+                <Entry x:Name="txtinputCountry"
+            Placeholder="Enter the city you are living on"
+            Keyboard="Default"
+            />
+                <Label HeightRequest="35"/>
+                <Button 
+            Text="Create Account" Clicked="Button_Clicked" BackgroundColor="#78C2AD" TextColor="#FFFFFF" FontAttributes="Bold" />
+            </StackLayout>
+        </Grid>
+    </ScrollView>
+</ContentPage>

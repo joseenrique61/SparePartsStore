@@ -19,10 +19,10 @@
             Keyboard="Default"/>
            <Label HeightRequest="30"/>
            <Button 
-           Text="Next"  BackgroundColor="#4AB087" TextColor="#FBFDFC" FontAttributes="Bold"/>
+           Text="Next" Clicked="Login_Clicked" BackgroundColor="#4AB087" TextColor="#FBFDFC" FontAttributes="Bold"/>
            <Label HeightRequest="30"/>
            <Button 
-           Text="Create Account"  BackgroundColor="#78C2AD" TextColor="#FFFFFF" FontAttributes="Bold" />
+           Text="Create Account" Clicked="Register_Clicked" BackgroundColor="#78C2AD" TextColor="#FFFFFF" FontAttributes="Bold" />
        </StackLayout>
    </Grid>
 </ContentPage>

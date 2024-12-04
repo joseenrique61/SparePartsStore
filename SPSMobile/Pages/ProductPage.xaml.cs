@@ -59,7 +59,7 @@ public partial class ProductPage : ContentPage
 			return;
 		}
 		PurchaseOrder purchaseOrder = _unitOfWork.PurchaseOrder.GetCurrentByClientId(_authenticator.ClientInfo.ClientId);
-		Order? order = purchaseOrder.Orders.FirstOrDefault(o => o.SparePart!.Id == _product.Id);
+		Order? order = purchaseOrder.Orders.FirstOrDefault(o => o.SparePartId == _product.Id);
 		if (order == null)
 		{
 			purchaseOrder.Orders.Add(new Order

@@ -74,8 +74,11 @@ namespace SPSMobile.Data.Repositories.SparePartRepository
 				return false;
 			}
 
-			temp = sparePart;
-			temp.Category = null;
+			sparePart.Category = null;
+
+			int index = spareParts.IndexOf(temp);
+			spareParts.Remove(temp);
+			spareParts.Insert(index, sparePart);
 
 			//Image logic
 
