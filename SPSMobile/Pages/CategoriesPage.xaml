@@ -3,10 +3,21 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SPSMobile.Pages.CategoriesPage"
              Title="Categories">
-    <VerticalStackLayout>
+    <VerticalStackLayout Spacing="20">
         <Label 
-            Text="Welcome to .NET MAUI!"
+            Text="Error :("
+            Style="{StaticResource TittleLabel}"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
+        <Label 
+            Text="This page is not working"
+            Style="{StaticResource BodyLabel}"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Image
+            Source="{StaticResource Logo}"
+            Aspect="AspectFit"
+            HeightRequest="150"
+            />
     </VerticalStackLayout>
 </ContentPage>

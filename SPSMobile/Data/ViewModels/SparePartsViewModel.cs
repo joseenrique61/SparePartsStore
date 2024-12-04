@@ -40,7 +40,7 @@ public class SparePartsViewModel
             Name="Balancines",
             Description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Facile est hoc cernere in primis puerorum aetatulis. Cur, nisi quod turpis oratio est?",
             Stock=200,
-            Image="pastillas_freno.jpg",
+            Image="balancines_motor.jpg",
             Price=250.0,
             CategoryId=1,
             Category = new Category
@@ -131,7 +131,7 @@ public class SparePartsViewModel
             Name="Zapatas",
             Description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Facile est hoc cernere in primis puerorum aetatulis. Cur, nisi quod turpis oratio est?",
             Stock=60,
-            Image="pastillas_freno.jpg",
+            Image="zapatas_freno.jpg",
             Price=25.0,
             CategoryId=2,
             Category = new Category
@@ -146,7 +146,7 @@ public class SparePartsViewModel
             Name="Termostato",
             Description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Facile est hoc cernere in primis puerorum aetatulis. Cur, nisi quod turpis oratio est?",
             Stock=20,
-            Image="pastillas_freno.jpg",
+            Image="termostato_refrigeracion.jpg",
             Price=150.0,
             CategoryId=3,
             Category = new Category
