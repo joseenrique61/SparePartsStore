@@ -6,5 +6,10 @@
 		{
 			InitializeComponent();
 		}
+		protected override void OnNavigated(ShellNavigatedEventArgs args)
+		{
+			base.OnNavigated(args);
+			title.Text = Current.CurrentPage.Title;
+		}
 	}
 }
