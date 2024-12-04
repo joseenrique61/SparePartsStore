@@ -51,7 +51,7 @@
                         <Button Text="Buy"
                              BackgroundColor="Green"
                              TextColor="White"
-                             Clicked="Button_Clicked" />
+                             Clicked="BuyItems" />
                     </VerticalStackLayout>
                 </Frame>
             </VerticalStackLayout>

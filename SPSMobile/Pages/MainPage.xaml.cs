@@ -22,12 +22,11 @@ public partial class MainPage : ContentPage
 
     public void LoadDependencies() 
     {
-        _sparePartsViewModel = new SparePartsViewModel();
-        /*
-         {
-            SpareParts = new ObservableCollection<SparePart>((await _unitOfOfWork.SparePart.GetAll())!),
-            Categories = new ObservableCollection<Category>((await _unitOfOfWork.Category.GetAll())!)
-        };*/
+        _sparePartsViewModel = new SparePartsViewModel()
+        {
+            SpareParts = new ObservableCollection<SparePart>((_unitOfOfWork.SparePart.GetAll())!),
+            Categories = new ObservableCollection<Category>((_unitOfOfWork.Category.GetAll())!)
+        };
 
         BindingContext = _sparePartsViewModel;
 
@@ -48,12 +47,11 @@ public partial class MainPage : ContentPage
     private void OnCategorySelected(object sender, EventArgs e)
     {
         var selectedCategory = (Category)CategoryPicker.SelectedItem;
-        var sparePartsViewModel = new SparePartsViewModel();
-        /*
-         {
-            SpareParts = new ObservableCollection<SparePart>((await _unitOfOfWork.SparePart.GetAll())!),
-            Categories = new ObservableCollection<Category>((await _unitOfOfWork.Category.GetAll())!)
-        };*/
+        var sparePartsViewModel = new SparePartsViewModel()
+        {
+            SpareParts = new ObservableCollection<SparePart>((_unitOfOfWork.SparePart.GetAll())!),
+            Categories = new ObservableCollection<Category>((_unitOfOfWork.Category.GetAll())!)
+        };
 
         IEnumerable<SparePart> FilteredSpareParts;
 

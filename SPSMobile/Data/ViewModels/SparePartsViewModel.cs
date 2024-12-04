@@ -17,7 +17,7 @@ public class SparePartsViewModel
         "motor.jpeg",
         "radiador.webp"
     };
-    public ObservableCollection<SparePart> SpareParts { get; set; } = new ObservableCollection<SparePart>
+    public ObservableCollection<SparePart> SpareParts { get; set; }/* = new ObservableCollection<SparePart>
     {
         new SparePart 
         {
@@ -170,14 +170,14 @@ public class SparePartsViewModel
                 Name = "Refrigeracion",
             }
         }
-    };
-    public ObservableCollection<Category> Categories { get; set; } = new ObservableCollection<Category>
+    };*/
+    public ObservableCollection<Category> Categories { get; set; }/* = new ObservableCollection<Category>
     {
         new Category { Id = 0, Name = "All" },
         new Category { Id = 1, Name = "Motor" },
         new Category { Id = 2, Name = "Frenos" },
         new Category { Id = 3, Name = "Refrigeracion" }
-    };
+    };*/
     public ObservableCollection<SparePart> FilteredCategories { get; set; }
 
 }

@@ -44,6 +44,9 @@ namespace SPSMobile
 			// Unit of work
 			builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 
+			// Data seeder
+			builder.Services.AddScoped<IDataSeeder, DataSeeder>();
+
 			// Pages
 			string pagesNamespace = "SPSMobile.Pages";
 			IEnumerable<Type> pages = from type in Assembly.GetExecutingAssembly().GetTypes()
@@ -58,7 +61,13 @@ namespace SPSMobile
 			builder.Logging.AddDebug();
 #endif
 
-			return builder.Build();
+			MauiApp mauiApp = builder.Build();
+			using (IServiceScope serviceScope = mauiApp.Services.CreateScope())
+			{
+				serviceScope.ServiceProvider.GetRequiredService<IDataSeeder>().Seed();
+			}
+
+			return mauiApp;
 		}
 	}
 }

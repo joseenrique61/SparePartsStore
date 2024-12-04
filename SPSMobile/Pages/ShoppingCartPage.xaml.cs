@@ -30,6 +30,6 @@ public partial class ShoppingCartPage : ContentPage
 
     private void BuyItems(object sender, EventArgs e)
     {
-        DisplayAlert("Alert", "¡Thanks for buying!", "Ok");
+        DisplayAlert("Alert", "Thanks for buying!", "Ok");
     }
 }
