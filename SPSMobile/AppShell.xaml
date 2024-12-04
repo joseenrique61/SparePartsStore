@@ -11,7 +11,7 @@
 
     <Shell.FlyoutHeader>
         <Grid BackgroundColor="DarkRed" HeightRequest="150">
-            <Image Source="spareparts.png" Aspect="AspectFit" Opacity=".5"/>
+            <Image Source="{StaticResource Logo}" Aspect="AspectFit" Opacity=".5"/>
         </Grid>
     </Shell.FlyoutHeader>
 
