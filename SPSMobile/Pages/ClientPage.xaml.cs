@@ -26,6 +26,6 @@ public partial class ClientPage : ContentPage
 
     private void LogOutClicked(object sender, EventArgs e)
     {
-
+        _unitOfWork.Client.Logout();
     }
 }
