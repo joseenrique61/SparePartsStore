@@ -73,5 +73,17 @@ namespace SPSMobile.Data.Repositories.ClientRepository
 
 			return true;
 		}
+
+		public bool Logout()
+		{
+			_authenticator.ClientInfo = new JWTResponse
+			{
+				ClientId = 0,
+				Email = "",
+				Role = "",
+				Token = ""
+			};
+			return true;
+		}
 	}
 }
