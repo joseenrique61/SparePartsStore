@@ -5,8 +5,19 @@
              Title="My Profile">
     <VerticalStackLayout>
         <Label 
-            Text="Welcome to .NET MAUI!"
+            Text="About me"
+            Style="{StaticResource TittleLabel}"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
+        <Label 
+            Text="{Binding Email, StringFormat='Email: {0}'}"
+            Style="{StaticResource BodyLabel}"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Button
+            Text="Log out"
+            VerticalOptions="Center"
+            HorizontalOptions="Center"
+            Clicked="LogOutClicked" />
     </VerticalStackLayout>
 </ContentPage>

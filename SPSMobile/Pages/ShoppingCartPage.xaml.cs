@@ -12,9 +12,12 @@ public partial class ShoppingCartPage : ContentPage
     private readonly IUnitOfWork _unitOfWork; 
 	private ClientViewModel _clientViewModel;
     private PurchaseOrder purchaseOrder;
-	public ShoppingCartPage(IUnitOfWork unitOfWork)
+	public ShoppingCartPage(IUnitOfWork unitOfWork, IAuthenticator authenticator)
 	{
+        _unitOfWork = unitOfWork;
+        _authenticator = authenticator;
 		InitializeComponent();
+        LoadDependencies();
 	}
 
 	public void LoadDependencies() 
