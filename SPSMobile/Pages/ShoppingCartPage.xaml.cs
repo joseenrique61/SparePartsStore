@@ -1,20 +1,24 @@
 using SparePartsStoreWeb.Data.UnitOfWork;
 using SPSMobile.Data.Repositories.PurchaseOrderRepository;
+using SPSMobile.Data.UnitOfWork;
+using SPSModels.Models;
 
 namespace SPSMobile.Pages;
 
 public partial class ShoppingCartPage : ContentPage
 {
-	private PurchaseOrderRepository _repository; 
+	private PurchaseOrder purchaseOrder;
+    private UnitOfWork _unitOfWork; 
 	public ShoppingCartPage()
 	{
 		InitializeComponent();
 	}
 
-	public void LoadDependencies() 
+	public async void LoadDependencies(UnitOfWork unitOfWork) 
 	{
-        _repository = ;
-        BindingContext = _repository;
+        /*_unitOfWork = unitOfWork;
+		purchaseOrder = await _unitOfWork.PurchaseOrder.GetCurrentByClientId(1);
+        BindingContext = purchaseOrder;*/
     }
 
 

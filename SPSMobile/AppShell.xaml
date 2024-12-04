@@ -10,7 +10,7 @@
     Shell.TabBarTitleColor="{StaticResource Secondary}">
 
     <Shell.FlyoutHeader>
-        <Grid BackgroundColor="DarkRed" HeightRequest="150">
+        <Grid BackgroundColor="{StaticResource Primary}" HeightRequest="150">
             <Image Source="{StaticResource Logo}" Aspect="AspectFit" Opacity=".5"/>
         </Grid>
     </Shell.FlyoutHeader>
@@ -64,6 +64,12 @@
             ContentTemplate="{DataTemplate local:ClientPage}"
             Route="ClientPage"
             Icon="{StaticResource ProfileIcon}"
+        />
+        <ShellContent
+            Title="My Cart"
+            ContentTemplate="{DataTemplate local:ShoppingCartPage}"
+            Route="ShoppingCartPage"
+            Icon="{StaticResource CarIcon}"
         />
     </FlyoutItem>
 </Shell>
