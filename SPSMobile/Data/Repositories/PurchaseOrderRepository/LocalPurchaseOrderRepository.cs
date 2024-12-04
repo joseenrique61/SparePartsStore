@@ -1,4 +1,5 @@
 ﻿using SPSMobile.Data.FileManager;
+using SPSMobile.Data.Repositories.SparePartRepository;
 using SPSModels.Models;
 
 namespace SPSMobile.Data.Repositories.PurchaseOrderRepository
@@ -8,6 +9,13 @@ namespace SPSMobile.Data.Repositories.PurchaseOrderRepository
 		public string FileName { get; init; } = "purchaseOrders.json";
 
 		private readonly FileManager<List<PurchaseOrder>> _fileManager = new();
+
+		private readonly ISparePartRepository _sparePartRepository;
+
+		public LocalPurchaseOrderRepository(ISparePartRepository sparePartRepository)
+		{
+			_sparePartRepository = sparePartRepository;
+		}
 
 		public List<PurchaseOrder>? GetAll()
 		{
@@ -21,7 +29,17 @@ namespace SPSMobile.Data.Repositories.PurchaseOrderRepository
 			{
 				return null;
 			}
-			return purchaseOrders.Where(c => c.Id == id).ToList();
+
+			IEnumerable<PurchaseOrder> x = purchaseOrders.Where(c => c.Id == id);
+			foreach (PurchaseOrder purchaseOrder in x)
+			{
+				foreach (Order order in purchaseOrder.Orders)
+				{
+					order.SparePart = _sparePartRepository.GetById(order.SparePartId);
+				}
+			}
+
+			return x.ToList();
 		}
 
 		public PurchaseOrder? GetById(int id)
@@ -31,7 +49,19 @@ namespace SPSMobile.Data.Repositories.PurchaseOrderRepository
 			{
 				return null;
 			}
-			return purchaseOrders.Find(c => c.Id == id);
+
+			PurchaseOrder? purchaseOrder = purchaseOrders.Find(c => c.Id == id);
+			if (purchaseOrder == null)
+			{
+				return null;
+			}
+
+			foreach (Order order in purchaseOrder.Orders)
+			{
+				order.SparePart = _sparePartRepository.GetById(order.SparePartId);
+			}
+
+			return purchaseOrder;
 		}
 
 		public PurchaseOrder GetCurrentByClientId(int id)
@@ -62,6 +92,12 @@ namespace SPSMobile.Data.Repositories.PurchaseOrderRepository
 				_fileManager.SaveFile(FileName, purchaseOrders);
 				return purchaseOrders.Last();
 			}
+
+			foreach (Order order in purchaseOrder.Orders)
+			{
+				order.SparePart = _sparePartRepository.GetById(order.SparePartId);
+			}
+
 			return purchaseOrder;
 		}
 
@@ -94,6 +130,11 @@ namespace SPSMobile.Data.Repositories.PurchaseOrderRepository
 				return false;
 			}
 
+			foreach (Order order in purchaseOrder.Orders)
+			{
+				order.SparePart = null;
+			}
+			
 			int index = purchaseOrders.IndexOf(temp);
 			purchaseOrders.Remove(temp);
 			purchaseOrders.Insert(index, purchaseOrder);
