@@ -1,5 +1,6 @@
 using SPSMobile.Data.UnitOfWork;
 using SPSMobile.Data.ViewModels;
+using SPSMobile.Utilities;
 using SPSModels.Models;
 using System.Collections.ObjectModel;
 
@@ -30,7 +31,7 @@ public partial class SparepartsPage : ContentPage
         if (e.CurrentSelection.Count != 0)
         {
             var product = (SparePart)e.CurrentSelection[0];
-            Navigation.PushAsync(new ProductPage(product));
+            Navigation.PushAsync(new ProductPage(product, _serviceProvider.GetRequiredService<IUnitOfWork>(), _serviceProvider.GetRequiredService<IAuthenticator>(), _serviceProvider));
 
             collectionItems.SelectedItem = null;
         }

@@ -8,13 +8,12 @@ namespace SPSMobile.Data.Repositories.ClientRepository
 	{
 		public string FileName { get; init; } = "clients.json";
 
-		private readonly IFileManager _fileManager;
+		private readonly FileManager<List<Client>> _fileManager = new();
 
 		private readonly IAuthenticator _authenticator;
 
-		public LocalClientRepository(IFileManager fileManager, IAuthenticator authenticator)
+		public LocalClientRepository(IAuthenticator authenticator)
 		{
-			_fileManager = fileManager;
 			_authenticator = authenticator;
 		}
 

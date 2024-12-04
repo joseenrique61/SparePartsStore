@@ -29,8 +29,8 @@ namespace SPSMobile
 			// Authentication
 			builder.Services.AddSingleton<IAuthenticator, Authenticator>();
 
-			// File manager
-			builder.Services.AddScoped<IFileManager, FileManager>();
+			//// File manager
+			//builder.Services.AddScoped<IFileManager, FileManager>();
 			
 			//// API Client
 			//builder.Services.AddSingleton<IApiClient, ApiClient>();

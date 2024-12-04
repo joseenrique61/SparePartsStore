@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SPSMobile.Pages.Login"
+             Title="Login">
+    <Grid VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+
+       <StackLayout  VerticalOptions="CenterAndExpand" HorizontalOptions="Center" >
+           <Label Text="Email" FontSize="16"/>
+           <Label HeightRequest="30"/>
+           <Entry x:Name="txtinputEmail"
+               Placeholder="Enter your email" 
+               Keyboard="Default"/>
+           <Label HeightRequest="30"/>
+           <Label Text="Password" FontSize="16" />
+           <Label HeightRequest="30"/>
+           <Entry x:Name="txtinputPassword"
+            Placeholder="Enter your password"
+            Keyboard="Default"/>
+           <Label HeightRequest="30"/>
+           <Button 
+           Text="Next"  BackgroundColor="#4AB087" TextColor="#FBFDFC" FontAttributes="Bold"/>
+           <Label HeightRequest="30"/>
+           <Button 
+           Text="Create Account"  BackgroundColor="#78C2AD" TextColor="#FFFFFF" FontAttributes="Bold" />
+       </StackLayout>
+   </Grid>
+</ContentPage>

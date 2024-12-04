@@ -8,13 +8,12 @@ namespace SPSMobile.Data.Repositories.SparePartRepository
 	{
 		public string FileName { get; init; } = "spareParts.json";
 
-		private readonly IFileManager _fileManager;
+		private readonly FileManager<List<SparePart>> _fileManager = new();
 
 		private readonly ICategoryRepository _categoryRepository;
 
-		public LocalSparePartRepository(IFileManager fileManager, ICategoryRepository categoryRepository)
+		public LocalSparePartRepository(ICategoryRepository categoryRepository)
 		{
-			_fileManager = fileManager;
 			_categoryRepository = categoryRepository;
 		}
 

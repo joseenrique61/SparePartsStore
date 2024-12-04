@@ -44,7 +44,7 @@
                                 Text="-" 
                                 Clicked="OnDecreaseQuantityClicked" 
                                 IsEnabled="{Binding CanDecreaseQuantity}" 
-                                BackgroundColor="PaleVioletRed" />
+                                BackgroundColor="{StaticResource Secondary}" />
 
                         <Label x:Name="QuantityLabel"
                                Text="{Binding DesiredQuantity}" 
@@ -56,11 +56,11 @@
                                 Text="+"
                                 Clicked="OnIncreaseQuantityClicked" 
                                 IsEnabled="{Binding CanIncreaseQuantity}" 
-                                BackgroundColor="PaleVioletRed" />
+                                BackgroundColor="{StaticResource Tertiary}" />
                     </HorizontalStackLayout>
 
                     <!-- Botón añadir al carrito -->
-                    <Button Text="Añadir al carrito"
+                    <Button Text="Add to cart"
                             Command="{Binding AddToCartCommand}" 
                             Clicked="OnAddToCartClicked"
                             BackgroundColor="{StaticResource Primary}" 

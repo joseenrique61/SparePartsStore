@@ -7,12 +7,7 @@ namespace SPSMobile.Data.Repositories.CategoryRepository
 	{
 		public string FileName { get; init; } = "categories.json";
 
-		private readonly IFileManager _fileManager;
-
-		public LocalCategoryRepository(IFileManager fileManager)
-		{
-			_fileManager = fileManager;
-		}
+		private readonly FileManager<List<Category>> _fileManager = new();
 
 		public bool Create(Category category)
 		{

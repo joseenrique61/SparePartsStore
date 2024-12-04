@@ -7,12 +7,7 @@ namespace SPSMobile.Data.Repositories.PurchaseOrderRepository
 	{
 		public string FileName { get; init; } = "purchaseOrders.json";
 
-		private readonly IFileManager _fileManager;
-
-		public LocalPurchaseOrderRepository(IFileManager fileManager)
-		{
-			_fileManager = fileManager;
-		}
+		private readonly FileManager<List<PurchaseOrder>> _fileManager = new();
 
 		public List<PurchaseOrder>? GetAll()
 		{
@@ -47,7 +42,8 @@ namespace SPSMobile.Data.Repositories.PurchaseOrderRepository
 				purchaseOrders = [new PurchaseOrder() {
 					Id = 1,
 					ClientId = id,
-					PurchaseCompleted = false
+					PurchaseCompleted = false,
+					Orders = []
 				}];
 				_fileManager.SaveFile(FileName, purchaseOrders);
 				return purchaseOrders[0];
@@ -60,7 +56,8 @@ namespace SPSMobile.Data.Repositories.PurchaseOrderRepository
 				{
 					Id = purchaseOrders.Count != 0 ? purchaseOrders.Last().Id + 1 : 1,
 					ClientId = id,
-					PurchaseCompleted = false
+					PurchaseCompleted = false,
+					Orders = []
 				});
 				return purchaseOrders.Last();
 			}
