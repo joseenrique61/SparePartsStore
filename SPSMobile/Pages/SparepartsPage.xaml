@@ -8,7 +8,17 @@
             <!-- ItemsSource="{Binding SpareParts} -->
             <Label
                 Text="Filter By Category"
-                Style="{StaticResource SubHeadline}" />  
+                Style="{StaticResource BodyLabel}" />  
+
+            <!-- Categories Filter -->
+            <Picker x:Name="CategoryPicker"
+                    Title="Select a Category"
+                    HorizontalOptions="Center"
+                    WidthRequest="300"
+                    ItemsSource="{Binding Categories}"
+                    ItemDisplayBinding="{Binding Name}"
+                    SelectedIndexChanged="OnCategorySelected" />
+            
             <!-- ItemsSource="{Binding SpareParts} -->
             <CollectionView 
                 Grid.Row="1"

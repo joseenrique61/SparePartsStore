@@ -29,6 +29,8 @@ public partial class MainPage : ContentPage
         };*/
 
         BindingContext = _sparePartsViewModel;
+
+        CategoryPicker.SelectedIndex = 0;
     }
 
     private void SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -54,27 +56,22 @@ public partial class MainPage : ContentPage
 
         IEnumerable<SparePart> FilteredSpareParts;
 
-        if (selectedCategory != null)
-        {
-            FilteredSpareParts = _sparePartsViewModel.SpareParts
-                .Where(sp => sp.CategoryId == selectedCategory.Id)
-                .AsEnumerable();
-            /*if (!FilteredSpareParts.Any()) 
-            { 
-                selectedCategory = null;
-                CategoryPicker.SelectedItem = null;
-            }*/
-        }
+        if (selectedCategory != null && selectedCategory.Name != "All")
+            FilteredSpareParts = sparePartsViewModel.SpareParts.
+                Where(sp => sp.CategoryId == selectedCategory.Id).
+                AsEnumerable();
         else
-        {
-            FilteredSpareParts = _sparePartsViewModel.SpareParts;
-        }
+            FilteredSpareParts = sparePartsViewModel.SpareParts;
 
         if (!FilteredSpareParts.Any())
         {
-            sparePartsViewModel.SpareParts = _sparePartsViewModel.SpareParts;
-            selectedCategory = null;
+            DisplayAlert("Alert", "I'm sorry, there are not products in the selected category", "Ok");
+            sparePartsViewModel.SpareParts = sparePartsViewModel.SpareParts;
             CategoryPicker.SelectedItem = null;
+        }
+        else
+        {
+            sparePartsViewModel.SpareParts = new ObservableCollection<SparePart>(FilteredSpareParts);
         }
 
         /*

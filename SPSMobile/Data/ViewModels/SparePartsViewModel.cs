@@ -173,6 +173,7 @@ public class SparePartsViewModel
     };
     public ObservableCollection<Category> Categories { get; set; } = new ObservableCollection<Category>
     {
+        new Category { Id = 0, Name = "All" },
         new Category { Id = 1, Name = "Motor" },
         new Category { Id = 2, Name = "Frenos" },
         new Category { Id = 3, Name = "Refrigeracion" }
