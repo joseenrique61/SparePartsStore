@@ -13,8 +13,6 @@ namespace SPSMobile
 {
 	public static class MauiProgram
 	{
-		private static readonly bool UseAPI = true;
-
 		public static MauiApp CreateMauiApp()
 		{
 			var builder = MauiApp.CreateBuilder();
@@ -30,7 +28,7 @@ namespace SPSMobile
 			builder.Services.AddSingleton<IAuthenticator, Authenticator>();
 
 			// Inject the repositories based on the configuration
-			InjectRepositories(builder, UseAPI);
+			InjectRepositories(builder);
 
 			// Unit of work
 			builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
@@ -51,21 +49,28 @@ namespace SPSMobile
 
 			MauiApp mauiApp = builder.Build();
 
-			if (!UseAPI)
+#if NO_API
+			using (IServiceScope serviceScope = mauiApp.Services.CreateScope())
 			{
-				using (IServiceScope serviceScope = mauiApp.Services.CreateScope())
-				{
-					serviceScope.ServiceProvider.GetRequiredService<IDataSeeder>().Seed();
-				}
+				serviceScope.ServiceProvider.GetRequiredService<IDataSeeder>().Seed();
 			}
+#endif
 
 			return mauiApp;
 		}
 
-		private static void InjectRepositories(MauiAppBuilder builder, bool api)
+		private static void InjectRepositories(MauiAppBuilder builder)
 		{
-			if (api)
-			{
+#if NO_API
+				// Repositories for the app
+				builder.Services.AddScoped<ISparePartRepository, LocalSparePartRepository>();
+				builder.Services.AddScoped<ICategoryRepository, LocalCategoryRepository>();
+				builder.Services.AddScoped<IPurchaseOrderRepository, LocalPurchaseOrderRepository>();
+				builder.Services.AddScoped<IClientRepository, LocalClientRepository>();
+
+				// Data seeder
+				builder.Services.AddScoped<IDataSeeder, DataSeeder>();
+#else
 				// HttpClient
 				builder.Services.AddTransient<HttpClient>();
 
@@ -77,18 +82,7 @@ namespace SPSMobile
 				builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 				builder.Services.AddScoped<IPurchaseOrderRepository, PurchaseOrderRepository>();
 				builder.Services.AddScoped<IClientRepository, ClientRepository>();
-			}
-			else
-			{
-				// Repositories for the app
-				builder.Services.AddScoped<ISparePartRepository, LocalSparePartRepository>();
-				builder.Services.AddScoped<ICategoryRepository, LocalCategoryRepository>();
-				builder.Services.AddScoped<IPurchaseOrderRepository, LocalPurchaseOrderRepository>();
-				builder.Services.AddScoped<IClientRepository, LocalClientRepository>();
-
-				// Data seeder
-				builder.Services.AddScoped<IDataSeeder, DataSeeder>();
-			}
+#endif
 		}
 	}
 }
