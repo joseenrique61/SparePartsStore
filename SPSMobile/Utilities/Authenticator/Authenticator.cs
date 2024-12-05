@@ -1,7 +1,7 @@
 ﻿using SPSModels.Models;
 using System.Text.Json;
 
-namespace SPSMobile.Utilities
+namespace SPSMobile.Utilities.Authenticator
 {
 	public class Authenticator : IAuthenticator
 	{
@@ -16,6 +16,8 @@ namespace SPSMobile.Utilities
 				SaveFile();
 			}
 		}
+
+		public bool IsSignedIn { get => ClientInfo.ClientId != 0; }
 
 		public Authenticator()
 		{

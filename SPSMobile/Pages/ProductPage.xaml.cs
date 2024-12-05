@@ -1,5 +1,5 @@
 using SPSMobile.Data.UnitOfWork;
-using SPSMobile.Utilities;
+using SPSMobile.Utilities.Authenticator;
 using SPSModels.Models;
 
 namespace SPSMobile.Pages;

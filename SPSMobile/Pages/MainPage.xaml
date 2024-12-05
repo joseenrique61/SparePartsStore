@@ -37,7 +37,7 @@
                     WidthRequest="300"
                     ItemsSource="{Binding Categories}"
                     ItemDisplayBinding="{Binding Name}"
-                    SelectedIndexChanged="OnCategorySelected" />
+                     />
 
             <!-- {Binding SpareParts} -->
             <Grid RowDefinitions=".2*,.8*"

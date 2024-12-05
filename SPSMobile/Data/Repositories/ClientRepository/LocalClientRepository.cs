@@ -1,5 +1,6 @@
 ﻿using SPSMobile.Data.FileManager;
 using SPSMobile.Utilities;
+using SPSMobile.Utilities.Authenticator;
 using SPSModels.Models;
 
 namespace SPSMobile.Data.Repositories.ClientRepository

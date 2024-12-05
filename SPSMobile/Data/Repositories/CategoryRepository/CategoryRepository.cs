@@ -4,7 +4,7 @@ using System.Net.Http.Json;
 
 namespace SPSMobile.Data.Repositories.CategoryRepository
 {
-	public class CategoryRepository
+	public class CategoryRepository : ICategoryRepository
 	{
 		private readonly IApiClient _client;
 
@@ -13,51 +13,51 @@ namespace SPSMobile.Data.Repositories.CategoryRepository
 			_client = client;
 		}
 
-		public async Task<List<Category>?> GetAll()
+		public List<Category>? GetAll()
 		{
-			HttpResponseMessage response = await _client.Get<Category>("all");
+			HttpResponseMessage response = _client.Get<Category>("all");
 			if (response.IsSuccessStatusCode)
 			{
-				return await response.Content.ReadFromJsonAsync<List<Category>>();
+				return response.Content.ReadFromJsonAsync<List<Category>>().Result;
 			}
 			return null;
 		}
 
-		public async Task<Category?> GetById(int id)
+		public Category? GetById(int id)
 		{
-			HttpResponseMessage response = await _client.Get<Category>($"byId/{id}");
+			HttpResponseMessage response = _client.Get<Category>($"byId/{id}");
 			if (response.IsSuccessStatusCode)
 			{
-				return await response.Content.ReadFromJsonAsync<Category>();
+				return response.Content.ReadFromJsonAsync<Category>().Result;
 			}
 			return null;
 		}
 
-		public async Task<Category?> GetByName(string name)
+		public Category? GetByName(string name)
 		{
-			HttpResponseMessage response = await _client.Get<Category>($"byName/{name}");
+			HttpResponseMessage response = _client.Get<Category>($"byName/{name}");
 			if (response.IsSuccessStatusCode)
 			{
-				return await response.Content.ReadFromJsonAsync<Category>();
+				return response.Content.ReadFromJsonAsync<Category>().Result;
 			}
 			return null;
 		}
 
-		public async Task<bool> Create(Category category)
+		public bool Create(Category category)
 		{
-			HttpResponseMessage response = await _client.Post("create", category);
+			HttpResponseMessage response = _client.Post("create", category);
 			return response.IsSuccessStatusCode;
 		}
 
-		public async Task<bool> Update(Category category)
+		public  bool Update(Category category)
 		{
-			HttpResponseMessage response = await _client.Put("update", category);
+			HttpResponseMessage response = _client.Put("update", category);
 			return response.IsSuccessStatusCode;
 		}
 
-		public async Task<bool> Delete(int id)
+		public  bool Delete(int id)
 		{
-			HttpResponseMessage response = await _client.Delete<Category>($"delete/{id}");
+			HttpResponseMessage response = _client.Delete<Category>($"delete/{id}");
 			return response.IsSuccessStatusCode;
 		}
 	}

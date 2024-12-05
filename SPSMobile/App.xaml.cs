@@ -1,14 +1,12 @@
-﻿using SPSMobile.Pages;
-
-namespace SPSMobile
+﻿namespace SPSMobile
 {
 	public partial class App : Application
 	{
-		public App(IServiceProvider serviceProvider)
+		public App()
 		{
 			InitializeComponent();
 
-			Current.UserAppTheme = AppTheme.Light;
+			Current!.UserAppTheme = AppTheme.Light;
 
 			MainPage = new AppShell();
 		}

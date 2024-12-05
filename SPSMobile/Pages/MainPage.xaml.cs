@@ -2,7 +2,7 @@ using SPSMobile.Data.UnitOfWork;
 using SPSMobile.Data.ViewModels;
 using System.Collections.ObjectModel;
 using SPSModels.Models;
-using SPSMobile.Utilities;
+using SPSMobile.Utilities.Authenticator;
 
 namespace SPSMobile.Pages;
 
@@ -28,7 +28,11 @@ public partial class MainPage : ContentPage
             Categories = new ObservableCollection<Category>((_unitOfOfWork.Category.GetAll())!)
         };
 
-        BindingContext = _sparePartsViewModel;
+		foreach (var sparePart in _sparePartsViewModel.SpareParts)
+		{
+            sparePart.Category = null;
+		}
+		BindingContext = _sparePartsViewModel;
 
         CategoryPicker.SelectedIndex = 0;
     }

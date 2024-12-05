@@ -4,7 +4,7 @@ using System.Net.Http.Json;
 
 namespace SPSMobile.Data.Repositories.SparePartRepository
 {
-	public class SparePartRepository
+	public class SparePartRepository : ISparePartRepository
 	{
 		private readonly IApiClient _client;
 
@@ -13,52 +13,51 @@ namespace SPSMobile.Data.Repositories.SparePartRepository
 			_client = client;
 		}
 
-		public async Task<List<SparePart>?>
-			GetAll()
+		public List<SparePart>? GetAll()
 		{
-			HttpResponseMessage response = await _client.Get<SparePart>("all");
+			HttpResponseMessage response = _client.Get<SparePart>("all");
 			if (response.IsSuccessStatusCode)
 			{
-				return await response.Content.ReadFromJsonAsync<List<SparePart>>();
+				return response.Content.ReadFromJsonAsync<List<SparePart>>().Result;
 			}
 			return null;
 		}
 
-		public async Task<SparePart?> GetById(int id)
+		public SparePart? GetById(int id)
 		{
-			HttpResponseMessage response = await _client.Get<SparePart>($"byId/{id}");
+			HttpResponseMessage response = _client.Get<SparePart>($"byId/{id}");
 			if (response.IsSuccessStatusCode)
 			{
-				return await response.Content.ReadFromJsonAsync<SparePart>();
+				return response.Content.ReadFromJsonAsync<SparePart>().Result;
 			}
 			return null;
 		}
 
-		public async Task<List<SparePart>?> GetByCategory(string categoryName)
+		public List<SparePart>? GetByCategory(string categoryName)
 		{
-			HttpResponseMessage response = await _client.Get<SparePart>($"byCategoryName/{categoryName}");
+			HttpResponseMessage response = _client.Get<SparePart>($"byCategoryName/{categoryName}");
 			if (response.IsSuccessStatusCode)
 			{
-				return await response.Content.ReadFromJsonAsync<List<SparePart>>();
+				return response.Content.ReadFromJsonAsync<List<SparePart>>().Result;
 			}
 			return null;
 		}
 
-		public async Task<bool> Create(SparePart sparePart)
+		public bool Create(SparePart sparePart)
 		{
-			HttpResponseMessage response = await _client.Post("create", sparePart);
+			HttpResponseMessage response = _client.Post("create", sparePart);
 			return response.IsSuccessStatusCode;
 		}
 
-		public async Task<bool> Update(SparePart sparePart)
+		public bool Update(SparePart sparePart)
 		{
-			HttpResponseMessage response = await _client.Put("update", sparePart);
+			HttpResponseMessage response = _client.Put("update", sparePart);
 			return response.IsSuccessStatusCode;
 		}
 
-		public async Task<bool> Delete(int id)
+		public bool Delete(int id)
 		{
-			HttpResponseMessage response = await _client.Delete<SparePart>($"delete/{id}");
+			HttpResponseMessage response = _client.Delete<SparePart>($"delete/{id}");
 			return response.IsSuccessStatusCode;
 		}
 	}

@@ -32,13 +32,13 @@
         <ShellContent
             Title="Home"
             ContentTemplate="{DataTemplate local:MainPage}"
-            Route="MainPage" 
+            Route="Pages/MainPage" 
             Icon="{StaticResource HomeIcon}"/>
 
         <ShellContent
             Title="Information"
             ContentTemplate="{DataTemplate local:InformationPage}"
-            Route="InformationPage"
+            Route="Pages/InformationPage"
             Icon="{StaticResource InfoIcon}"
         />
     </FlyoutItem>
@@ -47,13 +47,13 @@
         <ShellContent
             Title="Categories"
             ContentTemplate="{DataTemplate local:CategoriesPage}"
-            Route="CatgoriesPage"
+            Route="Pages/CatgoriesPage"
             Icon="{StaticResource CategoryIcon}"
         />
         <ShellContent
             Title="Spare parts"
             ContentTemplate="{DataTemplate local:SparepartsPage}"
-            Route="SparePartPage"
+            Route="Pages/SparePartPage"
             Icon="{StaticResource CarIcon}"
         />
     </FlyoutItem>
@@ -62,13 +62,13 @@
         <ShellContent
             Title="My Profile"
             ContentTemplate="{DataTemplate local:ClientPage}"
-            Route="ClientPage"
+            Route="Pages/ClientPage"
             Icon="{StaticResource ProfileIcon}"
         />
         <ShellContent
             Title="My Cart"
             ContentTemplate="{DataTemplate local:ShoppingCartPage}"
-            Route="ShoppingCartPage"
+            Route="Pages/ShoppingCartPage"
             Icon="{StaticResource CarIcon}"
         />
     </FlyoutItem>

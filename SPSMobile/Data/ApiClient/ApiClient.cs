@@ -1,4 +1,4 @@
-﻿using SPSMobile.Utilities;
+﻿using SPSMobile.Utilities.Authenticator;
 using System.Net.Http.Json;
 
 namespace SPSMobile.Data.ApiClient
@@ -26,24 +26,24 @@ namespace SPSMobile.Data.ApiClient
 			_client.DefaultRequestHeaders.Authorization = new("Bearer", token);
 		}
 
-		public async Task<HttpResponseMessage> Get<T>(string route)
+		public HttpResponseMessage Get<T>(string route)
 		{
-			
-			return await _client.GetAsync(GetRoute<T>(route));
+			return _client.GetAsync(GetRoute<T>(route)).Result;
 		}
 
-		public async Task<HttpResponseMessage> Post<T>(string route, T data)
+		public HttpResponseMessage Post<T>(string route, T data)
 		{
-			return await _client.PostAsJsonAsync(GetRoute<T>(route), data);
-		}
-		public async Task<HttpResponseMessage> Put<T>(string route, T data)
-		{
-			return await _client.PutAsJsonAsync(GetRoute<T>(route), data);
+			return _client.PostAsJsonAsync(GetRoute<T>(route), data).Result;
 		}
 
-		public async Task<HttpResponseMessage> Delete<T>(string route)
+		public HttpResponseMessage Put<T>(string route, T data)
 		{
-			return await _client.DeleteAsync(GetRoute<T>(route));
+			return _client.PutAsJsonAsync(GetRoute<T>(route), data).Result;
+		}
+
+		public HttpResponseMessage Delete<T>(string route)
+		{
+			return _client.DeleteAsync(GetRoute<T>(route)).Result;
 		}
 	}
 }

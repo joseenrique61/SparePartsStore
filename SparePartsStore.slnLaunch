@@ -1,0 +1,32 @@
+[
+  {
+    "Name": "Web",
+    "Projects": [
+      {
+        "Path": "SparePartsStore\\SparePartsStoreWeb.csproj",
+        "Action": "Start",
+        "DebugTarget": "http"
+      },
+      {
+        "Path": "SPSAPI\\SPSAPI.csproj",
+        "Action": "StartWithoutDebugging",
+        "DebugTarget": "http - No browser"
+      }
+    ]
+  },
+  {
+    "Name": "Mobile - API",
+    "Projects": [
+      {
+        "Path": "SPSAPI\\SPSAPI.csproj",
+        "Action": "StartWithoutDebugging",
+        "DebugTarget": "http - No browser"
+      },
+      {
+        "Path": "SPSMobile\\SPSMobile.csproj",
+        "Action": "Start",
+        "DebugTarget": "Windows Machine"
+      }
+    ]
+  }
+]

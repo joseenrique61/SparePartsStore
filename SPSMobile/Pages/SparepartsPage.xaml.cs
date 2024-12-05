@@ -1,6 +1,6 @@
 using SPSMobile.Data.UnitOfWork;
 using SPSMobile.Data.ViewModels;
-using SPSMobile.Utilities;
+using SPSMobile.Utilities.Authenticator;
 using SPSModels.Models;
 using System.Collections.ObjectModel;
 

@@ -4,7 +4,7 @@ using System.Net.Http.Json;
 
 namespace SPSMobile.Data.Repositories.PurchaseOrderRepository
 {
-	public class PurchaseOrderRepository
+	public class PurchaseOrderRepository : IPurchaseOrderRepository
 	{
 		private readonly IApiClient _client;
 
@@ -13,51 +13,51 @@ namespace SPSMobile.Data.Repositories.PurchaseOrderRepository
 			_client = client;
 		}
 
-		public async Task<List<PurchaseOrder>?> GetAll()
+		public List<PurchaseOrder>? GetAll()
 		{
-			HttpResponseMessage response = await _client.Get<PurchaseOrder>("all");
+			HttpResponseMessage response = _client.Get<PurchaseOrder>("all");
 			if (response.IsSuccessStatusCode)
 			{
-				return await response.Content.ReadFromJsonAsync<List<PurchaseOrder>>();
+				return response.Content.ReadFromJsonAsync<List<PurchaseOrder>>().Result;
 			}
 			return null;
 		}
 
-		public async Task<List<PurchaseOrder>?> GetByClientId(int id)
+		public List<PurchaseOrder>? GetByClientId(int id)
 		{
-			HttpResponseMessage response = await _client.Get<PurchaseOrder>($"byClientId/{id}");
+			HttpResponseMessage response = _client.Get<PurchaseOrder>($"byClientId/{id}");
 			if (response.IsSuccessStatusCode)
 			{
-				return await response.Content.ReadFromJsonAsync<List<PurchaseOrder>>();
+				return response.Content.ReadFromJsonAsync<List<PurchaseOrder>>().Result;
 			}
 			return null;
 		}
 
-		public async Task<PurchaseOrder?> GetById(int id)
+		public PurchaseOrder? GetById(int id)
 		{
-			HttpResponseMessage response = await _client.Get<PurchaseOrder>($"byId/{id}");
+			HttpResponseMessage response = _client.Get<PurchaseOrder>($"byId/{id}");
 			if (response.IsSuccessStatusCode)
 			{
-				return await response.Content.ReadFromJsonAsync<PurchaseOrder>();
+				return response.Content.ReadFromJsonAsync<PurchaseOrder>().Result;
 			}
 			return null;
 		}
 
-		public async Task<PurchaseOrder> GetCurrentByClientId(int id)
+		public PurchaseOrder GetCurrentByClientId(int id)
 		{
-			HttpResponseMessage response = await _client.Get<PurchaseOrder>($"current/{id}");
-			return (await response.Content.ReadFromJsonAsync<PurchaseOrder>())!;
+			HttpResponseMessage response = _client.Get<PurchaseOrder>($"current/{id}");
+			return response.Content.ReadFromJsonAsync<PurchaseOrder>().Result!;
 		}
 
-		public async Task<bool> Create(PurchaseOrder purchaseOrder)
+		public bool Create(PurchaseOrder purchaseOrder)
 		{
-			HttpResponseMessage response = await _client.Post("create", purchaseOrder);
+			HttpResponseMessage response = _client.Post("create", purchaseOrder);
 			return response.IsSuccessStatusCode;
 		}
 
-		public async Task<bool> Update(PurchaseOrder purchaseOrder)
+		public bool Update(PurchaseOrder purchaseOrder)
 		{
-			HttpResponseMessage response = await _client.Put("update", purchaseOrder);
+			HttpResponseMessage response = _client.Put("update", purchaseOrder);
 			return response.IsSuccessStatusCode;
 		}
 	}

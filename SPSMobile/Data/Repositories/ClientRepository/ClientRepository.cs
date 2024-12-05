@@ -1,11 +1,11 @@
 ﻿using SPSMobile.Data.ApiClient;
-using SPSMobile.Utilities;
+using SPSMobile.Utilities.Authenticator;
 using SPSModels.Models;
 using System.Net.Http.Json;
 
 namespace SPSMobile.Data.Repositories.ClientRepository
 {
-	public class ClientRepository
+	public class ClientRepository : IClientRepository
 	{
 		private readonly IApiClient _client;
 
@@ -17,9 +17,9 @@ namespace SPSMobile.Data.Repositories.ClientRepository
 			_authenticator = authenticator;
 		}
 
-		public async Task<bool> Login(string email, string password)
+		public bool Login(string email, string password)
 		{
-			HttpResponseMessage response = await _client.Post("login", new User()
+			HttpResponseMessage response = _client.Post("login", new User()
 			{
 				Email = email,
 				Password = password
@@ -30,7 +30,7 @@ namespace SPSMobile.Data.Repositories.ClientRepository
 				return false;
 			}
 
-			JWTResponse? token = await response.Content.ReadFromJsonAsync<JWTResponse>();
+			JWTResponse? token = response.Content.ReadFromJsonAsync<JWTResponse>().Result;
 			if (token == null)
 			{
 				return false;
@@ -42,21 +42,33 @@ namespace SPSMobile.Data.Repositories.ClientRepository
 			return true;
 		}
 
-		public async Task<bool> Register(Client client)
+		public bool Register(Client client)
 		{
-			HttpResponseMessage response = await _client.Post("register", client);
+			HttpResponseMessage response = _client.Post("register", client);
 			return response.IsSuccessStatusCode;
 		}
 
-		public async Task<Client?> GetById(int id)
+		public Client? GetById(int id)
 		{
-			HttpResponseMessage response = await _client.Get<Client>($"byId/{id}");
+			HttpResponseMessage response = _client.Get<Client>($"byId/{id}");
 			if (response.IsSuccessStatusCode)
 			{
-				Client client = (await response.Content.ReadFromJsonAsync<Client>())!;
+				Client client = response.Content.ReadFromJsonAsync<Client>().Result!;
 				return client;
 			}
 			return null;
+		}
+
+		public bool Logout()
+		{
+			_authenticator.ClientInfo = new JWTResponse
+			{
+				ClientId = 0,
+				Email = "",
+				Role = "",
+				Token = ""
+			};
+			return true;
 		}
 	}
 }

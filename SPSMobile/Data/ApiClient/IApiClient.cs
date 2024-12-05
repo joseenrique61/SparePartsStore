@@ -4,12 +4,12 @@
 	{
 		public void SetToken(string token);
 
-		public Task<HttpResponseMessage> Get<T>(string route);
+		public HttpResponseMessage Get<T>(string route);
 
-		public Task<HttpResponseMessage> Post<T>(string route, T data);
+		public HttpResponseMessage Post<T>(string route, T data);
 
-		public Task<HttpResponseMessage> Put<T>(string route, T data);
+		public HttpResponseMessage Put<T>(string route, T data);
 
-		public Task<HttpResponseMessage> Delete<T>(string route);
+		public HttpResponseMessage Delete<T>(string route);
 	}
 }
