@@ -11,7 +11,7 @@ namespace SPSMobile.Data.ApiClient
 		{
 			_client = client;
 
-			_client.BaseAddress = new Uri("http://localhost:5027/api/");
+			_client.BaseAddress = new Uri(DeviceInfo.Platform == DevicePlatform.Android ? "https://1p5hg4rh-5027.use2.devtunnels.ms/api/" : "http://localhost:5027/api/");
 
 			SetToken(authenticator.ClientInfo.Token);
 		}
