@@ -36,6 +36,11 @@ namespace SPSMobile.Data.Repositories.ClientRepository
 				return false;
 			}
 
+			if (token.Role == UserTypes.Admin)
+			{
+				return false;
+			}
+
 			_client.SetToken(token.Token);
 			_authenticator.ClientInfo = token;
 
