@@ -2,27 +2,27 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SPSMobile.Pages.Login"
-             Title="Login">
-    <Grid VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-
-       <StackLayout  VerticalOptions="CenterAndExpand" HorizontalOptions="Center" >
+             xmlns:viewModels="clr-namespace:SPSMobile.Data.ViewModels"
+             x:DataType="viewModels:LoginViewModel"
+             Title="Log In">
+       <VerticalStackLayout VerticalOptions="Center">
            <Label Text="Email" FontSize="16"/>
-           <Label HeightRequest="30"/>
-           <Entry x:Name="txtinputEmail"
+           <Entry Text="{Binding User.Email}"
                Placeholder="Enter your email" 
                Keyboard="Default"/>
-           <Label HeightRequest="30"/>
+
            <Label Text="Password" FontSize="16" />
-           <Label HeightRequest="30"/>
-           <Entry x:Name="txtinputPassword"
+           <Entry Text="{Binding User.Password}"
             Placeholder="Enter your password"
             Keyboard="Default"/>
-           <Label HeightRequest="30"/>
-           <Button 
-           Text="Next" Clicked="Login_Clicked" BackgroundColor="#4AB087" TextColor="#FBFDFC" FontAttributes="Bold"/>
-           <Label HeightRequest="30"/>
-           <Button 
-           Text="Create Account" Clicked="Register_Clicked" BackgroundColor="#78C2AD" TextColor="#FFFFFF" FontAttributes="Bold" />
-       </StackLayout>
-   </Grid>
+
+           <Button Text="Log In" 
+                   Command="{Binding Login}" 
+                   BackgroundColor="{StaticResource Primary}"
+                   FontAttributes="Bold"/>
+           <Button Text="Create Account"
+                   Command="{Binding Register}"
+                   BackgroundColor="{StaticResource Tertiary}" 
+                   FontAttributes="Bold" />
+       </VerticalStackLayout>
 </ContentPage>

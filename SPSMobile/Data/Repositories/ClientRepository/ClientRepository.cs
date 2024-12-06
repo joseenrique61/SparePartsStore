@@ -50,7 +50,13 @@ namespace SPSMobile.Data.Repositories.ClientRepository
 		public bool Register(Client client)
 		{
 			HttpResponseMessage response = _client.Post("register", client);
-			return response.IsSuccessStatusCode;
+
+			if(response.IsSuccessStatusCode)
+			{
+				return Login(client.User!.Email, client.User.Password!);
+			}
+
+			return false;
 		}
 
 		public Client? GetById(int id)

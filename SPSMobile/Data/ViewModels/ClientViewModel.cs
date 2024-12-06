@@ -18,15 +18,6 @@ namespace SPSMobile.Data.ViewModels
 		{
 			get
 			{
-				//if (IsSignedIn)
-				//{
-				//	return _unitOfWork.Client.GetById(_authenticator.ClientInfo.ClientId)!;
-				//}
-				//else
-				//{
-				//	return null!;
-				//}
-
 				return clientInfo;
 			}
 			set
@@ -80,7 +71,7 @@ namespace SPSMobile.Data.ViewModels
 			_unitOfWork = unitOfWork;
 			_authenticator = authenticator;
 
-			ClientInfo = _unitOfWork.Client.GetById(_authenticator.ClientInfo.ClientId);
+			UpdateProperties();
 
 			Logout = new Command(
 				() =>
@@ -92,8 +83,19 @@ namespace SPSMobile.Data.ViewModels
 			Login = new Command(
 				() =>
 				{
-					Shell.Current.Navigation.PushModalAsync(serviceProvider.GetRequiredService<Login>());
+					Shell.Current.Navigation.PushAsync(serviceProvider.GetRequiredService<Login>());
 				});
+
+			Register = new Command(
+				() =>
+				{
+					Shell.Current.Navigation.PushAsync(serviceProvider.GetRequiredService<Register>());
+				});
+		}
+
+		public void UpdateProperties()
+		{
+			ClientInfo = _unitOfWork.Client.GetById(_authenticator.ClientInfo.ClientId);
 		}
 
 		public void OnPropertyChanged([CallerMemberName] string name = "") =>

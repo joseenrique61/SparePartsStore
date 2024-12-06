@@ -6,6 +6,7 @@ using SPSMobile.Data.Repositories.PurchaseOrderRepository;
 using SPSMobile.Data.Repositories.SparePartRepository;
 using SPSMobile.Data.UnitOfWork;
 using SPSMobile.Data.ViewModels;
+using SPSMobile.Utilities.AlertService;
 using SPSMobile.Utilities.Authenticator;
 using SPSMobile.Utilities.DataSeeder;
 using System.Reflection;
@@ -33,6 +34,9 @@ namespace SPSMobile
 
 			// Unit of work
 			builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
+
+			// DisplayAlert Service
+			builder.Services.AddScoped<IAlertService, AlertService>();
 
 			// ViewModels
 			RegisterViewModels(builder);
@@ -85,6 +89,8 @@ namespace SPSMobile
 		private static void RegisterViewModels(MauiAppBuilder builder)
 		{
 			builder.Services.AddSingleton<ClientViewModel>();
+			builder.Services.AddTransient<LoginViewModel>();
+			builder.Services.AddTransient<RegisterViewModel>();
 		}
 
 		private static void RegisterPages(MauiAppBuilder builder)
