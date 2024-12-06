@@ -1,4 +1,6 @@
 using SPSMobile.Data.UnitOfWork;
+using SPSMobile.Data.ViewModels;
+using SPSMobile.Utilities.Authenticator;
 
 namespace SPSMobile.Pages;
 
@@ -7,13 +9,16 @@ public partial class Login : ContentPage
 	private readonly IUnitOfWork _unitOfWork;
 
 	private readonly IServiceProvider _serviceProvider;
+
+	private readonly IAuthenticator _authenticator;
 	
-	public Login(IUnitOfWork unitOfWork, IServiceProvider serviceProvider)
+	public Login(IUnitOfWork unitOfWork, IServiceProvider serviceProvider, IAuthenticator authenticator)
 	{
 		InitializeComponent();
 
 		_unitOfWork = unitOfWork;
 		_serviceProvider = serviceProvider;
+		_authenticator = authenticator;
 	}
 
 	private async void Login_Clicked(object sender, EventArgs e)
@@ -28,6 +33,8 @@ public partial class Login : ContentPage
 			await DisplayAlert("Error", "Invalid Email or password.", "OK");
 			return;
 		}
+
+		_serviceProvider.GetRequiredService<ClientViewModel>().ClientInfo = _unitOfWork.Client.GetById(_authenticator.ClientInfo.ClientId);
 
 		await Navigation.PopModalAsync();
 	}

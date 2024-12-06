@@ -26,7 +26,7 @@ namespace SPSMobile.Data.FileManager
 
 		public void SaveFile(string fileName, T? value)
 		{
-			FileStream fileStream = File.Create(GetFilePath(fileName));
+			FileStream fileStream = new(GetFilePath(fileName), FileMode.Create);
 			JsonSerializer.Serialize(fileStream, value);
 			fileStream.Close();
 		}

@@ -6,7 +6,7 @@
     <VerticalStackLayout Spacing="20">
         <Label 
             Text="Error :("
-            Style="{StaticResource TittleLabel}"
+            Style="{StaticResource TitleLabel}"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
         <Label 

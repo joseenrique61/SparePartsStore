@@ -2,22 +2,46 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SPSMobile.Pages.ClientPage"
+             xmlns:viewModels="clr-namespace:SPSMobile.Data.ViewModels"
+             x:DataType="viewModels:ClientViewModel"
              Title="My Profile">
     <VerticalStackLayout>
-        <Label 
-            Text="About me"
-            Style="{StaticResource TittleLabel}"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <Label 
-            Text="{Binding Email, StringFormat='Email: {0}'}"
-            Style="{StaticResource BodyLabel}"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <Button
-            Text="Log out"
-            VerticalOptions="Center"
-            HorizontalOptions="Center"
-            Clicked="LogOutClicked" />
+        <VerticalStackLayout IsVisible="{Binding IsSignedIn}">
+            <Label 
+                Text="About me"
+                Style="{StaticResource TitleLabel}"
+                VerticalOptions="Center" 
+                HorizontalOptions="Center" />
+            <Label 
+                Text="{Binding ClientInfo.User.Email, StringFormat='Email: {0}'}"
+                Style="{StaticResource BodyLabel}"
+                VerticalOptions="Center" 
+                HorizontalOptions="Center" />
+            <Button
+                Text="Log out"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"
+                BackgroundColor="{StaticResource Secondary}"
+                Command="{Binding Logout}" />
+        </VerticalStackLayout>
+        <VerticalStackLayout IsVisible="{Binding IsNotSignedIn}">
+            <Label 
+                Text="Log in to see your profile"
+                Style="{StaticResource TitleLabel}"
+                VerticalOptions="Center" 
+                HorizontalOptions="Center" />
+            <Button
+                Text="Log in"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"
+                BackgroundColor="{StaticResource Primary}"
+                Command="{Binding Login}" />
+            <Button
+                Text="Register"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"
+                BackgroundColor="{StaticResource Tertiary}"
+                Command="{Binding Register}" />
+        </VerticalStackLayout>
     </VerticalStackLayout>
 </ContentPage>

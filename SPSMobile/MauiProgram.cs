@@ -5,6 +5,7 @@ using SPSMobile.Data.Repositories.ClientRepository;
 using SPSMobile.Data.Repositories.PurchaseOrderRepository;
 using SPSMobile.Data.Repositories.SparePartRepository;
 using SPSMobile.Data.UnitOfWork;
+using SPSMobile.Data.ViewModels;
 using SPSMobile.Utilities.Authenticator;
 using SPSMobile.Utilities.DataSeeder;
 using System.Reflection;
@@ -33,15 +34,11 @@ namespace SPSMobile
 			// Unit of work
 			builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 
+			// ViewModels
+			RegisterViewModels(builder);
+			
 			// Pages
-			string pagesNamespace = "SPSMobile.Pages";
-			IEnumerable<Type> pages = from type in Assembly.GetExecutingAssembly().GetTypes()
-									  where type.IsClass && type.Namespace == pagesNamespace
-									  select type;
-			foreach (Type type in pages)
-			{
-				builder.Services.AddTransient(type);
-			}
+			RegisterPages(builder);
 
 #if DEBUG
 			builder.Logging.AddDebug();
@@ -62,14 +59,14 @@ namespace SPSMobile
 		private static void InjectRepositories(MauiAppBuilder builder)
 		{
 #if NO_API
-				// Repositories for the app
-				builder.Services.AddScoped<ISparePartRepository, LocalSparePartRepository>();
-				builder.Services.AddScoped<ICategoryRepository, LocalCategoryRepository>();
-				builder.Services.AddScoped<IPurchaseOrderRepository, LocalPurchaseOrderRepository>();
-				builder.Services.AddScoped<IClientRepository, LocalClientRepository>();
+			// Repositories for the app
+			builder.Services.AddScoped<ISparePartRepository, LocalSparePartRepository>();
+			builder.Services.AddScoped<ICategoryRepository, LocalCategoryRepository>();
+			builder.Services.AddScoped<IPurchaseOrderRepository, LocalPurchaseOrderRepository>();
+			builder.Services.AddScoped<IClientRepository, LocalClientRepository>();
 
-				// Data seeder
-				builder.Services.AddScoped<IDataSeeder, DataSeeder>();
+			// Data seeder
+			builder.Services.AddScoped<IDataSeeder, DataSeeder>();
 #else
 				// HttpClient
 				builder.Services.AddTransient<HttpClient>();
@@ -83,6 +80,22 @@ namespace SPSMobile
 				builder.Services.AddScoped<IPurchaseOrderRepository, PurchaseOrderRepository>();
 				builder.Services.AddScoped<IClientRepository, ClientRepository>();
 #endif
+		}
+
+		private static void RegisterViewModels(MauiAppBuilder builder)
+		{
+			builder.Services.AddSingleton<ClientViewModel>();
+		}
+
+		private static void RegisterPages(MauiAppBuilder builder)
+		{
+			IEnumerable<Type> classes = from type in Assembly.GetExecutingAssembly().GetTypes()
+									  where type.IsClass && type.Namespace == "SPSMobile.Pages"
+									  select type;
+			foreach (Type type in classes)
+			{
+				builder.Services.AddTransient(type);
+			}
 		}
 	}
 }

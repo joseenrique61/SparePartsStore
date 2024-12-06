@@ -59,7 +59,7 @@ namespace SPSMobile.Utilities.Authenticator
 				clientInfo = new JWTResponse();
 			}
 
-			using FileStream fileStream = File.OpenWrite(filePath);
+			using FileStream fileStream = new(filePath, FileMode.Create);
 			JsonSerializer.Serialize(fileStream, ClientInfo);
 		}
 	}

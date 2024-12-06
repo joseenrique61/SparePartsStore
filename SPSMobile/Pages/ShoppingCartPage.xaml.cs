@@ -1,6 +1,6 @@
-using SparePartsStoreWeb.Data.UnitOfWork;
 using SPSMobile.Data.Repositories.PurchaseOrderRepository;
 using SPSMobile.Data.UnitOfWork;
+using SPSMobile.Data.ViewModels;
 using SPSMobile.Utilities.Authenticator;
 using SPSModels.Models;
 
@@ -10,7 +10,7 @@ public partial class ShoppingCartPage : ContentPage
 {
 	private readonly IAuthenticator _authenticator;
     private readonly IUnitOfWork _unitOfWork; 
-	private ClientViewModel _clientViewModel;
+	private PurchaseOrderViewModel _clientViewModel;
     private PurchaseOrder purchaseOrder;
 	public ShoppingCartPage(IUnitOfWork unitOfWork, IAuthenticator authenticator)
 	{

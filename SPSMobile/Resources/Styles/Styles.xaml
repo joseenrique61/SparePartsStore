@@ -14,7 +14,7 @@
     <x:String x:Key="ShopIcon">shop.png</x:String>
     <x:String x:Key="SettingsIcon">settings.png</x:String>
 
-    <Style TargetType="Label" x:Key="TittleLabel">
+    <Style TargetType="Label" x:Key="TitleLabel">
         <Setter Property="FontSize" Value="35"/>
         <Setter Property="TextColor" Value="Black"/>
         <Setter Property="FontFamily" Value="OpenSans-Semibold"/>

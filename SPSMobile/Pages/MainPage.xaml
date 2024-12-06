@@ -5,7 +5,7 @@
              Title="Main Menu">
     <ScrollView>
         <VerticalStackLayout Spacing="20" >
-            <Label Text="WELCOME" Style="{StaticResource TittleLabel}" CharacterSpacing="10"/>
+            <Label Text="WELCOME" Style="{StaticResource TitleLabel}" CharacterSpacing="10"/>
             <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
                 <Label Text="to " Style="{StaticResource SubHeadline}" TextColor="Black" />
                 <Label Text="SpareParts Store" Style="{StaticResource SubHeadline}" TextColor="{StaticResource TertiaryDarker}" />
