@@ -51,12 +51,16 @@ namespace SPSMobile.Data.Repositories.PurchaseOrderRepository
 
 		public bool Create(PurchaseOrder purchaseOrder)
 		{
+			purchaseOrder.Client = null;
+			
 			HttpResponseMessage response = _client.Post("create", purchaseOrder);
 			return response.IsSuccessStatusCode;
 		}
 
 		public bool Update(PurchaseOrder purchaseOrder)
 		{
+			purchaseOrder.Client = null;
+			
 			HttpResponseMessage response = _client.Put("update", purchaseOrder);
 			return response.IsSuccessStatusCode;
 		}

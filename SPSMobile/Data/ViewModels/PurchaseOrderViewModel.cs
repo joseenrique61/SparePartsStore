@@ -16,8 +16,6 @@ namespace SPSMobile.Data.ViewModels
 
 		private readonly IAuthenticator _authenticator;
 
-		private ObservableCollection<OrderViewModel> orders;
-
 		private PurchaseOrder purchaseOrder;
 
 		public PurchaseOrder PurchaseOrder
