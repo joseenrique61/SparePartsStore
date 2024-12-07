@@ -1,38 +1,28 @@
-using SPSMobile.Data.Repositories.PurchaseOrderRepository;
-using SPSMobile.Data.UnitOfWork;
 using SPSMobile.Data.ViewModels;
-using SPSMobile.Utilities.Authenticator;
-using SPSModels.Models;
 
 namespace SPSMobile.Pages;
 
 public partial class ShoppingCartPage : ContentPage
 {
-	private readonly IAuthenticator _authenticator;
-    private readonly IUnitOfWork _unitOfWork; 
-	private PurchaseOrderViewModel _clientViewModel;
-    private PurchaseOrder purchaseOrder;
-	public ShoppingCartPage(IUnitOfWork unitOfWork, IAuthenticator authenticator)
+	public ShoppingCartPage(IServiceProvider serviceProvider)
 	{
-        _unitOfWork = unitOfWork;
-        _authenticator = authenticator;
 		InitializeComponent();
-        LoadDependencies();
+		BindingContext = serviceProvider.GetRequiredService<PurchaseOrderViewModel>();
 	}
 
-	public void LoadDependencies() 
-	{
-        purchaseOrder = _unitOfWork.PurchaseOrder.GetCurrentByClientId(_authenticator.ClientInfo.ClientId);
-        BindingContext = purchaseOrder;
-    }
+	//public void LoadDependencies() 
+	//{
+	//       purchaseOrder = _unitOfWork.PurchaseOrder.GetCurrentByClientId(_authenticator.ClientInfo.ClientId);
+	//       BindingContext = purchaseOrder;
+	//   }
 
-    private void DeleteSelectedItems(object sender, EventArgs e)
-    {
+	//   private void DeleteSelectedItems(object sender, EventArgs e)
+	//   {
 
-    }
+	//   }
 
-    private void BuyItems(object sender, EventArgs e)
-    {
-        DisplayAlert("Alert", "Thanks for buying!", "Ok");
-    }
+	//   private void BuyItems(object sender, EventArgs e)
+	//   {
+	//       DisplayAlert("Alert", "Thanks for buying!", "Ok");
+	//   }
 }

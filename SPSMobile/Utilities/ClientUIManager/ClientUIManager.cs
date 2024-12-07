@@ -5,6 +5,7 @@ namespace SPSMobile.Utilities.ClientUIManager
 	internal class ClientUIManager : IClientUIManager
 	{
 		private readonly IServiceProvider _serviceProvider;
+
 		public ClientUIManager(IServiceProvider serviceProvider)
 		{
 			_serviceProvider = serviceProvider;
@@ -12,8 +13,9 @@ namespace SPSMobile.Utilities.ClientUIManager
 
 		public void UpdateProperties()
 		{
-			_serviceProvider.GetRequiredService<ClientViewModel>().UpdateProperties();
 			_serviceProvider.GetRequiredService<AppShellViewModel>().UpdateProperties();
+			_serviceProvider.GetRequiredService<ClientViewModel>().UpdateProperties();
+			_serviceProvider.GetRequiredService<PurchaseOrderViewModel>().UpdateProperties();
 		}
 	}
 }

@@ -94,6 +94,7 @@ namespace SPSMobile
 		{
 			builder.Services.AddSingleton<AppShellViewModel>();
 			builder.Services.AddSingleton<ClientViewModel>();
+			builder.Services.AddSingleton<PurchaseOrderViewModel>();
 			builder.Services.AddTransient<LoginViewModel>();
 			builder.Services.AddTransient<RegisterViewModel>();
 			builder.Services.AddTransient<SparePartsViewModel>();

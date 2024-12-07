@@ -109,6 +109,8 @@ namespace SPSMobile.Data.ViewModels
 				unitOfWork.PurchaseOrder.Update(purchaseOrder);
 
 				await alertService.ShowAlertAsync("Cart", $"{DesiredAmount} units of {SparePart.Name} added to the cart.", "OK");
+
+				serviceProvider.GetRequiredService<PurchaseOrderViewModel>().UpdateProperties();
 			});
 		}
 

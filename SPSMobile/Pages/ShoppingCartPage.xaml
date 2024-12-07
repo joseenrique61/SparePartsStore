@@ -2,6 +2,9 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SPSMobile.Pages.ShoppingCartPage"
+             xmlns:viewModels="clr-namespace:SPSMobile.Data.ViewModels"
+             xmlns:models="clr-namespace:SPSModels.Models;assembly=SPSModels"
+             x:DataType="viewModels:PurchaseOrderViewModel"
              Title="My Cart">
     <ScrollView>
         <VerticalStackLayout HorizontalOptions="Center" Spacing="20">
@@ -18,7 +21,7 @@
                         <LinearItemsLayout ItemSpacing="10" Orientation="Vertical"/>
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
-                        <DataTemplate>
+                        <DataTemplate x:DataType="viewModels:OrderViewModel">
                             <Frame Padding="20" 
                                    Margin="0,5" 
                                    BorderColor="Gray" 
@@ -29,13 +32,14 @@
                                     <!-- Información del repuesto -->
                                     <Label Text="{Binding SparePart.Name}" FontAttributes="Bold" FontSize="18" />
                                     <Label Text="{Binding Amount, StringFormat='Amount: {0}'}" />
-                                    <Label Text="{Binding TotalPrice, StringFormat='Price: ${0:F2}'}" />
+                                    <Label Text="{Binding Total, StringFormat='Price: ${0:F2}'}" />
 
                                     <!-- Botón Eliminar -->
                                     <Button Text="Delete"
                                             BackgroundColor="DarkRed"
                                             TextColor="White" 
-                                            Clicked="DeleteSelectedItems" />
+                                            Command="{Binding DeleteOrder}"
+                                            CommandParameter="{Binding SparePart.Name}"/>
                                 </VerticalStackLayout>
                             </Frame>
                         </DataTemplate>
@@ -67,7 +71,7 @@
                         <Button Text="Buy"
                              BackgroundColor="{StaticResource Primary}"
                              TextColor="White"
-                             Clicked="BuyItems" />
+                             Command="{Binding Buy}" />
                     </VerticalStackLayout>
                 </Frame>
             </VerticalStackLayout>
