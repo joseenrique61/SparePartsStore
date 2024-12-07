@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:SPSMobile.Data.ViewModels"
+             x:DataType="viewModels:SparePartsViewModel"
+             x:Class="SPSMobile.ContentViews.CategoryPicker">
+    <VerticalStackLayout>
+        <Picker Title="Filter by category"
+                    HorizontalOptions="Center"
+                    WidthRequest="300"
+                    ItemsSource="{Binding Categories}"
+                    SelectedItem="{Binding SelectedCategory, Mode=TwoWay}"
+                    ItemDisplayBinding="{Binding Name}"/>
+    </VerticalStackLayout>
+</ContentView>

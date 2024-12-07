@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:SPSMobile.Data.ViewModels"
+             xmlns:models="clr-namespace:SPSModels.Models;assembly=SPSModels"
+             x:DataType="viewModels:SparePartsViewModel"
+             x:Class="SPSMobile.ContentViews.SparePartsCollection">
+    <VerticalStackLayout>
+        <CollectionView 
+                    Grid.Row="1"
+                    x:Name="collectionItems" 
+                    HorizontalOptions="Center" 
+                    ItemsSource="{Binding FilteredSpareParts}" 
+                    SelectionMode="Single"
+                    SelectedItem="{Binding SelectedSparePart}">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout
+                            Orientation="Vertical"
+                            Span="2"
+                            VerticalItemSpacing="10"
+                            HorizontalItemSpacing="10"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:SparePart">
+                    <Border 
+                                Padding="8,14"
+                                Background="White"
+                                HeightRequest="150"
+                                HorizontalOptions="Center"
+                                Stroke="DimGray"
+                                StrokeShape="RoundRectangle 10,10,10,10"
+                                StrokeThickness="0.5">
+                        <Grid Padding="10" BackgroundColor="White" HorizontalOptions="Center">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="50" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100" />
+                                <ColumnDefinition Width="200" />
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.RowSpan="3"
+                                        Source="{Binding Image}"
+                                        HorizontalOptions="Center"
+                                        Aspect="AspectFit"
+                                        HeightRequest="50"
+                                        WidthRequest="50" />
+                            <Label Grid.Column="1"
+                                        VerticalOptions="Center"
+                                        Text="{Binding Name}"
+                                        FontSize="Subtitle"  
+                                        FontAttributes="Bold" />
+                            <Label Grid.Row="1"
+                                        Grid.Column="1"
+                                        Text="{Binding Price, StringFormat='Precio: {0:C}'}" 
+                                        TextColor="Green"
+                                        VerticalOptions="Start" />
+                            <Border Grid.Row="2"
+                                            Grid.Column="1"
+                                            BackgroundColor="{StaticResource Primary}"
+                                            StrokeShape="RoundRectangle 10,10,10,10"
+                                            StrokeThickness="0">
+                                <VerticalStackLayout VerticalOptions="Center"
+                                                             HorizontalOptions="Center">
+                                    <Label Text="More"/>
+                                </VerticalStackLayout>
+                            </Border>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
+</ContentView>
