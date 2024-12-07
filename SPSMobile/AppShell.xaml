@@ -47,12 +47,6 @@
 
     <FlyoutItem Title="Products" Icon="{StaticResource ProductsIcon}" >
         <ShellContent
-            Title="Categories"
-            ContentTemplate="{DataTemplate local:CategoriesPage}"
-            Route="CatgoriesPage"
-            Icon="{StaticResource CategoryIcon}"
-        />
-        <ShellContent
             Title="Spare parts"
             ContentTemplate="{DataTemplate local:SparepartsPage}"
             Route="SparePartPage"

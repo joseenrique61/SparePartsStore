@@ -13,6 +13,7 @@
     <x:String x:Key="InfoIcon">info.png</x:String>
     <x:String x:Key="ShopIcon">shop.png</x:String>
     <x:String x:Key="SettingsIcon">settings.png</x:String>
+    <x:String x:Key="WhatsappIcon">whatsapp_icon.png</x:String>
 
     <Style TargetType="Label" x:Key="TitleLabel">
         <Setter Property="FontSize" Value="35"/>

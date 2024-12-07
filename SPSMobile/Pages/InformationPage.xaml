@@ -56,7 +56,7 @@
                 </VerticalStackLayout>
 
                 <!-- Botón de WhatsApp -->
-                <ImageButton Source="whatsapp_icon.png"
+                <ImageButton Source="{StaticResource WhatsappIcon}"
                              WidthRequest="50"
                              HeightRequest="50"
                              BackgroundColor="Transparent">
