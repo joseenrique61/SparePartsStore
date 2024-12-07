@@ -21,8 +21,8 @@ public partial class SparepartsPage : ContentPage
     }
     public void LoadDependencies()
     {
-        var mainViewModel = new SparePartsViewModel();
-        BindingContext = mainViewModel;
+        //var mainViewModel = new SparePartsViewModel();
+        //BindingContext = mainViewModel;
         CategoryPicker.SelectedIndex = 0;
     }
 
@@ -39,34 +39,34 @@ public partial class SparepartsPage : ContentPage
     private void OnCategorySelected(object sender, EventArgs e)
     {
         var selectedCategory = (Category)CategoryPicker.SelectedItem;
-        var sparePartsViewModel = new SparePartsViewModel();
+        //var sparePartsViewModel = new SparePartsViewModel();
         /*
          {
             SpareParts = new ObservableCollection<SparePart>((await _unitOfOfWork.SparePart.GetAll())!),
             Categories = new ObservableCollection<Category>((await _unitOfOfWork.Category.GetAll())!)
         };*/
 
-        IEnumerable<SparePart> FilteredSpareParts = new ObservableCollection<SparePart>();
+        //IEnumerable<SparePart> FilteredSpareParts = new ObservableCollection<SparePart>();
 
-        if (selectedCategory != null && selectedCategory.Name != "All")
-            FilteredSpareParts = sparePartsViewModel.SpareParts.
-                Where(sp => sp.CategoryId == selectedCategory.Id).
-                AsEnumerable();
-        else
-            FilteredSpareParts = sparePartsViewModel.SpareParts;
+        //if (selectedCategory != null && selectedCategory.Name != "All")
+        //    FilteredSpareParts = sparePartsViewModel.SpareParts.
+        //        Where(sp => sp.CategoryId == selectedCategory.Id).
+        //        AsEnumerable();
+        //else
+        //    FilteredSpareParts = sparePartsViewModel.SpareParts;
 
-        if (!FilteredSpareParts.Any())
-        {
-            DisplayAlert("Alert", "I'm sorry, there are not products in the selected category", "Ok");
-            sparePartsViewModel.SpareParts = sparePartsViewModel.SpareParts;
-            CategoryPicker.SelectedItem = null;
-        }
-        else
-        {
-            sparePartsViewModel.SpareParts = new ObservableCollection<SparePart>(FilteredSpareParts);
-        }
+        //if (!FilteredSpareParts.Any())
+        //{
+        //    DisplayAlert("Alert", "I'm sorry, there are not products in the selected category", "Ok");
+        //    sparePartsViewModel.SpareParts = sparePartsViewModel.SpareParts;
+        //    CategoryPicker.SelectedItem = null;
+        //}
+        //else
+        //{
+        //    sparePartsViewModel.SpareParts = new ObservableCollection<SparePart>(FilteredSpareParts);
+        //}
 
-        BindingContext = sparePartsViewModel;
+        //BindingContext = sparePartsViewModel;
     }
 
     private void More_Details(object sender, EventArgs e)

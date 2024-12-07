@@ -91,6 +91,7 @@ namespace SPSMobile
 			builder.Services.AddSingleton<ClientViewModel>();
 			builder.Services.AddTransient<LoginViewModel>();
 			builder.Services.AddTransient<RegisterViewModel>();
+			builder.Services.AddTransient<SparePartsViewModel>();
 		}
 
 		private static void RegisterPages(MauiAppBuilder builder)

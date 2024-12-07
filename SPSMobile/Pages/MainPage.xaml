@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:SPSMobile.Data.ViewModels"
+             xmlns:models="clr-namespace:SPSModels.Models;assembly=SPSModels"
              x:Class="SPSMobile.Pages.MainPage"
+             x:DataType="viewModels:SparePartsViewModel"
              Title="Main Menu">
     <ScrollView>
         <VerticalStackLayout Spacing="20" >
@@ -22,7 +25,7 @@
                                        ItemSpacing="20"/>
                 </CarouselView.ItemsLayout>
                 <CarouselView.ItemTemplate>
-                    <DataTemplate>
+                    <DataTemplate x:DataType="x:String">
                         <Image Source="{Binding}" Aspect="AspectFill" />
                     </DataTemplate>
                 </CarouselView.ItemTemplate>
@@ -31,13 +34,12 @@
             <Label Text="Our products" Style="{StaticResource SubHeadline}" TextColor="Black" />
 
             <!-- Categories Filter -->
-            <Picker x:Name="CategoryPicker"
-                    Title="Select a Category"
+            <Picker Title="Select a Category"
                     HorizontalOptions="Center"
                     WidthRequest="300"
                     ItemsSource="{Binding Categories}"
-                    ItemDisplayBinding="{Binding Name}"
-                     />
+                    SelectedItem="{Binding SelectedCategory, Mode=TwoWay}"
+                    ItemDisplayBinding="{Binding Name}"/>
 
             <!-- {Binding SpareParts} -->
             <Grid RowDefinitions=".2*,.8*"
@@ -46,9 +48,9 @@
                     Grid.Row="1"
                     x:Name="collectionItems" 
                     HorizontalOptions="Center" 
-                    ItemsSource="{Binding SpareParts}" 
+                    ItemsSource="{Binding FilteredSpareParts}" 
                     SelectionMode="Single"
-                    SelectionChanged="SelectionChanged" >
+                    SelectedItem="{Binding SelectedSparePart}">
                     <CollectionView.ItemsLayout>
                         <GridItemsLayout
                             Orientation="Vertical"
@@ -57,7 +59,7 @@
                             HorizontalItemSpacing="10"/>
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
-                        <DataTemplate>
+                        <DataTemplate x:DataType="models:SparePart">
                             <Border 
                                 Padding="8,14"
                                 Background="White"
