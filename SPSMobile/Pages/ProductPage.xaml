@@ -2,6 +2,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SPSMobile.Pages.ProductPage"
+             xmlns:viewModels="clr-namespace:SPSMobile.Data.ViewModels"
+             x:DataType="viewModels:ProductViewModel"
              Title="Products">
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="20">
@@ -9,60 +11,59 @@
                 ColumnDefinitions=".3*, .7*" 
                 Padding="20" >
                 <!-- Imagen del producto -->
-                <Image Source="{Binding Image}" 
+                <Image Source="{Binding SparePart.Image}" 
                        Aspect="AspectFill" 
                        HeightRequest="200" 
                        HorizontalOptions="Center" />
                 
                 <VerticalStackLayout Grid.Column="1" Spacing="20">
                     <!-- Nombre del producto -->
-                    <Label Text="{Binding Name}" 
+                    <Label Text="{Binding SparePart.Name}" 
                            FontSize="Large" 
                            FontAttributes="Bold"
                            HorizontalOptions="Start" />
 
                     <VerticalStackLayout Spacing="10">
                         <!-- Descripción -->
-                        <Label Text="{Binding Description, StringFormat='Description: {0}'}" 
+                        <Label Text="{Binding SparePart.Description, StringFormat='Description: {0}'}" 
                            FontSize="Body" 
                            LineBreakMode="WordWrap" />
 
                         <!-- Precio -->
-                        <Label Text="{Binding Price, StringFormat='Precio: {0:C}'}" 
+                        <Label Text="{Binding SparePart.Price, StringFormat='Precio: {0:C}'}" 
                            FontSize="Body" 
                            TextColor="Green" />
                     </VerticalStackLayout>
                     
                     <!-- Stock disponible -->
-                    <Label Text="{Binding Stock, StringFormat='Stock disponible: {0}'}" 
+                    <Label Text="{Binding SparePart.Stock, StringFormat='Stock disponible: {0}'}" 
                            FontSize="Body" 
                            TextColor="Gray" />
 
                     <!-- Selector de cantidad -->
                     <HorizontalStackLayout Spacing="10">
-                        <Button x:Name="DecreaseButton"
+                        <Button 
                                 Text="-" 
-                                Clicked="OnDecreaseQuantityClicked" 
-                                IsEnabled="{Binding CanDecreaseQuantity}" 
+                                Command="{Binding DecreaseAmount}"
+                                IsEnabled="{Binding CanDecreaseAmount}" 
                                 BackgroundColor="{StaticResource Secondary}" />
 
-                        <Label x:Name="QuantityLabel"
-                               Text="{Binding DesiredQuantity}" 
+                        <Label 
+                               Text="{Binding DesiredAmount}" 
                                FontSize="Body" 
                                VerticalOptions="Center"
                                HorizontalOptions="Center" />
 
-                        <Button x:Name="IncreaseButton"
+                        <Button 
                                 Text="+"
-                                Clicked="OnIncreaseQuantityClicked" 
-                                IsEnabled="{Binding CanIncreaseQuantity}" 
+                                Command="{Binding IncreaseAmount}" 
+                                IsEnabled="{Binding CanIncreaseAmount}" 
                                 BackgroundColor="{StaticResource Tertiary}" />
                     </HorizontalStackLayout>
 
                     <!-- Botón añadir al carrito -->
                     <Button Text="Add to cart"
-                            Command="{Binding AddToCartCommand}" 
-                            Clicked="OnAddToCartClicked"
+                            Command="{Binding AddToCart}" 
                             BackgroundColor="{StaticResource Primary}" 
                             TextColor="White"
                             FontAttributes="Bold" />

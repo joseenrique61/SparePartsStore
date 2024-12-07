@@ -1,6 +1,5 @@
 ﻿using SPSMobile.Data.UnitOfWork;
 using SPSMobile.Pages;
-using SPSMobile.Utilities.Authenticator;
 using SPSModels.Models;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -81,7 +80,7 @@ public class SparePartsViewModel : INotifyPropertyChanged
 
 	private async void SparePartSelected()
 	{
-		await Shell.Current.Navigation.PushAsync(new ProductPage(SelectedSparePart, _serviceProvider.GetRequiredService<IUnitOfWork>(), _serviceProvider.GetRequiredService<IAuthenticator>(), _serviceProvider));
+		await Shell.Current.Navigation.PushAsync(new ProductPage(SelectedSparePart, _serviceProvider));
 	}
 
 	public event PropertyChangedEventHandler? PropertyChanged;
