@@ -6,6 +6,8 @@
     xmlns:local="clr-namespace:SPSMobile.Pages"
     Shell.FlyoutBehavior="Flyout"
     Title="SpareParts Store"
+    xmlns:viewModels="clr-namespace:SPSMobile.Data.ViewModels"
+    x:DataType="viewModels:AppShellViewModel"
     Shell.TabBarForegroundColor="{StaticResource Secondary}"
     Shell.TabBarTitleColor="{StaticResource Secondary}">
 
@@ -66,6 +68,7 @@
             Icon="{StaticResource ProfileIcon}"
         />
         <ShellContent
+            IsVisible="{Binding CartVisible}"
             Title="My Cart"
             ContentTemplate="{DataTemplate local:ShoppingCartPage}"
             Route="ShoppingCartPage"

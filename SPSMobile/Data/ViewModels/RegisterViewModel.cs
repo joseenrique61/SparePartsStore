@@ -1,5 +1,6 @@
 ﻿using SPSMobile.Data.UnitOfWork;
 using SPSMobile.Utilities.AlertService;
+using SPSMobile.Utilities.ClientUIManager;
 using SPSModels.Models;
 using System.Windows.Input;
 
@@ -29,7 +30,7 @@ namespace SPSMobile.Data.ViewModels
 					return;
 				}
 
-				serviceProvider.GetRequiredService<ClientViewModel>().UpdateProperties();
+				serviceProvider.GetRequiredService<IClientUIManager>().UpdateProperties();
 
 				await Shell.Current.Navigation.PopToRootAsync();
 			});

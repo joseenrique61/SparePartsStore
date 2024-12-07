@@ -8,6 +8,7 @@ using SPSMobile.Data.UnitOfWork;
 using SPSMobile.Data.ViewModels;
 using SPSMobile.Utilities.AlertService;
 using SPSMobile.Utilities.Authenticator;
+using SPSMobile.Utilities.ClientUIManager;
 using SPSMobile.Utilities.DataSeeder;
 using System.Reflection;
 
@@ -37,6 +38,9 @@ namespace SPSMobile
 
 			// DisplayAlert Service
 			builder.Services.AddScoped<IAlertService, AlertService>();
+
+			// Client UI manager
+			builder.Services.AddScoped<IClientUIManager, ClientUIManager>();
 
 			// ViewModels
 			RegisterViewModels(builder);
@@ -88,6 +92,7 @@ namespace SPSMobile
 
 		private static void RegisterViewModels(MauiAppBuilder builder)
 		{
+			builder.Services.AddSingleton<AppShellViewModel>();
 			builder.Services.AddSingleton<ClientViewModel>();
 			builder.Services.AddTransient<LoginViewModel>();
 			builder.Services.AddTransient<RegisterViewModel>();

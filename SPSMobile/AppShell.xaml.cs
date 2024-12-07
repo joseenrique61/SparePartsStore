@@ -1,10 +1,14 @@
-﻿namespace SPSMobile
+﻿using SPSMobile.Data.ViewModels;
+
+namespace SPSMobile
 {
 	public partial class AppShell : Shell
 	{
-		public AppShell()
+		public AppShell(IServiceProvider serviceProvider)
 		{
 			InitializeComponent();
+
+			BindingContext = serviceProvider.GetRequiredService<AppShellViewModel>();
 		}
 		protected override void OnNavigated(ShellNavigatedEventArgs args)
 		{

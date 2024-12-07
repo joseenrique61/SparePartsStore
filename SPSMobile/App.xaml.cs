@@ -2,13 +2,13 @@
 {
 	public partial class App : Application
 	{
-		public App()
+		public App(IServiceProvider serviceProvider)
 		{
 			InitializeComponent();
 
 			Current!.UserAppTheme = AppTheme.Light;
 
-			MainPage = new AppShell();
+			MainPage = new AppShell(serviceProvider);
 		}
 	}
 }

@@ -1,6 +1,7 @@
 ﻿using SPSMobile.Data.UnitOfWork;
 using SPSMobile.Pages;
 using SPSMobile.Utilities.Authenticator;
+using SPSMobile.Utilities.ClientUIManager;
 using SPSModels.Models;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -78,6 +79,8 @@ namespace SPSMobile.Data.ViewModels
 				{
 					_unitOfWork.Client.Logout();
 					ClientInfo = null;
+
+					serviceProvider.GetRequiredService<IClientUIManager>().UpdateProperties();
 				});
 
 			Login = new Command(
