@@ -45,7 +45,6 @@
                         <Button 
                                 Text="-" 
                                 Command="{Binding DecreaseAmount}"
-                                IsEnabled="{Binding CanDecreaseAmount}" 
                                 BackgroundColor="{StaticResource Secondary}" />
 
                         <Label 
@@ -57,7 +56,6 @@
                         <Button 
                                 Text="+"
                                 Command="{Binding IncreaseAmount}" 
-                                IsEnabled="{Binding CanIncreaseAmount}" 
                                 BackgroundColor="{StaticResource Tertiary}" />
                     </HorizontalStackLayout>
 

@@ -19,8 +19,6 @@ namespace SPSMobile.Data.ViewModels
 
 		private PurchaseOrder purchaseOrder;
 
-		private double total;
-
 		public PurchaseOrder PurchaseOrder
 		{
 			get => purchaseOrder;
@@ -33,27 +31,27 @@ namespace SPSMobile.Data.ViewModels
 
 		public ObservableCollection<OrderViewModel> Orders
 		{
-			get => orders;
-			set
+			get => new(PurchaseOrder.Orders.Select(o => new OrderViewModel()
 			{
-				orders = value;
-				OnPropertyChanged();
-			}
+				SparePart = o.SparePart!,
+				Amount = o.Amount,
+				Total = o.SparePart!.Price * o.Amount,
+				DeleteOrder = new Command<string>((sparePartName) =>
+				{
+					PurchaseOrder.Orders.Remove(PurchaseOrder.Orders.First(o => o.SparePart!.Name == sparePartName));
+					_unitOfWork.PurchaseOrder.Update(PurchaseOrder);
+
+					UpdateProperties();
+				})
+			}));
 		}
 
 		public Client Client { get; set; }
 
 		public double Total
 		{
-			get => total;
-			set
-			{
-				total = value;
-				OnPropertyChanged();
-			}
+			get => Orders.Sum(o => o.Total);
 		}
-
-		public ICommand DeleteOrder { get; private set; }
 
 		public ICommand Buy { get; private set; }
 
@@ -63,11 +61,6 @@ namespace SPSMobile.Data.ViewModels
 			_authenticator = authenticator;
 
 			UpdateProperties();
-
-			DeleteOrder = new Command((sparePartName) =>
-			{
-				Orders.Remove(Orders.First(o => o.SparePart.Name == (string)sparePartName));
-			});
 
 			Buy = new Command(async () =>
 			{
@@ -80,6 +73,8 @@ namespace SPSMobile.Data.ViewModels
 
 				UpdateProperties();
 			}, () => Orders.Count > 0);
+
+			(Buy as Command)!.ChangeCanExecute();
 		}
 
 		public void UpdateProperties()
@@ -93,23 +88,9 @@ namespace SPSMobile.Data.ViewModels
 
 			PurchaseOrder = _unitOfWork.PurchaseOrder.GetCurrentByClientId(_authenticator.ClientInfo.ClientId);
 
-			Orders = new ObservableCollection<OrderViewModel>(PurchaseOrder.Orders.Select(o => new OrderViewModel()
-			{
-				SparePart = o.SparePart!,
-				Amount = o.Amount,
-				Total = o.SparePart!.Price * o.Amount,
-				DeleteOrder = new Command((sparePartName) =>
-				{
-					PurchaseOrder.Orders.Remove(PurchaseOrder.Orders.First(o => o.SparePart!.Name == (string)sparePartName));
-					_unitOfWork.PurchaseOrder.Update(PurchaseOrder);
-
-					Orders.Remove(Orders.First(o => o.SparePart.Name == (string)sparePartName));
-
-					UpdateProperties();
-				})
-			}));
-
-			Total = Orders.Sum(o => o.Total);
+			OnPropertyChanged(nameof(Orders));
+			OnPropertyChanged(nameof(Total));
+			(Buy as Command)?.ChangeCanExecute();
 		}
 
 		public event PropertyChangedEventHandler? PropertyChanged;

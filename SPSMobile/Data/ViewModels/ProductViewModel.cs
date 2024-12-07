@@ -13,10 +13,6 @@ namespace SPSMobile.Data.ViewModels
 	{
 		private int desiredAmount;
 
-		private bool canIncreaseAmount;
-
-		private bool canDecreaseAmount;
-
 		public SparePart SparePart { get; set; }
 
 		public int DesiredAmount
@@ -25,26 +21,6 @@ namespace SPSMobile.Data.ViewModels
 			set
 			{
 				desiredAmount = value;
-				OnPropertyChanged();
-			}
-		}
-
-		public bool CanIncreaseAmount
-		{
-			get => canIncreaseAmount;
-			set
-			{
-				canIncreaseAmount = value;
-				OnPropertyChanged();
-			}
-		}
-
-		public bool CanDecreaseAmount
-		{
-			get => canDecreaseAmount;
-			set
-			{
-				canDecreaseAmount = value;
 				OnPropertyChanged();
 			}
 		}
@@ -59,31 +35,17 @@ namespace SPSMobile.Data.ViewModels
 		{
 			SparePart = sparePart;
 
-			CanIncreaseAmount = SparePart.Stock > 0;
-
 			IncreaseAmount = new Command(() =>
 			{
 				DesiredAmount += 1;
-				if (SparePart.Stock <= DesiredAmount)
-				{
-					CanIncreaseAmount = false;
-				}
-				CanDecreaseAmount = true;
-			});
+				UpdateCommands();
+			}, () => DesiredAmount < SparePart.Stock);
 
 			DecreaseAmount = new Command(() =>
 			{
 				DesiredAmount -= 1;
-				if (DesiredAmount <= 0)
-				{
-					CanDecreaseAmount = false;
-				}
-
-				if (SparePart!.Stock > DesiredAmount)
-				{
-					CanIncreaseAmount = true;
-				}
-			});
+				UpdateCommands();
+			}, () => DesiredAmount > 0);
 
 			AddToCart = new Command(async () =>
 			{
@@ -111,7 +73,14 @@ namespace SPSMobile.Data.ViewModels
 				await alertService.ShowAlertAsync("Cart", $"{DesiredAmount} units of {SparePart.Name} added to the cart.", "OK");
 
 				serviceProvider.GetRequiredService<PurchaseOrderViewModel>().UpdateProperties();
-			});
+			}, () => DesiredAmount > 0);
+		}
+
+		private void UpdateCommands()
+		{
+			(IncreaseAmount as Command)!.ChangeCanExecute();
+			(DecreaseAmount as Command)!.ChangeCanExecute();
+			(AddToCart as Command)!.ChangeCanExecute();
 		}
 
 		public event PropertyChangedEventHandler? PropertyChanged;
