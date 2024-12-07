@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SPSMobile.Pages.PreviousOrdersPage"
+             xmlns:viewModels="clr-namespace:SPSMobile.Data.ViewModels"
+             x:DataType="viewModels:PreviousOrdersViewModel"
+             Title="Previous Orders">
+    <ScrollView>
+        <VerticalStackLayout>
+            <CollectionView ItemsSource="{Binding PurchaseOrders}">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout ItemSpacing="10" Orientation="Vertical"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="viewModels:PurchaseOrderViewModel">
+                        <Frame Padding="20" 
+                            Margin="0,5" 
+                            BorderColor="Gray" 
+                            CornerRadius="5" 
+                            MinimumWidthRequest="200" 
+                            MaximumWidthRequest="400">
+                            <VerticalStackLayout>
+                                <CollectionView ItemsSource="{Binding Orders}">
+                                    <CollectionView.ItemsLayout>
+                                        <LinearItemsLayout ItemSpacing="10" Orientation="Vertical"/>
+                                    </CollectionView.ItemsLayout>
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate x:DataType="viewModels:OrderViewModel">
+                                            <HorizontalStackLayout Spacing="10">
+                                                <Label Text="{Binding SparePart.Name, StringFormat='{0}'}" FontAttributes="Bold"/>
+                                                <Label Text="{Binding Amount, StringFormat='Amount: {0},'}"/>
+                                                <Label Text="{Binding Total, StringFormat='Total: {0}'}"/>
+                                            </HorizontalStackLayout>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                </CollectionView>
+
+                                <Label Text="{Binding Total, StringFormat='Total: {0}'}"/>
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

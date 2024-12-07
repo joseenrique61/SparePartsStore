@@ -16,6 +16,7 @@ namespace SPSMobile.Utilities.ClientUIManager
 			_serviceProvider.GetRequiredService<AppShellViewModel>().UpdateProperties();
 			_serviceProvider.GetRequiredService<ClientViewModel>().UpdateProperties();
 			_serviceProvider.GetRequiredService<PurchaseOrderViewModel>().UpdateProperties();
+			_serviceProvider.GetRequiredService<PreviousOrdersViewModel>().UpdateProperties();
 		}
 	}
 }

@@ -1,6 +1,7 @@
 ﻿using SPSMobile.Data.UnitOfWork;
 using SPSMobile.Utilities.AlertService;
 using SPSMobile.Utilities.Authenticator;
+using SPSMobile.Utilities.ClientUIManager;
 using SPSModels.Models;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -41,7 +42,7 @@ namespace SPSMobile.Data.ViewModels
 					PurchaseOrder.Orders.Remove(PurchaseOrder.Orders.First(o => o.SparePart!.Name == sparePartName));
 					_unitOfWork.PurchaseOrder.Update(PurchaseOrder);
 
-					UpdateProperties();
+					UpdateProperties(true);
 				})
 			}));
 		}
@@ -55,12 +56,19 @@ namespace SPSMobile.Data.ViewModels
 
 		public ICommand Buy { get; private set; }
 
-		public PurchaseOrderViewModel(IUnitOfWork unitOfWork, IAuthenticator authenticator, IAlertService alertService)
+		public PurchaseOrderViewModel(IUnitOfWork unitOfWork, IAuthenticator authenticator, PurchaseOrder? purchaseOrder = null, IClientUIManager? clientUIManager = null, IAlertService? alertService = null)
 		{
 			_unitOfWork = unitOfWork;
 			_authenticator = authenticator;
 
-			UpdateProperties();
+			if (purchaseOrder != null)
+			{
+				PurchaseOrder = purchaseOrder;
+				UpdateProperties(false);
+				return;
+			}
+
+			UpdateProperties(true);
 
 			Buy = new Command(async () =>
 			{
@@ -69,15 +77,16 @@ namespace SPSMobile.Data.ViewModels
 
 				PurchaseOrder = unitOfWork.PurchaseOrder.GetCurrentByClientId(authenticator.ClientInfo.ClientId);
 
-				await alertService.ShowAlertAsync("Thanks!", "Your purchase has been completed, thanks for buying!", "OK");
+				await alertService!.ShowAlertAsync("Thanks!", "Your purchase has been completed, thanks for buying!", "OK");
 
-				UpdateProperties();
+				UpdateProperties(true);
+				clientUIManager!.UpdateProperties();
 			}, () => Orders.Count > 0);
 
 			(Buy as Command)!.ChangeCanExecute();
 		}
 
-		public void UpdateProperties()
+		public void UpdateProperties(bool currentPurchaseOrder = true)
 		{
 			if (!_authenticator.IsSignedIn)
 			{
@@ -86,7 +95,10 @@ namespace SPSMobile.Data.ViewModels
 
 			Client = _unitOfWork.Client.GetById(_authenticator.ClientInfo.ClientId)!;
 
-			PurchaseOrder = _unitOfWork.PurchaseOrder.GetCurrentByClientId(_authenticator.ClientInfo.ClientId);
+			if (currentPurchaseOrder)
+			{
+				PurchaseOrder = _unitOfWork.PurchaseOrder.GetCurrentByClientId(_authenticator.ClientInfo.ClientId);
+			}
 
 			OnPropertyChanged(nameof(Orders));
 			OnPropertyChanged(nameof(Total));

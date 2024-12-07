@@ -30,7 +30,7 @@ namespace SPSMobile.Data.Repositories.PurchaseOrderRepository
 				return null;
 			}
 
-			IEnumerable<PurchaseOrder> x = purchaseOrders.Where(c => c.Id == id);
+			IEnumerable<PurchaseOrder> x = purchaseOrders.Where(c => c.ClientId == id);
 			foreach (PurchaseOrder purchaseOrder in x)
 			{
 				foreach (Order order in purchaseOrder.Orders)

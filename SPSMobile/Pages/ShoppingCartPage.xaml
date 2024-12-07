@@ -16,7 +16,7 @@
             HorizontalOptions="Center" />
 
             <VerticalStackLayout Padding="50" Spacing="100">
-                <CollectionView ItemsSource="{Binding Orders}" x:Name="OrdersList">
+                <CollectionView ItemsSource="{Binding Orders}">
                     <CollectionView.ItemsLayout>
                         <LinearItemsLayout ItemSpacing="10" Orientation="Vertical"/>
                     </CollectionView.ItemsLayout>
