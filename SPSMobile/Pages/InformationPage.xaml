@@ -2,6 +2,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SPSMobile.Pages.InformationPage"
+             xmlns:viewModels="clr-namespace:SPSMobile.Data.ViewModels"
+             x:DataType="viewModels:InformationViewModel"
              Title="Information">
     <ScrollView>
         <VerticalStackLayout Padding="10" Spacing="15" >
@@ -54,7 +56,7 @@
                 </VerticalStackLayout>
 
                 <!-- Botón de WhatsApp -->
-                <ImageButton Source="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/2062095_application_chat_communication_logo_whatsapp_icon.svg/2048px-2062095_application_chat_communication_logo_whatsapp_icon.svg.png"
+                <ImageButton Source="whatsapp_icon.png"
                              WidthRequest="50"
                              HeightRequest="50"
                              BackgroundColor="Transparent">

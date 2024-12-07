@@ -1,17 +1,13 @@
-using System.Windows.Input;
+using SPSMobile.Data.ViewModels;
 
 namespace SPSMobile.Pages;
 
 public partial class InformationPage : ContentPage
 {
-    public ICommand EmailTapCommand => new Command<string>((url) => Launcher.OpenAsync(url));
-    public ICommand PhoneTapCommand => new Command<string>((url) => Launcher.OpenAsync(url));
-    public ICommand WhatsAppTapCommand => new Command<string>((url) => Launcher.OpenAsync(url));
-
-    public InformationPage()
+	public InformationPage(IServiceProvider serviceProvider)
 	{
 		InitializeComponent();
+
+		BindingContext = serviceProvider.GetRequiredService<InformationViewModel>();
 	}
-
-
 }
