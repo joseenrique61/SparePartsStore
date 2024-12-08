@@ -9,6 +9,8 @@
     xmlns:viewModels="clr-namespace:SPSMobile.Data.ViewModels"
     x:DataType="viewModels:AppShellViewModel"
     Shell.TabBarForegroundColor="{StaticResource Secondary}"
+    Shell.ForegroundColor="{StaticResource White}"
+    Shell.BackgroundColor="{StaticResource Primary}"
     Shell.TabBarTitleColor="{StaticResource Secondary}">
 
     <Shell.FlyoutHeader>
@@ -24,7 +26,7 @@
             <Label x:Name="title" 
                    FontSize="24" 
                    FontAttributes="Bold" 
-                   TextColor="Black" 
+                   TextColor="White" 
                    VerticalOptions="Center"
                    Margin="10,0,0,0"/>
         </HorizontalStackLayout>
@@ -66,7 +68,7 @@
             Title="My Cart"
             ContentTemplate="{DataTemplate local:ShoppingCartPage}"
             Route="ShoppingCartPage"
-            Icon="{StaticResource CarIcon}"
+            Icon="{StaticResource ShopIcon}"
         />
         <ShellContent
             IsVisible="{Binding CartVisible}"
@@ -76,4 +78,12 @@
             Icon="{StaticResource CarIcon}"
         />
     </FlyoutItem>
+
+    <Shell.FlyoutFooter>
+        <ShellContent
+            IsVisible="{Binding CartVisible}"
+            Title="Previous Orders"
+            ContentTemplate="{DataTemplate local:PreviousOrdersPage}"
+            Route="PreviousOrdersPage"/>
+    </Shell.FlyoutFooter>
 </Shell>

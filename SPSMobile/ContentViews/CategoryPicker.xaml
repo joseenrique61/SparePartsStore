@@ -6,10 +6,10 @@
              x:Class="SPSMobile.ContentViews.CategoryPicker">
     <VerticalStackLayout>
         <Picker Title="Filter by category"
-                    HorizontalOptions="Center"
-                    WidthRequest="300"
-                    ItemsSource="{Binding Categories}"
-                    SelectedItem="{Binding SelectedCategory, Mode=TwoWay}"
-                    ItemDisplayBinding="{Binding Name}"/>
+                HorizontalOptions="Center"
+                Style="{StaticResource PickerStyle}"
+                ItemsSource="{Binding Categories}"
+                SelectedItem="{Binding SelectedCategory, Mode=TwoWay}"
+                ItemDisplayBinding="{Binding Name}"/>
     </VerticalStackLayout>
 </ContentView>

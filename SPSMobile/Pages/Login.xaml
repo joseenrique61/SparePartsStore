@@ -5,24 +5,31 @@
              xmlns:viewModels="clr-namespace:SPSMobile.Data.ViewModels"
              x:DataType="viewModels:LoginViewModel"
              Title="Log In">
-       <VerticalStackLayout VerticalOptions="Center">
-           <Label Text="Email" FontSize="16"/>
-           <Entry Text="{Binding User.Email}"
-               Placeholder="Enter your email" 
-               Keyboard="Default"/>
+    <VerticalStackLayout Padding="10">
+        <VerticalStackLayout 
+            VerticalOptions="Center" 
+            WidthRequest="{OnPlatform Android=300, iOS= 300, WinUI=600}" 
+            Spacing="15" >
+            
+            <Label Text="Email" FontSize="16"/>
+            <Entry Text="{Binding User.Email}"
+            Placeholder="Enter your email" 
+            Keyboard="Default"/>
 
-           <Label Text="Password" FontSize="16" />
-           <Entry Text="{Binding User.Password}"
+            <Label Text="Password" FontSize="16" />
+            <Entry Text="{Binding User.Password}"
             Placeholder="Enter your password"
             Keyboard="Default"/>
 
-           <Button Text="Log In" 
-                   Command="{Binding Login}" 
-                   BackgroundColor="{StaticResource Primary}"
-                   FontAttributes="Bold"/>
-           <Button Text="Create Account"
-                   Command="{Binding Register}"
-                   BackgroundColor="{StaticResource Tertiary}" 
-                   FontAttributes="Bold" />
-       </VerticalStackLayout>
+            <Button Text="Log In" 
+            Command="{Binding Login}" 
+            BackgroundColor="{StaticResource Primary}"
+            FontAttributes="Bold"/>
+            
+            <Button Text="Create Account"
+            Command="{Binding Register}"
+            BackgroundColor="{StaticResource Tertiary}" 
+            FontAttributes="Bold" />
+        </VerticalStackLayout>
+    </VerticalStackLayout>
 </ContentPage>

@@ -7,18 +7,18 @@
              x:Class="SPSMobile.ContentViews.SparePartsCollection">
     <VerticalStackLayout>
         <CollectionView 
-                    Grid.Row="1"
-                    x:Name="collectionItems" 
-                    HorizontalOptions="Center" 
-                    ItemsSource="{Binding FilteredSpareParts}" 
-                    SelectionMode="Single"
-                    SelectedItem="{Binding SelectedSparePart}">
+            Grid.Row="1"
+            x:Name="collectionItems_PhoneDevices" 
+            HorizontalOptions="Center" 
+            ItemsSource="{Binding FilteredSpareParts}" 
+            SelectionMode="Single"
+            SelectedItem="{Binding SelectedSparePart}"
+            IsVisible="{OnPlatform Android=True, iOS=True, WinUI=False}"
+            IsEnabled="{OnPlatform Android=True, iOS=True, WinUI=False}">
             <CollectionView.ItemsLayout>
                 <GridItemsLayout
                             Orientation="Vertical"
-                            Span="2"
-                            VerticalItemSpacing="10"
-                            HorizontalItemSpacing="10"/>
+                            VerticalItemSpacing="10"/>
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:SparePart">
@@ -63,6 +63,73 @@
                                             StrokeThickness="0">
                                 <VerticalStackLayout VerticalOptions="Center"
                                                              HorizontalOptions="Center">
+                                    <Label Text="More"/>
+                                </VerticalStackLayout>
+                            </Border>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <CollectionView 
+            Grid.Row="1"
+            x:Name="collectionItems_DesktopDevices" 
+            HorizontalOptions="Center" 
+            ItemsSource="{Binding FilteredSpareParts}" 
+            SelectionMode="Single"
+            SelectedItem="{Binding SelectedSparePart}"
+            IsVisible="{OnPlatform WinUI=True, Android=False, iOS=False}"
+            IsEnabled="{OnPlatform WinUI=True, Android=False, iOS=False}">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout
+                    Orientation="Vertical"
+                    Span="2"
+                    VerticalItemSpacing="10"
+                    HorizontalItemSpacing="10"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:SparePart">
+                    <Border 
+                        Padding="8,14"
+                        Background="White"
+                        HeightRequest="150"
+                        HorizontalOptions="Center"
+                        Stroke="DimGray"
+                        StrokeShape="RoundRectangle 10,10,10,10"
+                        StrokeThickness="0.5">
+                        <Grid Padding="10" BackgroundColor="White" HorizontalOptions="Center">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="50" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100" />
+                                <ColumnDefinition Width="200" />
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.RowSpan="3"
+                                Source="{Binding Image}"
+                                HorizontalOptions="Center"
+                                Aspect="AspectFit"
+                                HeightRequest="50"
+                                WidthRequest="50" />
+                            <Label Grid.Column="1"
+                                VerticalOptions="Center"
+                                Text="{Binding Name}"
+                                FontSize="Subtitle"  
+                                FontAttributes="Bold" />
+                            <Label Grid.Row="1"
+                                Grid.Column="1"
+                                Text="{Binding Price, StringFormat='Precio: {0:C}'}" 
+                                TextColor="Green"
+                                VerticalOptions="Start" />
+                            <Border Grid.Row="2"
+                                    Grid.Column="1"
+                                    BackgroundColor="{StaticResource Primary}"
+                                    StrokeShape="RoundRectangle 10,10,10,10"
+                                    StrokeThickness="0">
+                                <VerticalStackLayout VerticalOptions="Center"
+                                                     HorizontalOptions="Center">
                                     <Label Text="More"/>
                                 </VerticalStackLayout>
                             </Border>

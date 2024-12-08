@@ -5,8 +5,8 @@
              xmlns:viewModels="clr-namespace:SPSMobile.Data.ViewModels"
              x:DataType="viewModels:ClientViewModel"
              Title="My Profile">
-    <VerticalStackLayout>
-        <VerticalStackLayout IsVisible="{Binding IsSignedIn}">
+    <VerticalStackLayout VerticalOptions="Center">
+        <VerticalStackLayout IsVisible="{Binding IsSignedIn}" Padding="10" Spacing="10">
             <Label 
                 Text="About me"
                 Style="{StaticResource TitleLabel}"
@@ -24,10 +24,11 @@
                 BackgroundColor="{StaticResource Secondary}"
                 Command="{Binding Logout}" />
         </VerticalStackLayout>
-        <VerticalStackLayout IsVisible="{Binding IsNotSignedIn}">
+        <VerticalStackLayout IsVisible="{Binding IsNotSignedIn}" Padding="10" Spacing="10">
+            <Image Source="{StaticResource Logo}" HeightRequest="{OnPlatform Android=200, iOS= 200, WinUI=400}"/>
             <Label 
                 Text="Log in to see your profile"
-                Style="{StaticResource TitleLabel}"
+                Style="{StaticResource BodyLabel}"
                 VerticalOptions="Center" 
                 HorizontalOptions="Center" />
             <Button
