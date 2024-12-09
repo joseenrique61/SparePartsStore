@@ -5,7 +5,7 @@
              x:Class="SPSMobile.Pages.SparepartsPage"
              Title="Products">
     <ScrollView>
-        <VerticalStackLayout>
+        <VerticalStackLayout Style="{StaticResource PageStyle}">
             <!-- Categories Filter -->
             <contentViews:CategoryPicker/>
 

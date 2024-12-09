@@ -6,14 +6,15 @@
              x:DataType="viewModels:ProductViewModel"
              Title="Products">
     <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="20">
+        <VerticalStackLayout Style="{StaticResource PageStyle}">
             <Grid 
                 ColumnDefinitions=".3*, .7*" 
                 Padding="20" >
                 <!-- Imagen del producto -->
                 <Image Source="{Binding SparePart.Image}" 
-                       Aspect="AspectFill" 
-                       HeightRequest="200" 
+                       Aspect="{OnPlatform Android=AspectFit, iOS=AspectFit, WinUI=AspectFill}" 
+                       HeightRequest="{OnPlatform Android=100, iOS=100, WinUI=200}"
+                       WidthRequest="{OnPlatform Android=100, iOS=100, WinUI=200}"
                        HorizontalOptions="Center" />
                 
                 <VerticalStackLayout Grid.Column="1" Spacing="20">

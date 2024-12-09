@@ -6,14 +6,14 @@
              x:DataType="viewModels:InformationViewModel"
              Title="Information">
     <ScrollView>
-        <VerticalStackLayout Padding="10" Spacing="15" >
+        <VerticalStackLayout Style="{StaticResource PageStyle}" >
             <!-- Título -->
             <Label Text="Contact us"
                    FontSize="Large"
                    FontAttributes="Bold"
                    HorizontalOptions="Center" />
 
-            <VerticalStackLayout HorizontalOptions="Center" MaximumWidthRequest="400" MinimumWidthRequest="800" Spacing="10">
+            <VerticalStackLayout HorizontalOptions="Center" WidthRequest="{OnPlatform Android=300, iOS= 300, WinUI=600}" Spacing="10">
                 <!-- Texto principal -->
                 <Label Text="We are located 2 blocks from Carolina between Eloy Alfaro and Shyris, we make deliveries to the entire country for an additional cost. Contact us at the following email or WhatsApp by clicking the button below."
                        FontSize="Body"

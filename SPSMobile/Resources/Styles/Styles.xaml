@@ -15,6 +15,29 @@
     <x:String x:Key="SettingsIcon">settings.png</x:String>
     <x:String x:Key="WhatsappIcon">whatsapp_icon.png</x:String>
 
+
+    <Style x:Key="PageStyle" TargetType="VerticalStackLayout">
+        <Setter Property="Padding" Value="20"/>
+        <Setter Property="Spacing" Value="10"/>
+        <Setter Property="VerticalOptions" Value="Center"/>
+    </Style>
+
+    <Style x:Key="ContentShoppingCart" TargetType="VerticalStackLayout">
+        <Setter Property="Padding" Value="50"/>
+        <Setter Property="Spacing" Value="100"/>
+        <Setter Property="VerticalOptions" Value="Center"/>
+    </Style>
+
+    <Style x:Key="PickerStyle" TargetType="Picker">
+        <Setter Property="BackgroundColor" Value="#FFFFFF" />
+        <Setter Property="TextColor" Value="#333333" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="HeightRequest" Value="50" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="WidthRequest" Value="300" />
+        <Setter Property="Margin" Value="10" />
+    </Style>
+
     <Style TargetType="Label" x:Key="TitleLabel">
         <Setter Property="FontSize" Value="35"/>
         <Setter Property="TextColor" Value="Black"/>

@@ -7,7 +7,7 @@
              x:DataType="viewModels:PurchaseOrderViewModel"
              Title="My Cart">
     <ScrollView>
-        <VerticalStackLayout HorizontalOptions="Center" Spacing="20">
+        <VerticalStackLayout Style="{StaticResource PageStyle}" HorizontalOptions="Center">
             <Label 
             Text="Shopping Cart"
             Style="{StaticResource SubHeadline}"
@@ -15,7 +15,7 @@
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
 
-            <VerticalStackLayout Padding="50" Spacing="100">
+            <VerticalStackLayout Style="{StaticResource ContentShoppingCart}">
                 <CollectionView ItemsSource="{Binding Orders}">
                     <CollectionView.ItemsLayout>
                         <LinearItemsLayout ItemSpacing="10" Orientation="Vertical"/>

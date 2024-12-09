@@ -6,7 +6,7 @@
              x:DataType="viewModels:PreviousOrdersViewModel"
              Title="Previous Orders">
     <ScrollView>
-        <VerticalStackLayout>
+        <VerticalStackLayout Style="{StaticResource PageStyle}">
             <CollectionView ItemsSource="{Binding PurchaseOrders}">
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout ItemSpacing="10" Orientation="Vertical"/>

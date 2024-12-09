@@ -4,45 +4,58 @@
              x:Class="SPSMobile.Pages.Register"
              xmlns:viewModels="clr-namespace:SPSMobile.Data.ViewModels"
              x:DataType="viewModels:RegisterViewModel"
-             Title="Register">
-    <ScrollView Padding="0, 40">
-        <VerticalStackLayout VerticalOptions="Center">
-            <Label Text="Email" FontSize="16"/>
-            <Entry Text="{Binding Client.User.Email}"
+             Title="Create Account">
+    <ScrollView>
+        <VerticalStackLayout Style="{StaticResource PageStyle}">
+            <Label Text="New profile" Style="{StaticResource TitleLabel}"/> 
+
+            <VerticalStackLayout Spacing="5">
+                <Label Text="Email" FontSize="16"/>
+                <Entry Text="{Binding Client.User.Email}"
                 Placeholder="Enter your email" 
                 Keyboard="Default"/>
+            </VerticalStackLayout>
+            
+            <VerticalStackLayout Spacing="5">
+                <Label Text="Password" FontSize="16" />
+                <Entry Text="{Binding Client.User.Password}"
+                Placeholder="Enter your password"
+                Keyboard="Default"
+                />
+            </VerticalStackLayout>
+            <BoxView HeightRequest="1" BackgroundColor="#CCCCCC" Margin="0,0,0,10"></BoxView>
 
-            <Label Text="Password" FontSize="16" />
-            <Entry Text="{Binding Client.User.Password}"
-             Placeholder="Enter your password"
-             Keyboard="Default"
-             />
+            <VerticalStackLayout Spacing="5">
+                <Label Text="Name" FontSize="16"/>
+                <Entry Text="{Binding Client.Name}"
+                Placeholder="Enter your name"
+                Keyboard="Default"
+                />
+            </VerticalStackLayout>
 
-            <BoxView HeightRequest="1" BackgroundColor="#CCCCCC" Margin="0,0,0,10"/>
+            <VerticalStackLayout Spacing="5">
+                <Label Text="Address" FontSize="16"/>
+                <Entry Text="{Binding Client.Address}"
+                Placeholder="Enter your address"
+                Keyboard="Default"
+                />
+            </VerticalStackLayout>
 
-            <Label Text="Name" FontSize="16"/>
-            <Entry Text="{Binding Client.Name}"
-             Placeholder="Enter your name"
-             Keyboard="Default"
-            />
+            <VerticalStackLayout Spacing="5">
+                <Label Text="City" FontSize="16"/>
+                <Entry Text="{Binding Client.City}"
+                Placeholder="Enter the city you are living on"
+                Keyboard="Default"
+                />
+            </VerticalStackLayout>
 
-            <Label Text="Address" FontSize="16"/>
-            <Entry Text="{Binding Client.Address}"
-            Placeholder="Enter your address"
-            Keyboard="Default"
-            />
-
-            <Label Text="City" FontSize="16"/>
-            <Entry Text="{Binding Client.City}"
-            Placeholder="Enter the city you are living on"
-            Keyboard="Default"
-            />
-
-            <Label Text="Country" FontSize="16"/>
-            <Entry Text="{Binding Client.Country}"
-            Placeholder="Enter the city you are living on"
-            Keyboard="Default"
-            />
+            <VerticalStackLayout Spacing="5">
+                <Label Text="Country" FontSize="16"/>
+                <Entry Text="{Binding Client.Country}"
+                Placeholder="Enter the city you are living on"
+                Keyboard="Default"
+                />
+            </VerticalStackLayout>
 
             <Button 
             Text="Create Account" Command="{Binding Register}" BackgroundColor="#78C2AD" TextColor="#FFFFFF" FontAttributes="Bold" />

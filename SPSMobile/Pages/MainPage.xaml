@@ -7,19 +7,22 @@
              x:DataType="viewModels:SparePartsViewModel"
              Title="Main Menu">
     <ScrollView>
-        <VerticalStackLayout Spacing="20" >
-            <Label Text="WELCOME" Style="{StaticResource TitleLabel}" CharacterSpacing="10"/>
-            <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
-                <Label Text="to " Style="{StaticResource SubHeadline}" TextColor="Black" />
-                <Label Text="SpareParts Store" Style="{StaticResource SubHeadline}" TextColor="{StaticResource TertiaryDarker}" />
-            </HorizontalStackLayout>
+        <VerticalStackLayout Style="{StaticResource PageStyle}" >
+            
+            <VerticalStackLayout Spacing="5">
+                <Label Text="WELCOME" Style="{StaticResource TitleLabel}" CharacterSpacing="10"/>
+                <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
+                    <Label Text="to " Style="{StaticResource SubHeadline}" TextColor="Black" />
+                    <Label Text="SpareParts Store" Style="{StaticResource SubHeadline}" TextColor="{StaticResource TertiaryDarker}" />
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
 
             <CarouselView 
                 ItemsSource="{Binding Images}" 
                 x:Name="carouselItems"
                 HorizontalScrollBarVisibility="Never"
                 Loop="False"
-                HeightRequest="400" >
+                HeightRequest="400">
                 <CarouselView.ItemsLayout>
                     <LinearItemsLayout Orientation="Horizontal"
                                        ItemSpacing="20"/>
