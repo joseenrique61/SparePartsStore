@@ -20,7 +20,7 @@ namespace SPSAPI.Controllers
 		[Route("getById/{id}")]
 		public IActionResult GetImage(string id)
 		{
-			FileStream stream = System.IO.File.Open($"Images/{id}", FileMode.Open);
+			FileStream stream = System.IO.File.Open($"Images/{id.Replace("Images\\\\", "")}", FileMode.Open);
 			return File(stream, "image/jpeg");
 		}
 
@@ -29,8 +29,8 @@ namespace SPSAPI.Controllers
 		[Authorize(Roles = UserTypes.Admin)]
 		public async Task<IActionResult> UploadImage(int id, [FromForm] IFormFile image)
 		{
-			string fileName = Guid.NewGuid().ToString();
-			string imagePath = $@"Images\{fileName}{Path.GetExtension(image.FileName)}";
+			string fileName = Guid.NewGuid().ToString() + Path.GetExtension(image.FileName);
+			string imagePath = $@"Images\{fileName}";
 
 			SparePart? sparePart = _context.SparePart.Find(id);
 			if (sparePart == null)
@@ -45,7 +45,7 @@ namespace SPSAPI.Controllers
 
 			System.IO.File.Delete(sparePart.Image);
 
-			sparePart.Image = imagePath;
+			sparePart.Image = fileName;
 
 			_context.SparePart.Update(sparePart);
 			await _context.SaveChangesAsync();

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using SPSMobile.Data.ApiClient;
+using SPSMobile.Data.ImageManager;
 using SPSMobile.Data.Repositories.CategoryRepository;
 using SPSMobile.Data.Repositories.ClientRepository;
 using SPSMobile.Data.Repositories.PurchaseOrderRepository;
@@ -76,17 +77,20 @@ namespace SPSMobile
 			// Data seeder
 			builder.Services.AddScoped<IDataSeeder, DataSeeder>();
 #else
-				// HttpClient
-				builder.Services.AddTransient<HttpClient>();
+			// HttpClient
+			builder.Services.AddTransient<HttpClient>();
 
-				// API Client
-				builder.Services.AddSingleton<IApiClient, ApiClient>();
+			// API Client
+			builder.Services.AddSingleton<IApiClient, ApiClient>();
 
-				// Repositories for the app
-				builder.Services.AddScoped<ISparePartRepository, SparePartRepository>();
-				builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-				builder.Services.AddScoped<IPurchaseOrderRepository, PurchaseOrderRepository>();
-				builder.Services.AddScoped<IClientRepository, ClientRepository>();
+			// Image Manager
+			builder.Services.AddScoped<IImageManager, ImageManager>();
+
+			// Repositories for the app
+			builder.Services.AddScoped<ISparePartRepository, SparePartRepository>();
+			builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+			builder.Services.AddScoped<IPurchaseOrderRepository, PurchaseOrderRepository>();
+			builder.Services.AddScoped<IClientRepository, ClientRepository>();
 #endif
 		}
 
