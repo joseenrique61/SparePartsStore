@@ -68,7 +68,7 @@
             Title="My Cart"
             ContentTemplate="{DataTemplate local:ShoppingCartPage}"
             Route="ShoppingCartPage"
-            Icon="{StaticResource ShopIcon}"
+            Icon="{StaticResource }"
         />
         <ShellContent
             IsVisible="{Binding CartVisible}"
@@ -81,9 +81,8 @@
 
     <Shell.FlyoutFooter>
         <ShellContent
-            IsVisible="{Binding CartVisible}"
             Title="Previous Orders"
-            ContentTemplate="{DataTemplate local:PreviousOrdersPage}"
-            Route="PreviousOrdersPage"/>
+            ContentTemplate="{DataTemplate local:Login}"
+            Route="Login" />
     </Shell.FlyoutFooter>
 </Shell>

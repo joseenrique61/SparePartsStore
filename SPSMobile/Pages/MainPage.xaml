@@ -7,7 +7,7 @@
              x:DataType="viewModels:SparePartsViewModel"
              Title="Main Menu">
     <ScrollView>
-        <VerticalStackLayout Padding="10" Spacing="20" >
+        <VerticalStackLayout Style="{StaticResource PageStyle}" >
             
             <VerticalStackLayout Spacing="5">
                 <Label Text="WELCOME" Style="{StaticResource TitleLabel}" CharacterSpacing="10"/>

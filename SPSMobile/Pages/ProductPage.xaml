@@ -6,7 +6,7 @@
              x:DataType="viewModels:ProductViewModel"
              Title="Products">
     <ScrollView>
-        <VerticalStackLayout Padding="10" Spacing="20">
+        <VerticalStackLayout Style="{StaticResource PageStyle}">
             <Grid 
                 ColumnDefinitions=".3*, .7*" 
                 Padding="20" >

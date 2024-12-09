@@ -6,7 +6,7 @@
              x:DataType="viewModels:InformationViewModel"
              Title="Information">
     <ScrollView>
-        <VerticalStackLayout Padding="10" Spacing="15" >
+        <VerticalStackLayout Style="{StaticResource PageStyle}" >
             <!-- Título -->
             <Label Text="Contact us"
                    FontSize="Large"

@@ -4,9 +4,9 @@
              x:Class="SPSMobile.Pages.Register"
              xmlns:viewModels="clr-namespace:SPSMobile.Data.ViewModels"
              x:DataType="viewModels:RegisterViewModel"
-             Title="Register">
-    <ScrollView Padding="20">
-        <VerticalStackLayout VerticalOptions="Center" Spacing="20">
+             Title="Create Account">
+    <ScrollView>
+        <VerticalStackLayout Style="{StaticResource PageStyle}">
             <Label Text="New profile" Style="{StaticResource TitleLabel}"/> 
 
             <VerticalStackLayout Spacing="5">

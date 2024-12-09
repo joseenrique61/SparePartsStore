@@ -6,7 +6,7 @@
              x:DataType="viewModels:ClientViewModel"
              Title="My Profile">
     <VerticalStackLayout VerticalOptions="Center">
-        <VerticalStackLayout IsVisible="{Binding IsSignedIn}" Padding="10" Spacing="10">
+        <VerticalStackLayout IsVisible="{Binding IsSignedIn}" Style="{StaticResource PageStyle}">
             <Label 
                 Text="About me"
                 Style="{StaticResource TitleLabel}"
@@ -24,7 +24,7 @@
                 BackgroundColor="{StaticResource Secondary}"
                 Command="{Binding Logout}" />
         </VerticalStackLayout>
-        <VerticalStackLayout IsVisible="{Binding IsNotSignedIn}" Padding="10" Spacing="10">
+        <VerticalStackLayout IsVisible="{Binding IsNotSignedIn}" Style="{StaticResource PageStyle}">
             <Image Source="{StaticResource Logo}" HeightRequest="{OnPlatform Android=200, iOS= 200, WinUI=400}"/>
             <Label 
                 Text="Log in to see your profile"
