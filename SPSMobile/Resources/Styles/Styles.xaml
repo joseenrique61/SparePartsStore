@@ -10,9 +10,11 @@
     <x:String x:Key="ProfileIcon">person.png</x:String>
     <x:String x:Key="ProductsIcon">products.png</x:String>
     <x:String x:Key="CarIcon">car.png</x:String>
+    <x:String x:Key="ShoppingCartIcon">shopping_cart.png</x:String>
     <x:String x:Key="InfoIcon">info.png</x:String>
     <x:String x:Key="ShopIcon">shop.png</x:String>
     <x:String x:Key="SettingsIcon">settings.png</x:String>
+    <x:String x:Key="PreviousIcon">previous.png</x:String>
     <x:String x:Key="WhatsappIcon">whatsapp_icon.png</x:String>
 
 

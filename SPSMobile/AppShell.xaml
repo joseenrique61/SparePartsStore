@@ -68,14 +68,14 @@
             Title="My Cart"
             ContentTemplate="{DataTemplate local:ShoppingCartPage}"
             Route="ShoppingCartPage"
-            Icon="{StaticResource }"
+            Icon="{StaticResource ShoppingCartIcon}"
         />
         <ShellContent
             IsVisible="{Binding CartVisible}"
             Title="Previous Orders"
             ContentTemplate="{DataTemplate local:PreviousOrdersPage}"
             Route="PreviousOrdersPage"
-            Icon="{StaticResource CarIcon}"
+            Icon="{StaticResource PreviousIcon}"
         />
     </FlyoutItem>
 
