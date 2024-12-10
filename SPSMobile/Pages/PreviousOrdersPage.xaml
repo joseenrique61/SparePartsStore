@@ -29,7 +29,7 @@
                                             <HorizontalStackLayout Spacing="10">
                                                 <Label Text="{Binding SparePart.Name, StringFormat='{0}'}" FontAttributes="Bold"/>
                                                 <Label Text="{Binding Amount, StringFormat='Amount: {0},'}"/>
-                                                <Label Text="{Binding Total, StringFormat='Total: {0}'}"/>
+                                                <Label Text="{Binding Total, StringFormat='Total: {0:C}'}"/>
                                             </HorizontalStackLayout>
                                         </DataTemplate>
                                     </CollectionView.ItemTemplate>

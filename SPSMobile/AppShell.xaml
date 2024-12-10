@@ -8,10 +8,11 @@
     Title="SpareParts Store"
     xmlns:viewModels="clr-namespace:SPSMobile.Data.ViewModels"
     x:DataType="viewModels:AppShellViewModel"
-    Shell.TabBarForegroundColor="{StaticResource Secondary}"
-    Shell.ForegroundColor="{StaticResource White}"
     Shell.BackgroundColor="{StaticResource Primary}"
-    Shell.TabBarTitleColor="{StaticResource Secondary}">
+    Shell.ForegroundColor="{OnPlatform Android=White, iOS=White, WinUI=Black}"
+    Shell.TabBarTitleColor="{StaticResource White}"
+    Shell.TabBarForegroundColor="{StaticResource White}"
+    Shell.TabBarBackgroundColor ="{StaticResource Primary}">
 
     <Shell.FlyoutHeader>
         <Grid BackgroundColor="{StaticResource Primary}" HeightRequest="150">
@@ -24,7 +25,7 @@
               BackgroundColor="{StaticResource Primary}"
               VerticalOptions="Fill">
             <Label x:Name="title" 
-                   FontSize="24" 
+                   Style="{StaticResource TitleLabel}" 
                    FontAttributes="Bold" 
                    TextColor="White" 
                    VerticalOptions="Center"
