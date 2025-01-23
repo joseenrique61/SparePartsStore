@@ -29,7 +29,7 @@ namespace SPSMobile
 				});
 
 			// Authentication
-			builder.Services.AddSingleton<IAuthenticator, Authenticator>();
+			InjectAuthenticator(builder, true);
 
 			// Inject the repositories based on the configuration
 			InjectRepositories(builder);
@@ -63,6 +63,18 @@ namespace SPSMobile
 #endif
 
 			return mauiApp;
+		}
+
+		private static void InjectAuthenticator(MauiAppBuilder builder, bool useSqlite)
+		{
+			if (useSqlite)
+			{
+				builder.Services.AddSingleton<IAuthenticator, SqliteAuthenticator>();
+			}
+			else
+			{
+				builder.Services.AddSingleton<IAuthenticator, FileAuthenticator>();
+			}
 		}
 
 		private static void InjectRepositories(MauiAppBuilder builder)

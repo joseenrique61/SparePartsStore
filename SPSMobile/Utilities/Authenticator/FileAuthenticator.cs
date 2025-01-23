@@ -3,7 +3,7 @@ using System.Text.Json;
 
 namespace SPSMobile.Utilities.Authenticator
 {
-	public class Authenticator : IAuthenticator
+	public class FileAuthenticator : IAuthenticator
 	{
 		private JWTResponse clientInfo;
 
@@ -19,7 +19,7 @@ namespace SPSMobile.Utilities.Authenticator
 
 		public bool IsSignedIn { get => ClientInfo.ClientId != 0; }
 
-		public Authenticator()
+		public FileAuthenticator()
 		{
 			ClientInfo = ReadFile();
 		}
