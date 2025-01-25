@@ -56,6 +56,12 @@ namespace SPSMobile.Utilities.Authenticator
 
 		private void SaveFile()
 		{
+			List<JWTRegister> jwtRegisters = SQLiteConnection.Query<JWTRegister>("SELECT * FROM JWTRegister ORDER BY Id ASC");
+			if (jwtRegisters.Count == 5)
+			{
+				SQLiteConnection.Delete<JWTRegister>(jwtRegisters[0].Id);
+			}
+
 			SQLiteConnection.Insert(new JWTRegister()
 			{
 				Token = ClientInfo.Token,

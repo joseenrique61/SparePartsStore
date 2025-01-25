@@ -7,6 +7,8 @@ namespace SPSMobile.Utilities.Authenticator
 		[PrimaryKey, AutoIncrement]
 		public int Id { get; set; }
 
+		public DateTime DateTime { get; set; } = DateTime.Now;
+
 		public string Token { get; set; }
 
 		public string Email { get; set; }
