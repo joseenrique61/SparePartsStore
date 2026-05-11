@@ -1,4 +1,5 @@
 ﻿@using System.Globalization
+@using SparePartsStoreWeb.Utilities
 @model PurchaseOrder
 
 @{
@@ -52,7 +53,7 @@
 		{
 			@* <form asp-action="Buy"> *@
 				<div class="form-group mb-3">
-					<button class="btn btn-success @(ViewBag.Warnings.Count > 0 ? "disabled" : "")" onclick="goToPayment(@totalReal.ToString(CultureInfo.InvariantCulture))">
+					<button class="btn btn-success @(ViewBag.Warnings.Count > 0 ? "disabled" : "")" onclick="goToPayment(@User.Id())">
 						@if (ViewBag.Warnings.Count > 0)
 						{
 							<i class="bi bi-exclamation-triangle-fill"></i>
@@ -66,14 +67,12 @@
 </div>
 
 <script>
-async function goToPayment(amount) {
-    console.log("Starting payment for: ", amount);
-    
-    // Llamamos a tu API que tiene el VaultKmsService
-    const response = await fetch('http://localhost:5027/api/payment/process', {
+async function goToPayment(userId) {
+    // Llamamos a la API que tiene el VaultKmsService
+    const response = await fetch('http://localhost:5027/api/payment/generate-redirect-url', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ total: amount }) 
+        body: JSON.stringify({ userId: userId }) 
     });
     
     if (response.ok) {

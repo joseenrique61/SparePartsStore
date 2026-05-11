@@ -15,5 +15,7 @@ namespace SparePartsStoreWeb.Data.Repositories.PurchaseOrderRepository
 		public Task<bool> Create(PurchaseOrder purchaseOrder);
 
 		public Task<bool> Update(PurchaseOrder purchaseOrder);
+
+		public Task<bool> Pay(string token);
 	}
 }

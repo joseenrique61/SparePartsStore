@@ -11,10 +11,13 @@ namespace SparePartsStoreWeb.Controllers
 
 		private readonly IAuthenticator _authenticator;
 
-		public PurchaseOrderController(IUnitOfWork unitOfWork, IAuthenticator authenticator)
+		private readonly ILogger<PurchaseOrderController> _logger;
+
+		public PurchaseOrderController(IUnitOfWork unitOfWork, IAuthenticator authenticator, ILogger<PurchaseOrderController> logger)
 		{
 			_unitOfWork = unitOfWork;
 			_authenticator = authenticator;
+			_logger = logger;
 		}
 
 		public async Task<IActionResult> CartInfo()
@@ -88,35 +91,18 @@ namespace SparePartsStoreWeb.Controllers
 				.OrderByDescending(p => p.Id));
 		}
 
-		public async Task<IActionResult> Buy()
+		public async Task<IActionResult> Buy(string token)
 		{
 			if (!_authenticator.Authenticate())
 			{
 				return RedirectToAction("Login", "Client");
 			}
 
-			int? clientId = HttpContext.User.Id();
-			if (clientId == null)
+			_logger.LogWarning(token);		
+
+			if (!await _unitOfWork.PurchaseOrder.Pay(token))
 			{
-				return RedirectToAction("Login", "Client");
-			}
-
-			PurchaseOrder purchaseOrder = await _unitOfWork.PurchaseOrder.GetCurrentByClientId((int)clientId);
-			purchaseOrder.PurchaseCompleted = true;
-			purchaseOrder.Client = null;
-			await _unitOfWork.PurchaseOrder.Update(purchaseOrder);
-
-			List<SparePart> spareParts = (await _unitOfWork.SparePart.GetAll())!;
-			foreach (SparePart sparePart in spareParts)
-			{
-				Order? order = purchaseOrder.Orders.FirstOrDefault(o => o.SparePartId == sparePart.Id);
-				if (order == null)
-				{
-					continue;
-				}
-
-				sparePart.Stock -= order.Amount;
-				await _unitOfWork.SparePart.Update(sparePart);
+				return BadRequest();
 			}
 
 			return RedirectToAction("Index", "Home");

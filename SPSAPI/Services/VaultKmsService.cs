@@ -6,6 +6,8 @@ namespace SPSAPI.Services;
 public interface IVaultKmsService
 {
     Task<string> EncryptPayloadAsync(object payload);
+
+    Task<T> DecryptPayloadAsync<T>(string cyphertext);
 }
 
 public class VaultKmsService : IVaultKmsService
@@ -31,19 +33,38 @@ public class VaultKmsService : IVaultKmsService
 
         // 3. Preparar la petición para el motor Transit
         var requestBody = new { plaintext = base64Plaintext };
-        
+
         var response = await _httpClient.PostAsJsonAsync(
-            $"{VaultAddr}/v1/transit/encrypt/payments-key", 
+            $"{VaultAddr}/v1/transit/encrypt/payments-key",
             requestBody
         );
-        
+
         response.EnsureSuccessStatusCode();
 
         var result = await response.Content.ReadFromJsonAsync<VaultResponse>();
-        
+
         // El Ciphertext se ve así: "vault:v1:asdqwe..."
         return result?.Data?.Ciphertext ?? throw new Exception("Error al obtener cifrado del KMS");
     }
+
+    public async Task<T> DecryptPayloadAsync<T>(string ciphertext)
+    {
+        var requestBody = new { ciphertext = ciphertext };
+        var response = await _httpClient.PostAsJsonAsync($"{VaultAddr}/v1/transit/decrypt/payments-key", requestBody);
+
+        response.EnsureSuccessStatusCode();
+
+        var result = await response.Content.ReadFromJsonAsync<VaultDecryptResponse>();
+
+        // Vault devuelve Base64, lo decodificamos a string
+        var base64Plaintext = result?.Data?.Plaintext ?? throw new Exception("Error KMS");
+        var json = Encoding.UTF8.GetString(Convert.FromBase64String(base64Plaintext));
+
+        return JsonSerializer.Deserialize<T>(json)!;
+    }
+
+    private class VaultDecryptResponse { public DecryptData Data { get; set; } }
+    private class DecryptData { public string Plaintext { get; set; } }
 
     private class VaultResponse { public VaultData Data { get; set; } }
     private class VaultData { public string Ciphertext { get; set; } }

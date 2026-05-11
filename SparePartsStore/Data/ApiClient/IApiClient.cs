@@ -10,6 +10,8 @@
 
 		public Task<HttpResponseMessage> Post<T>(string route, object data);
 
+		public Task<HttpResponseMessage> Post(string route, object data);
+
 		public Task<HttpResponseMessage> Put<T>(string route, T data);
 
 		public Task<HttpResponseMessage> Delete<T>(string route);
