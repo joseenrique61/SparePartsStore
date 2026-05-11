@@ -40,19 +40,25 @@ namespace SPSAPI.Controllers
 		[Route("current/{id}")]
 		public async Task<PurchaseOrder> GetCurrentByClientId(int id)
 		{
+			Client? client = await _context.Client.FirstOrDefaultAsync(c => c.UserId == id);
+			if (client == null)
+			{
+				throw new Exception("User not found");
+			}
+
 			PurchaseOrder? purchaseOrder = await _context.PurchaseOrders
 				.Include(purchase => purchase.Orders)
 				.ThenInclude(orders => orders.SparePart)
 				.ThenInclude(spare => spare!.Category)
 				.Include(purchase => purchase.Client)
 				.ThenInclude(client => client!.User)
-				.FirstOrDefaultAsync(p => p.Client!.Id == id && !p.PurchaseCompleted);
+				.FirstOrDefaultAsync(p => p.Client!.Id == client.Id && !p.PurchaseCompleted);
 
 			if (purchaseOrder == null)
 			{
 				await _context.PurchaseOrders.AddAsync(new PurchaseOrder
 				{
-					ClientId = id,
+					ClientId = client.Id,
 					PurchaseCompleted = false,
 					Orders = []
 				});
@@ -61,7 +67,7 @@ namespace SPSAPI.Controllers
 				return (await _context.PurchaseOrders
 					.Include(purchase => purchase.Client)
 					.ThenInclude(client => client!.User)
-					.FirstOrDefaultAsync(p => p.Client!.Id == id && !p.PurchaseCompleted))!;
+					.FirstOrDefaultAsync(p => p.Client!.Id == client.Id && !p.PurchaseCompleted))!;
 			}
 
 			return purchaseOrder;
@@ -108,7 +114,7 @@ namespace SPSAPI.Controllers
 				.ThenInclude(spare => spare!.Category)
 				.Include(purchase => purchase.Client)
 				.ThenInclude(client => client!.User)
-				.Where(purchase => purchase.Client!.Id == id)
+				.Where(purchase => purchase.Client!.UserId == id)
 				.ToListAsync();
 
 			if (purchaseOrders.Count == 0)

@@ -25,5 +25,12 @@ namespace SparePartsStoreWeb.Utilities
             return user.Claims.First(c => 
                 c.Type == ClaimTypes.Email || c.Type == "email" || c.Type.EndsWith("/email")).Value;
         }
+
+        public static int Id(this ClaimsPrincipal user)
+        {
+            if (user == null || !user.Identity!.IsAuthenticated) return -1;
+
+            return int.Parse(user.Claims.First(c => c.Type == "LocalId").Value);
+        }
     }
 }

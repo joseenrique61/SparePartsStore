@@ -24,7 +24,7 @@ namespace SparePartsStoreWeb.Controllers
 				return RedirectToAction("Login", "Client");
 			}
 
-			PurchaseOrder purchaseOrder = await _unitOfWork.PurchaseOrder.GetCurrentByClientId((int)HttpContext.Session.GetInt32("ClientId")!);
+			PurchaseOrder purchaseOrder = await _unitOfWork.PurchaseOrder.GetCurrentByClientId((int)HttpContext.User.Id()!);
 
 			List<string> warnings = purchaseOrder.Orders
 				.Where(o => o.Amount > o.SparePart!.Stock)
@@ -42,7 +42,7 @@ namespace SparePartsStoreWeb.Controllers
 				return RedirectToAction("Login", "Client");
 			}
 
-			int? clientId = HttpContext.Session.GetInt32("ClientId");
+			int? clientId = HttpContext.User.Id();
 			if (clientId == null)
 			{
 				return RedirectToAction("Login", "Client");
@@ -84,7 +84,7 @@ namespace SparePartsStoreWeb.Controllers
 			}
 
 			return View((await _unitOfWork.PurchaseOrder
-				.GetByClientId((int)HttpContext.Session.GetInt32("ClientId")!))!
+				.GetByClientId((int)HttpContext.User.Id()!))!
 				.OrderByDescending(p => p.Id));
 		}
 
@@ -95,7 +95,7 @@ namespace SparePartsStoreWeb.Controllers
 				return RedirectToAction("Login", "Client");
 			}
 
-			int? clientId = HttpContext.Session.GetInt32("ClientId");
+			int? clientId = HttpContext.User.Id();
 			if (clientId == null)
 			{
 				return RedirectToAction("Login", "Client");

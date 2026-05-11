@@ -121,6 +121,7 @@ builder.Services.AddAuthentication(options =>
 				logger.LogError("Failed to create user.");
 				return;
 			}
+
 			// 5. Inyectar el ID LOCAL en los claims para que tus controladores sigan funcionando con el Id entero
 			identity = context.Principal?.Identity as ClaimsIdentity;
 			identity?.AddClaim(new Claim("LocalId", userId.ToString()));

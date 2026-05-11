@@ -47,7 +47,7 @@ namespace SparePartsStoreWeb.Data.Repositories.ClientRepository
             {
                 return -1;
             }
-            return response.Content.ReadFromJsonAsync<User>().Id;
+            return (await response.Content.ReadFromJsonAsync<User>())!.Id;
         }
 
         public async Task<int> Register(Client client)
@@ -57,7 +57,7 @@ namespace SparePartsStoreWeb.Data.Repositories.ClientRepository
             {
                 return -1;
             }
-            return response.Content.ReadFromJsonAsync<User>().Id;
+            return (await response.Content.ReadFromJsonAsync<User>())!.Id;
         }
 
         public async Task<Client?> GetById(int id)

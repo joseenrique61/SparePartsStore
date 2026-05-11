@@ -41,9 +41,9 @@ namespace SparePartsStoreWeb.Controllers
 				return NotFound();
 			}
 
-			if (HttpContext.Session.GetString("Role") == UserTypes.Client)
+			if (HttpContext.User.Identity?.IsAuthenticated ?? false)
 			{
-				PurchaseOrder purchaseOrder = await _unitOfWork.PurchaseOrder.GetCurrentByClientId((int)HttpContext.Session.GetInt32("ClientId")!);
+				PurchaseOrder purchaseOrder = await _unitOfWork.PurchaseOrder.GetCurrentByClientId((int)HttpContext.User.Id()!);
 				Order? order = purchaseOrder.Orders.FirstOrDefault(o => o.SparePartId == id);
 				ViewBag.AmountOnCart = order == null ? 0 : order.Amount;
 			}
@@ -61,7 +61,7 @@ namespace SparePartsStoreWeb.Controllers
 
 		public async Task<IActionResult> AddToCart(int amount, SparePart sparePart)
 		{
-			if (!_authenticator.Authenticate(UserTypes.Client))
+			if (!_authenticator.Authenticate())
 			{
 				return RedirectToAction("Login", "Client");
 			}
@@ -74,7 +74,7 @@ namespace SparePartsStoreWeb.Controllers
 				return RedirectToAction(nameof(Details), new { id = sparePart.Id });
 			}
 
-			int? clientId = HttpContext.Session.GetInt32("ClientId");
+			int? clientId = HttpContext.User.Id();
 			if (clientId == null)
 			{
 				return RedirectToAction("Login", "Client");

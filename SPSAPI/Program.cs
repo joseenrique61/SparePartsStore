@@ -31,7 +31,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     {
         ValidateIssuer = true,
         ValidateAudience = false, // Keycloak a veces pone audiencias dinámicas
-        ValidateLifetime = true
+        ValidateLifetime = false
     };
 });
 

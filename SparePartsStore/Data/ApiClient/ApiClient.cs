@@ -1,4 +1,6 @@
-﻿namespace SparePartsStoreWeb.Data.ApiClient
+﻿using Microsoft.AspNetCore.Authentication;
+
+namespace SparePartsStoreWeb.Data.ApiClient
 {
 	public class ApiClient : IApiClient
 	{
@@ -12,8 +14,6 @@
 
 			_client.BaseAddress = new Uri("http://localhost:5027/api/");
 			_httpContextAccessor = httpContextAccesor;
-
-			SetToken(_httpContextAccessor.HttpContext!.Session.GetString("JWToken") ?? "");
 		}
 
 		private static string GetRoute<T>(string route)
@@ -24,31 +24,36 @@
 		public void SetToken(string token)
 		{
 			_client.DefaultRequestHeaders.Authorization = new("Bearer", token);
-			_httpContextAccessor.HttpContext!.Session.SetString("JWToken", token);
+			// _httpContextAccessor.HttpContext!.Session.SetString("JWToken", token);
 		}
 
 		public async Task<HttpResponseMessage> Get<T>(string route)
 		{
+			SetToken(await _httpContextAccessor.HttpContext!.GetTokenAsync("access_token") ?? "");
 			return await _client.GetAsync(GetRoute<T>(route));
 		}
 
 		public async Task<HttpResponseMessage> Post<T>(string route, T data)
 		{
+			SetToken(await _httpContextAccessor.HttpContext!.GetTokenAsync("access_token") ?? "");
 			return await _client.PostAsJsonAsync(GetRoute<T>(route), data);
 		}
 
 		public async Task<HttpResponseMessage> Post<T>(string route, object data)
 		{
+			SetToken(await _httpContextAccessor.HttpContext!.GetTokenAsync("access_token") ?? "");
 			return await _client.PostAsJsonAsync(GetRoute<T>(route), data);
 		}
 
 		public async Task<HttpResponseMessage> Put<T>(string route, T data)
 		{
+			SetToken(await _httpContextAccessor.HttpContext!.GetTokenAsync("access_token") ?? "");
 			return await _client.PutAsJsonAsync(GetRoute<T>(route), data);
 		}
 
 		public async Task<HttpResponseMessage> Delete<T>(string route)
 		{
+			SetToken(await _httpContextAccessor.HttpContext!.GetTokenAsync("access_token") ?? "");
 			return await _client.DeleteAsync(GetRoute<T>(route));
 		}
 	}
