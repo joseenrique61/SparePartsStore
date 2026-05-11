@@ -46,6 +46,17 @@ builder.Services.AddScoped<IJWTResponseGenerator, JWTResponseGenerator>();
 
 builder.Services.AddHttpClient<IVaultKmsService, VaultKmsService>();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowMVCApp", policy =>
+    {
+        policy.WithOrigins("http://localhost:5228") // La URL de tu MVC
+              .AllowAnyMethod()
+              .AllowAnyHeader()
+              .AllowCredentials(); // Necesario si envías tokens/cookies
+    });
+});
+
 // Add the controllers and prevent them from entering in an infinite loop when serializing recursive objects in JSON. Code made with ChatGPT.
 builder.Services.AddControllers()
 	.AddJsonOptions(options =>
@@ -94,6 +105,8 @@ if (app.Environment.IsDevelopment())
 	// app.UseSwagger();
 	// app.UseSwaggerUI();
 }
+
+app.UseCors("AllowMVCApp");
 
 // Seed data into the database
 await DataSeeding(app);

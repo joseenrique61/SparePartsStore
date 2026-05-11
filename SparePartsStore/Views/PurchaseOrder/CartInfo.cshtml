@@ -70,7 +70,7 @@ async function goToPayment(amount) {
     console.log("Starting payment for: ", amount);
     
     // Llamamos a tu API que tiene el VaultKmsService
-    const response = await fetch('/api/payment/process', {
+    const response = await fetch('http://localhost:5027/api/payment/process', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ total: amount }) 
@@ -79,6 +79,7 @@ async function goToPayment(amount) {
     if (response.ok) {
         const data = await response.json();
         // Redirigimos al Sistema B con el token encriptado
+				console.log(data.redirectUrl);
         window.location.href = data.redirectUrl;
     } else {
         alert("Error while connecting with KMS");
