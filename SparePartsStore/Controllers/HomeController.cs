@@ -1,3 +1,6 @@
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Mvc;
 using SparePartsStoreWeb.Data.ApiClient;
 using SparePartsStoreWeb.Data.UnitOfWork;
@@ -13,7 +16,7 @@ namespace SparePartsStoreWeb.Controllers
 		private readonly IUnitOfWork _unitOfWork;
 
 		private readonly IApiClient _client;
-		
+
 		public HomeController(ILogger<HomeController> logger, IUnitOfWork unitOfWork, IApiClient client)
 		{
 			_logger = logger;
@@ -21,37 +24,41 @@ namespace SparePartsStoreWeb.Controllers
 			_client = client;
 		}
 
-        public async Task<IActionResult> Index(int? categoryId)
-        {
-            var spareParts = await _unitOfWork.SparePart.GetAll();
+		public async Task<IActionResult> Index(int? categoryId)
+		{
+			var spareParts = await _unitOfWork.SparePart.GetAll() ?? [];
 
-            if (categoryId.HasValue)
-            {
-                spareParts = spareParts.Where(s => s.CategoryId == categoryId.Value).ToList();
-            }
+			if (categoryId.HasValue)
+			{
+				spareParts = [.. spareParts.Where(s => s.CategoryId == categoryId.Value)];
+			}
 
-            ViewBag.CategoryId = await _unitOfWork.Category.GetAll(); 
-            return View(spareParts);
-        }
+			ViewBag.CategoryId = await _unitOfWork.Category.GetAll();
+			return View(spareParts);
+		}
 
 
-        public IActionResult Privacy()
+		public IActionResult Privacy()
 		{
 			return View();
 		}
-        public IActionResult Contact()
-        {
-            return View();
-        }
-     
-        public IActionResult Logout()
+		public IActionResult Contact()
 		{
-			_client.SetToken("");
-			HttpContext.Session.SetString("Role", "");
-			HttpContext.Session.SetInt32("ClientId", -1);
-			HttpContext.Session.SetString("Email", "");
+			return View();
+		}
 
-			return RedirectToAction(nameof(Index));
+		public async Task<IActionResult> Logout()
+		{
+			// _client.SetToken("");
+			// HttpContext.Session.SetString("Role", "");
+			// HttpContext.Session.SetInt32("ClientId", -1);
+			// HttpContext.Session.SetString("Email", "");
+
+			// return RedirectToAction(nameof(Index));
+
+			await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+			return SignOut(new AuthenticationProperties { RedirectUri = "/" },
+					OpenIdConnectDefaults.AuthenticationScheme);
 		}
 
 		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

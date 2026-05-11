@@ -10,6 +10,8 @@ namespace SPSModels.Models
 		[Key]
 		public int Id { get; set; }
 
+		public string KeyCloakId { get; set; }
+
 		[Required]
 		[DataType(DataType.EmailAddress)]
 		public string Email { get; set; }

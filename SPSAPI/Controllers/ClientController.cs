@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SPSAPI.Data;
 using SPSAPI.Utilities;
@@ -14,14 +15,17 @@ namespace SPSAPI.Controllers
 		private readonly ApplicationDBContext _context;
 
 		private readonly IJWTResponseGenerator _responseGenerator;
-		
-        public ClientController(ApplicationDBContext context, IJWTResponseGenerator responseGenerator)
-        {
-            _context = context;
-			_responseGenerator = responseGenerator;
-        }
 
-        [HttpPost]
+		private readonly ILogger<ClientController> _logger;
+
+		public ClientController(ApplicationDBContext context, IJWTResponseGenerator responseGenerator, ILogger<ClientController> logger)
+		{
+			_context = context;
+			_responseGenerator = responseGenerator;
+			_logger = logger;
+		}
+
+		[HttpPost]
 		[Route("register")]
 		public async Task<IActionResult> Register([FromBody] Client client)
 		{
@@ -39,10 +43,12 @@ namespace SPSAPI.Controllers
 				await _context.Client.AddAsync(client);
 				await _context.SaveChangesAsync();
 
-				return Ok(_responseGenerator.Generate(client.User.Email, UserTypes.Client, client.Id));
+				// return Ok(_responseGenerator.Generate(client.User.Email, UserTypes.Client, client.Id));
+				return Ok(new User() { Id = client.Id });
 			}
-			catch
+			catch (Exception e)
 			{
+				_logger.LogError(e.Message);
 				return BadRequest();
 			}
 		}
@@ -56,6 +62,15 @@ namespace SPSAPI.Controllers
 				.FirstOrDefaultAsync(c => c.Id == id);
 
 			return client != null ? Ok(client) : NotFound();
+		}
+
+		[Authorize] // Ahora protege con Keycloak
+		[HttpGet("profile")]
+		public IActionResult GetProfile()
+		{
+			// El ID del usuario en Keycloak (UUID)
+			var keycloakId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+			return Ok(new { Message = "Autenticado en Sistema A", KeycloakId = keycloakId });
 		}
 	}
 }

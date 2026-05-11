@@ -1,4 +1,5 @@
-﻿@model SparePart
+﻿@using SparePartsStoreWeb.Utilities
+@model SparePart
 
 @{
 	ViewData["Title"] = Model.Name;
@@ -23,14 +24,14 @@
 
 			<hr />
 
-			@if (ViewBag.Role == UserTypes.Admin)
+			@if (User.HasRole("admin"))
 			{
 				<div class="form-group row">
 					<a asp-action="Index" class="btn btn-secondary col-auto me-2"><i class="bi bi-box-arrow-left"></i> Back</a>
 					<a asp-action="Edit" asp-controller="SparePart" asp-route-id="@Model.Id" class="btn btn-warning col-auto"><i class="bi bi-pencil-square"></i> Edit</a>
 				</div>
 			}
-			else if (ViewBag.Role == UserTypes.Client)
+			else if (User.Identity?.IsAuthenticated ?? false)
 			{
 				<form asp-action="AddToCart" id="addForm">
 					<input hidden asp-for="Id" />
@@ -51,7 +52,7 @@
 					</div>
 				</form>
 			}
-			else if (ViewBag.Role == "")
+			else
 			{
 				<div class="row">
 					<a asp-action="Login" asp-controller="Client" class="btn btn-primary col-auto">Buy</a>

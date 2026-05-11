@@ -77,7 +77,7 @@ namespace SPSAPI.DataSeeders
 						Stock=500,
 						Image="bomba_agua_refrigeracion.jpg",
 						Price=30.0,
-						CategoryId=9,
+						CategoryId=2,
 					},
 					new SparePart
 					{
@@ -113,7 +113,7 @@ namespace SPSAPI.DataSeeders
 						Stock=20,
 						Image="termostato_refrigeracion.jpg",
 						Price=150.0,
-						CategoryId=9,
+						CategoryId=2,
 					},
 					new SparePart
 					{
@@ -122,7 +122,7 @@ namespace SPSAPI.DataSeeders
 						Stock=100,
 						Image="radiador_refrigeracion.jpg",
 						Price=100.0,
-						CategoryId=9,
+						CategoryId=2,
 					}
 				];
 

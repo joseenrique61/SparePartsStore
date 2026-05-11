@@ -36,6 +36,12 @@
 		{
 			return await _client.PostAsJsonAsync(GetRoute<T>(route), data);
 		}
+
+		public async Task<HttpResponseMessage> Post<T>(string route, object data)
+		{
+			return await _client.PostAsJsonAsync(GetRoute<T>(route), data);
+		}
+
 		public async Task<HttpResponseMessage> Put<T>(string route, T data)
 		{
 			return await _client.PutAsJsonAsync(GetRoute<T>(route), data);

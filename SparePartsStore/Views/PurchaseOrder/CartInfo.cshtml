@@ -1,7 +1,13 @@
-﻿@model PurchaseOrder
+﻿@using System.Globalization
+@model PurchaseOrder
 
 @{
 	ViewData["Title"] = "Shopping Cart";
+}
+
+@{
+    // Calculamos el total real
+    var totalReal = Model.Orders.Sum(o => o.Amount * o.SparePart!.Price);
 }
 
 <div class="content row">
@@ -34,19 +40,19 @@
 	<div class="card col-5 align-self-start">
 		<div class="input-group mt-3">
 			<span class="input-group-text">Name</span>
-			<span type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" readonly>@Model.Client.Name</span>
+			<span type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" readonly>@Model.Client?.Name</span>
 		</div>
 		<br />
 		<div class="input-group my-3">
 			<span class="input-group-text">Total</span>
-			<input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" value="@Model.Orders.Sum(o => o.Amount * o.SparePart!.Price)" readonly>
+			<input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" value="@totalReal.ToString("C")" readonly>
 			<span class="input-group-text">$</span>
 		</div>
 		@if (Model!.Orders.Count > 0)
 		{
-			<form asp-action="Buy">
+			@* <form asp-action="Buy"> *@
 				<div class="form-group mb-3">
-					<button type="submit" class="btn btn-success @(ViewBag.Warnings.Count > 0 ? "disabled" : "")">
+					<button class="btn btn-success @(ViewBag.Warnings.Count > 0 ? "disabled" : "")" onclick="goToPayment(@totalReal.ToString(CultureInfo.InvariantCulture))">
 						@if (ViewBag.Warnings.Count > 0)
 						{
 							<i class="bi bi-exclamation-triangle-fill"></i>
@@ -54,7 +60,28 @@
 						Buy
 					</button>
 				</div>
-			</form>
+			@* </form> *@
 		}
 	</div>
 </div>
+
+<script>
+async function goToPayment(amount) {
+    console.log("Starting payment for: ", amount);
+    
+    // Llamamos a tu API que tiene el VaultKmsService
+    const response = await fetch('/api/payment/process', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ total: amount }) 
+    });
+    
+    if (response.ok) {
+        const data = await response.json();
+        // Redirigimos al Sistema B con el token encriptado
+        window.location.href = data.redirectUrl;
+    } else {
+        alert("Error while connecting with KMS");
+    }
+}
+</script>

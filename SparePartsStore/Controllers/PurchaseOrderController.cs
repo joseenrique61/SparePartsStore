@@ -19,7 +19,7 @@ namespace SparePartsStoreWeb.Controllers
 
 		public async Task<IActionResult> CartInfo()
 		{
-			if (!_authenticator.Authenticate(UserTypes.Client))
+			if (!_authenticator.Authenticate())
 			{
 				return RedirectToAction("Login", "Client");
 			}
@@ -37,7 +37,7 @@ namespace SparePartsStoreWeb.Controllers
 
 		public async Task<IActionResult> RemoveFromCart(int sparePartId)
 		{
-			if (!_authenticator.Authenticate(UserTypes.Client))
+			if (!_authenticator.Authenticate())
 			{
 				return RedirectToAction("Login", "Client");
 			}
@@ -78,7 +78,7 @@ namespace SparePartsStoreWeb.Controllers
 
 		public async Task<IActionResult> PurchaseOrderListClient()
 		{
-			if (!_authenticator.Authenticate(UserTypes.Client))
+			if (!_authenticator.Authenticate())
 			{
 				return RedirectToAction("Login", "Client");
 			}
@@ -90,7 +90,7 @@ namespace SparePartsStoreWeb.Controllers
 
 		public async Task<IActionResult> Buy()
 		{
-			if (!_authenticator.Authenticate(UserTypes.Client))
+			if (!_authenticator.Authenticate())
 			{
 				return RedirectToAction("Login", "Client");
 			}

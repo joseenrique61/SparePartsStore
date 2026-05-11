@@ -15,37 +15,49 @@ namespace SparePartsStoreWeb.Data.Repositories.ClientRepository
             _contextAccessor = contextAccessor;
         }
 
-        public async Task<bool> Login(string email, string password)
+        public async Task<int> Login(string keycloakId)
         {
-            HttpResponseMessage response = await _client.Post("login", new User()
-            {
-                Email = email,
-                Password = password
-            });
+            // HttpResponseMessage response = await _client.Post("login", new User()
+            // {
+            //     Email = email,
+            //     Password = password
+            // });
+
+            // if (!response.IsSuccessStatusCode)
+            // {
+            //     return false;
+            // }
+
+            // JWTResponse? token = await response.Content.ReadFromJsonAsync<JWTResponse>();
+            // if (token == null)
+            // {
+            //     return false;
+            // }
+
+            // _client.SetToken(token.Token);
+            // _contextAccessor.HttpContext!.Session.SetString("Email", token.Email);
+            // _contextAccessor.HttpContext!.Session.SetString("Role", token.Role);
+            // _contextAccessor.HttpContext!.Session.SetInt32("ClientId", token.ClientId);
+
+            // return true;
+
+            HttpResponseMessage response = await _client.Post<User>("login", new KeyCloakLogin {KeyCloakId = keycloakId});
 
             if (!response.IsSuccessStatusCode)
             {
-                return false;
+                return -1;
             }
-
-            JWTResponse? token = await response.Content.ReadFromJsonAsync<JWTResponse>();
-            if (token == null)
-            {
-                return false;
-            }
-
-            _client.SetToken(token.Token);
-            _contextAccessor.HttpContext!.Session.SetString("Email", token.Email);
-            _contextAccessor.HttpContext!.Session.SetString("Role", token.Role);
-            _contextAccessor.HttpContext!.Session.SetInt32("ClientId", token.ClientId);
-
-            return true;
+            return response.Content.ReadFromJsonAsync<User>().Id;
         }
 
-        public async Task<bool> Register(Client client)
+        public async Task<int> Register(Client client)
         {
             HttpResponseMessage response = await _client.Post("register", client);
-            return response.IsSuccessStatusCode;
+            if (!response.IsSuccessStatusCode)
+            {
+                return -1;
+            }
+            return response.Content.ReadFromJsonAsync<User>().Id;
         }
 
         public async Task<Client?> GetById(int id)
@@ -59,4 +71,9 @@ namespace SparePartsStoreWeb.Data.Repositories.ClientRepository
             return null;
         }
     }
+}
+
+public class KeyCloakLogin
+{
+    public string KeyCloakId {get; set;}
 }

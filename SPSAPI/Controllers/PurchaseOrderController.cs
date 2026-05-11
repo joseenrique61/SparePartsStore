@@ -60,7 +60,7 @@ namespace SPSAPI.Controllers
 
 				return (await _context.PurchaseOrders
 					.Include(purchase => purchase.Client)
-					.ThenInclude(client => client.User)
+					.ThenInclude(client => client!.User)
 					.FirstOrDefaultAsync(p => p.Client!.Id == id && !p.PurchaseCompleted))!;
 			}
 

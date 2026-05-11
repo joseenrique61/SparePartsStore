@@ -11,13 +11,11 @@
 
 		public bool Authenticate(string? expectedRole)
 		{
-			string? role = _httpContextAccessor.HttpContext!.Session.GetString("Role");
-			if (expectedRole == null)
+			if (string.IsNullOrEmpty(expectedRole))
 			{
-				return role != "";
+				return _httpContextAccessor.HttpContext!.User.Identity!.IsAuthenticated;
 			}
-
-			return expectedRole == role;
+			return _httpContextAccessor.HttpContext!.User.HasRole(expectedRole);
 		}
 	}
 }

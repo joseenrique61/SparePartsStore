@@ -1,12 +1,12 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 using SPSAPI.Data;
 using SPSAPI.DataSeeders;
+using SPSAPI.Services;
 using SPSAPI.Utilities.JWTResponseGenerator;
 using SPSAPI.Utilities.JWTTokenGenerator;
-using System.Text;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,22 +16,23 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<ApplicationDBContext>(
 	options => options.UseSqlServer(builder.Configuration.GetConnectionString("ApplicationConnection")));
 
+builder.Services.AddLogging();
+
 // Configuration for JWT Bearers
-builder.Services.AddAuthentication(options =>
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+.AddJwtBearer(options =>
 {
-	options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-	options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(options =>
-{
-	options.TokenValidationParameters = new()
-	{
-		ValidateIssuer = true,
-		ValidateAudience = true,
-		ValidateIssuerSigningKey = true,
-		ValidIssuer = builder.Configuration["JWTSettings:Issuer"]!,
-		ValidAudience = builder.Configuration["JWTSettings:Audience"]!,
-		IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWTSettings:Key"]!))
-	};
+    // La API confía en Keycloak
+    options.Authority = "http://localhost:8080/realms/FerreteriaRealm";
+    options.Audience = "account"; // O el ClientID 'system-a-store'
+    options.RequireHttpsMetadata = false;
+    
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = false, // Keycloak a veces pone audiencias dinámicas
+        ValidateLifetime = true
+    };
 });
 
 // Add the DBInitializer to the dependency injection
@@ -42,6 +43,8 @@ builder.Services.AddScoped<ISparePartDataSeeder, SparePartDataSeeder>();
 // Add the token generator to the dependency injection
 builder.Services.AddScoped<IJWTTokenGenerator, JWTTokenGenerator>();
 builder.Services.AddScoped<IJWTResponseGenerator, JWTResponseGenerator>();
+
+builder.Services.AddHttpClient<IVaultKmsService, VaultKmsService>();
 
 // Add the controllers and prevent them from entering in an infinite loop when serializing recursive objects in JSON. Code made with ChatGPT.
 builder.Services.AddControllers()
@@ -54,33 +57,32 @@ builder.Services.AddControllers()
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
-// Configure Swagger for use with JWT. Code obtained from https://medium.com/@deidra108/oauth-bearer-token-with-swagger-ui-net-6-0-86835e616deb and modified.
-builder.Services.AddSwaggerGen(options =>
+// Nuevo generador oficial de OpenAPI para .NET 10
+builder.Services.AddOpenApi(options =>
 {
-	options.SwaggerDoc("v1", new OpenApiInfo { Title = "SPSAPI", Version = "v1" });
-	options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+	options.AddDocumentTransformer((document, context, cancellationToken) =>
 	{
-		In = ParameterLocation.Header,
-		Description = "Enter token",
-		Name = "Authorization",
-		Type = SecuritySchemeType.Http,
-		BearerFormat = "JWT",
-		Scheme = "bearer"
-	});
+		// Definimos el esquema de seguridad (JWT)
+		var requirements = new Dictionary<string, string[]> {
+						{ "Bearer", [] }
+			};
 
-	options.AddSecurityRequirement(new OpenApiSecurityRequirement
-	{
+		document.Components ??= new();
+		document.Components.SecuritySchemes!.Add("Bearer", new OpenApiSecurityScheme
 		{
-			new OpenApiSecurityScheme
-			{
-				Reference = new OpenApiReference
-				{
-					Type = ReferenceType.SecurityScheme,
-					Id = "Bearer"
-				}
-			},
-			Array.Empty<string>()
-		}
+			Type = SecuritySchemeType.Http,
+			Scheme = "bearer",
+			BearerFormat = "JWT",
+			In = ParameterLocation.Header,
+			Description = "Ingrese el token JWT"
+		});
+
+		document.Security!.Add(new OpenApiSecurityRequirement
+		{
+			[new OpenApiSecuritySchemeReference("bearer", document)] = []
+		});
+
+		return Task.CompletedTask;
 	});
 });
 
@@ -89,8 +91,8 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-	app.UseSwagger();
-	app.UseSwaggerUI();
+	// app.UseSwagger();
+	// app.UseSwaggerUI();
 }
 
 // Seed data into the database
