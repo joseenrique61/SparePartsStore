@@ -8,17 +8,11 @@ namespace SPSAPI.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
-	public class SparePartController : ControllerBase
+	public class SparePartController(ILogger<SparePartController> logger, ApplicationDBContext context) : ControllerBase
 	{
-		private readonly ILogger _logger;
+		private readonly ILogger _logger = logger;
 
-		private readonly ApplicationDBContext _context;
-
-		public SparePartController(ILogger<SparePartController> logger, ApplicationDBContext context)
-		{
-			_logger = logger;
-			_context = context;
-		}
+		private readonly ApplicationDBContext _context = context;
 
 		[HttpGet]
 		[Route("all")]
@@ -94,7 +88,7 @@ namespace SPSAPI.Controllers
 				{
 					return NotFound();
 				}
-				
+
 				_context.SparePart.Remove(sparePart);
 				await _context.SaveChangesAsync();
 

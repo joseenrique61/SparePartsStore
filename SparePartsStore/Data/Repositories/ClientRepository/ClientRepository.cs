@@ -3,45 +3,13 @@ using SPSModels.Models;
 
 namespace SparePartsStoreWeb.Data.Repositories.ClientRepository
 {
-    public class ClientRepository : IClientRepository
+    public class ClientRepository(IApiClient client) : IClientRepository
     {
-        private readonly IApiClient _client;
-
-        private readonly IHttpContextAccessor _contextAccessor;
-
-        public ClientRepository(IApiClient client, IHttpContextAccessor contextAccessor)
-        {
-            _client = client;
-            _contextAccessor = contextAccessor;
-        }
+        private readonly IApiClient _client = client;
 
         public async Task<int> Login(string keycloakId)
         {
-            // HttpResponseMessage response = await _client.Post("login", new User()
-            // {
-            //     Email = email,
-            //     Password = password
-            // });
-
-            // if (!response.IsSuccessStatusCode)
-            // {
-            //     return false;
-            // }
-
-            // JWTResponse? token = await response.Content.ReadFromJsonAsync<JWTResponse>();
-            // if (token == null)
-            // {
-            //     return false;
-            // }
-
-            // _client.SetToken(token.Token);
-            // _contextAccessor.HttpContext!.Session.SetString("Email", token.Email);
-            // _contextAccessor.HttpContext!.Session.SetString("Role", token.Role);
-            // _contextAccessor.HttpContext!.Session.SetInt32("ClientId", token.ClientId);
-
-            // return true;
-
-            HttpResponseMessage response = await _client.Post<User>("login", new KeyCloakLogin {KeyCloakId = keycloakId});
+            HttpResponseMessage response = await _client.Post<User>("login", new KeyCloakLogin { KeyCloakId = keycloakId });
 
             if (!response.IsSuccessStatusCode)
             {
@@ -75,5 +43,5 @@ namespace SparePartsStoreWeb.Data.Repositories.ClientRepository
 
 public class KeyCloakLogin
 {
-    public string KeyCloakId {get; set;}
+    public string KeyCloakId { get; set; }
 }

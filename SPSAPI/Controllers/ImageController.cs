@@ -7,16 +7,11 @@ namespace SPSAPI.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
-	public class ImageController : ControllerBase
+	public class ImageController(ApplicationDBContext context) : ControllerBase
 	{
-		private readonly ApplicationDBContext _context;
-		
-		public ImageController(ApplicationDBContext context)
-		{
-			_context = context;
-		}
+		private readonly ApplicationDBContext _context = context;
 
-		[HttpGet]
+    [HttpGet]
 		[Route("getById/{id}")]
 		public IActionResult GetImage(string id)
 		{

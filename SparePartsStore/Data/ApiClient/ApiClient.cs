@@ -8,11 +8,11 @@ namespace SparePartsStoreWeb.Data.ApiClient
 
 		private readonly IHttpContextAccessor _httpContextAccessor;
 
-		public ApiClient(HttpClient client, IHttpContextAccessor httpContextAccesor)
+		public ApiClient(HttpClient client, IHttpContextAccessor httpContextAccesor, IConfiguration configuration)
 		{
 			_client = client;
 
-			_client.BaseAddress = new Uri("http://localhost:5027/api/");
+			_client.BaseAddress = new Uri($"{configuration.GetSection("API:Url").Value}/api/");
 			_httpContextAccessor = httpContextAccesor;
 		}
 

@@ -5,22 +5,15 @@ using SPSModels.Models;
 
 namespace SparePartsStoreWeb.Controllers
 {
-	public class PurchaseOrderController : BaseController
+	public class PurchaseOrderController(IUnitOfWork unitOfWork, IAuthenticator authenticator, ILogger<PurchaseOrderController> logger, IConfiguration configuration) : BaseController
 	{
-		private readonly IUnitOfWork _unitOfWork;
+		private readonly IUnitOfWork _unitOfWork = unitOfWork;
 
-		private readonly IAuthenticator _authenticator;
+		private readonly IAuthenticator _authenticator = authenticator;
 
-		private readonly ILogger<PurchaseOrderController> _logger;
+		private readonly ILogger<PurchaseOrderController> _logger = logger;
 
-		public PurchaseOrderController(IUnitOfWork unitOfWork, IAuthenticator authenticator, ILogger<PurchaseOrderController> logger)
-		{
-			_unitOfWork = unitOfWork;
-			_authenticator = authenticator;
-			_logger = logger;
-		}
-
-		public async Task<IActionResult> CartInfo()
+    public async Task<IActionResult> CartInfo()
 		{
 			if (!_authenticator.Authenticate())
 			{
@@ -34,6 +27,7 @@ namespace SparePartsStoreWeb.Controllers
 				.Select(o => o.SparePart!.Name)
 				.ToList();
 			ViewBag.Warnings = warnings;
+			ViewBag.ApiUrl = configuration.GetSection("API:Url").Value;
 
 			return View(purchaseOrder);
 		}

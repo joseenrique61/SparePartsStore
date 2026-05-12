@@ -7,8 +7,8 @@
 }
 
 @{
-    // Calculamos el total real
-    var totalReal = Model.Orders.Sum(o => o.Amount * o.SparePart!.Price);
+	// Calculamos el total real
+	var totalReal = Model.Orders.Sum(o => o.Amount * o.SparePart!.Price);
 }
 
 <div class="content row">
@@ -20,7 +20,7 @@
 					<div class="row col-9 align-self-start">
 						<h5><strong>@order.SparePart!.Name</strong></h5>
 						<p><strong>Amount: </strong>@order.Amount</p>
-						<p><strong>Price: </strong>$@(order.Amount * order.SparePart!.Price)</p>
+						<p><strong>Price: </strong>$@(order.Amount* order.SparePart!.Price)</p>
 					</div>
 					<div class="row col align-self-center">
 						@if (ViewBag.Warnings.Contains(order.SparePart!.Name))
@@ -41,47 +41,49 @@
 	<div class="card col-5 align-self-start">
 		<div class="input-group mt-3">
 			<span class="input-group-text">Name</span>
-			<span type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" readonly>@Model.Client?.Name</span>
+			<span type="text" class="form-control" placeholder="Username" aria-label="Username"
+						aria-describedby="basic-addon1" readonly>@Model.Client?.Name</span>
 		</div>
 		<br />
 		<div class="input-group my-3">
 			<span class="input-group-text">Total</span>
-			<input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" value="@totalReal.ToString("C")" readonly>
+			<input type="text" class="form-control" aria-label="Amount (to the nearest dollar)"
+						 value="@totalReal.ToString("C")" readonly>
 			<span class="input-group-text">$</span>
 		</div>
 		@if (Model!.Orders.Count > 0)
 		{
 			@* <form asp-action="Buy"> *@
-				<div class="form-group mb-3">
-					<button class="btn btn-success @(ViewBag.Warnings.Count > 0 ? "disabled" : "")" onclick="goToPayment(@User.Id())">
-						@if (ViewBag.Warnings.Count > 0)
-						{
-							<i class="bi bi-exclamation-triangle-fill"></i>
-						}
-						Buy
-					</button>
-				</div>
+			<div class="form-group mb-3">
+				<button class="btn btn-success @(ViewBag.Warnings.Count > 0 ? "disabled" : "")" onclick="goToPayment(@User.Id(), '@ViewBag.ApiUrl')">
+					@if (ViewBag.Warnings.Count > 0)
+					{
+						<i class="bi bi-exclamation-triangle-fill"></i>
+					}
+					Buy
+				</button>
+			</div>
 			@* </form> *@
 		}
 	</div>
 </div>
 
 <script>
-async function goToPayment(userId) {
-    // Llamamos a la API que tiene el VaultKmsService
-    const response = await fetch('http://localhost:5027/api/payment/generate-redirect-url', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ userId: userId }) 
-    });
+	async function goToPayment(userId, apiUrl) {
+		// Llamamos a la API que tiene el VaultKmsService
+		const response = await fetch(`${apiUrl}/api/payment/generate-redirect-url`, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ userId: userId })
+		});
     
-    if (response.ok) {
-        const data = await response.json();
-        // Redirigimos al Sistema B con el token encriptado
-				console.log(data.redirectUrl);
-        window.location.href = data.redirectUrl;
-    } else {
-        alert("Error while connecting with KMS");
-    }
-}
+		if (response.ok) {
+			const data = await response.json();
+			// Redirigimos al Sistema B con el token encriptado
+			console.log(data.redirectUrl);
+			window.location.href = data.redirectUrl;
+		} else {
+			alert("Error while connecting with KMS");
+		}
+	}
 </script>

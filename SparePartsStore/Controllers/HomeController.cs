@@ -49,13 +49,6 @@ namespace SparePartsStoreWeb.Controllers
 
 		public async Task<IActionResult> Logout()
 		{
-			// _client.SetToken("");
-			// HttpContext.Session.SetString("Role", "");
-			// HttpContext.Session.SetInt32("ClientId", -1);
-			// HttpContext.Session.SetString("Email", "");
-
-			// return RedirectToAction(nameof(Index));
-
 			await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 			return SignOut(new AuthenticationProperties { RedirectUri = "/" },
 					OpenIdConnectDefaults.AuthenticationScheme);

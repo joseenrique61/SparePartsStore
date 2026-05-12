@@ -47,9 +47,9 @@ builder.Services.AddAuthentication(options =>
 })
 .AddOpenIdConnect(options =>
 {
-	options.Authority = "http://localhost:8080/realms/FerreteriaRealm";
+	options.Authority = $"{builder.Configuration.GetSection("Vault:Url").Value}/realms/FerreteriaRealm";
 	options.ClientId = "system-a-sps";
-	options.ClientSecret = "iLbbnOqDFd0UkWMKBMsa2YdMamBrSycp"; // El de la pestaña Credentials
+	options.ClientSecret = builder.Configuration.GetSection("Vault:Secret").Value; // El de la pestaña Credentials
 	options.ResponseType = "code";
 
 	// IMPORTANTE: Como Keycloak está en Docker y tu app en HTTP

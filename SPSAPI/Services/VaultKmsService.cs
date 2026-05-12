@@ -14,15 +14,15 @@ public class VaultKmsService : IVaultKmsService
 {
     private readonly HttpClient _httpClient;
     private readonly ILogger<VaultKmsService> _logger;
-    private const string VaultToken = "my-root-token"; // El que pusimos en setup.sh
-    private const string VaultAddr = "http://localhost:8200"; // URL de Vault en Docker
+    private readonly IConfiguration _configuration;
 
-    public VaultKmsService(HttpClient httpClient, ILogger<VaultKmsService> logger)
+    public VaultKmsService(HttpClient httpClient, IConfiguration configuration, ILogger<VaultKmsService> logger)
     {
         _httpClient = httpClient;
         _logger = logger;
+        _configuration = configuration;
         // Importante: Vault requiere el token en este header
-        _httpClient.DefaultRequestHeaders.Add("X-Vault-Token", VaultToken);
+        _httpClient.DefaultRequestHeaders.Add("X-Vault-Token", _configuration.GetSection("Vault:Token").Value);
     }
 
     public async Task<string> EncryptPayloadAsync(object payload)
@@ -37,7 +37,7 @@ public class VaultKmsService : IVaultKmsService
         var requestBody = new { plaintext = base64Plaintext };
 
         var response = await _httpClient.PostAsJsonAsync(
-            $"{VaultAddr}/v1/transit/encrypt/payments-key",
+            $"{_configuration.GetSection("Vault:Url").Value}/v1/transit/encrypt/payments-key",
             requestBody
         );
 
@@ -52,7 +52,7 @@ public class VaultKmsService : IVaultKmsService
     public async Task<T> DecryptPayloadAsync<T>(string ciphertext)
     {
         var requestBody = new { ciphertext = ciphertext };
-        var response = await _httpClient.PostAsJsonAsync($"{VaultAddr}/v1/transit/decrypt/payments-key", requestBody);
+        var response = await _httpClient.PostAsJsonAsync($"{_configuration.GetSection("Vault:Url").Value}/v1/transit/decrypt/payments-key", requestBody);
 
         response.EnsureSuccessStatusCode();
 

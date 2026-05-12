@@ -8,17 +8,11 @@ namespace SPSAPI.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
-	public class CategoryController : ControllerBase
+	public class CategoryController(ILogger<CategoryController> logger, ApplicationDBContext context) : ControllerBase
 	{
-		private readonly ILogger _logger;
+		private readonly ILogger _logger = logger;
 
-		private readonly ApplicationDBContext _context;
-
-		public CategoryController(ILogger<CategoryController> logger, ApplicationDBContext context)
-		{
-			_logger = logger;
-			_context = context;
-		}
+		private readonly ApplicationDBContext _context = context;
 
 		[HttpGet]
 		[Route("all")]
@@ -93,7 +87,7 @@ namespace SPSAPI.Controllers
 				{
 					return NotFound();
 				}
-				
+
 				_context.Category.Remove(category);
 				await _context.SaveChangesAsync();
 

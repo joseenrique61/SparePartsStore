@@ -5,8 +5,6 @@ using Microsoft.OpenApi;
 using SPSAPI.Data;
 using SPSAPI.DataSeeders;
 using SPSAPI.Services;
-using SPSAPI.Utilities.JWTResponseGenerator;
-using SPSAPI.Utilities.JWTTokenGenerator;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -40,17 +38,13 @@ builder.Services.AddScoped<IAdministratorDataSeeder, AdministratorDataSeeder>();
 builder.Services.AddScoped<ICategoryDataSeeder, CategoryDataSeeder>();
 builder.Services.AddScoped<ISparePartDataSeeder, SparePartDataSeeder>();
 
-// Add the token generator to the dependency injection
-builder.Services.AddScoped<IJWTTokenGenerator, JWTTokenGenerator>();
-builder.Services.AddScoped<IJWTResponseGenerator, JWTResponseGenerator>();
-
 builder.Services.AddHttpClient<IVaultKmsService, VaultKmsService>();
 
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowMVCApp", policy =>
     {
-        policy.WithOrigins("http://localhost:5228") // La URL de tu MVC
+        policy.WithOrigins(builder.Configuration.GetSection("MVC:Url").Value!)
               .AllowAnyMethod()
               .AllowAnyHeader()
               .AllowCredentials(); // Necesario si envías tokens/cookies
@@ -100,12 +94,6 @@ builder.Services.AddOpenApi(options =>
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-	// app.UseSwagger();
-	// app.UseSwaggerUI();
-}
-
 app.UseCors("AllowMVCApp");
 
 // Seed data into the database
