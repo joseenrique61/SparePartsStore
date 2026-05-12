@@ -26,6 +26,7 @@ public class PaymentController(IVaultKmsService kmsService, ApplicationDBContext
             // para marcar la compra como pagada en tu SQL Server.
             PurchaseOrder? purchaseOrder = await context.PurchaseOrders
                 .Include(p => p.Client)
+                .Include(p => p.Orders)
                 .FirstOrDefaultAsync(p => p.Client!.UserId == confirmation.UserId && p.PurchaseCompleted == false);
 
             if (purchaseOrder == null)

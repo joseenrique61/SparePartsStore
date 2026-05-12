@@ -1,22 +1,13 @@
 ﻿using SparePartsStoreWeb.Data.ApiClient;
-using SparePartsStoreWeb.Data.UnitOfWork;
 using SPSModels.Models;
 
 namespace SparePartsStoreWeb.Data.Repositories.PurchaseOrderRepository
 {
-	public class PurchaseOrderRepository : IPurchaseOrderRepository
+	public class PurchaseOrderRepository(IApiClient client, ILogger<PurchaseOrderRepository> logger) : IPurchaseOrderRepository
 	{
-		private readonly IApiClient _client;
+		private readonly IApiClient _client = client;
 
-		private readonly IUnitOfWork _unitOfWork;
-
-		public PurchaseOrderRepository(IApiClient client, IUnitOfWork unitOfWork)
-		{
-			_client = client;
-			_unitOfWork = unitOfWork;
-		}
-
-		public async Task<List<PurchaseOrder>?> GetAll()
+    public async Task<List<PurchaseOrder>?> GetAll()
 		{
 			HttpResponseMessage response = await _client.Get<PurchaseOrder>("all");
 			if (response.IsSuccessStatusCode)
@@ -66,8 +57,9 @@ namespace SparePartsStoreWeb.Data.Repositories.PurchaseOrderRepository
 
 		public async Task<bool> Pay(string token)
 		{
-			HttpResponseMessage response = await _client.Post("payment/process", token);
+			HttpResponseMessage response = await _client.PostFullRoute("payment/process", new {token = token});
 
+			logger.LogWarning(await response.Content.ReadAsStringAsync());
 			// PurchaseOrder purchaseOrder = await _unitOfWork.PurchaseOrder.GetCurrentByClientId((int)clientId);
 			// purchaseOrder.PurchaseCompleted = true;
 			// purchaseOrder.Client = null;

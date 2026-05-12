@@ -13,12 +13,14 @@ public interface IVaultKmsService
 public class VaultKmsService : IVaultKmsService
 {
     private readonly HttpClient _httpClient;
+    private readonly ILogger<VaultKmsService> _logger;
     private const string VaultToken = "my-root-token"; // El que pusimos en setup.sh
     private const string VaultAddr = "http://localhost:8200"; // URL de Vault en Docker
 
-    public VaultKmsService(HttpClient httpClient)
+    public VaultKmsService(HttpClient httpClient, ILogger<VaultKmsService> logger)
     {
         _httpClient = httpClient;
+        _logger = logger;
         // Importante: Vault requiere el token en este header
         _httpClient.DefaultRequestHeaders.Add("X-Vault-Token", VaultToken);
     }
@@ -58,9 +60,14 @@ public class VaultKmsService : IVaultKmsService
 
         // Vault devuelve Base64, lo decodificamos a string
         var base64Plaintext = result?.Data?.Plaintext ?? throw new Exception("Error KMS");
+        _logger.LogWarning(base64Plaintext);
         var json = Encoding.UTF8.GetString(Convert.FromBase64String(base64Plaintext));
+        _logger.LogWarning(json);
 
-        return JsonSerializer.Deserialize<T>(json)!;
+        return JsonSerializer.Deserialize<T>(json, options: new()
+        {
+            PropertyNameCaseInsensitive = true
+        })!;
     }
 
     private class VaultDecryptResponse { public DecryptData Data { get; set; } }

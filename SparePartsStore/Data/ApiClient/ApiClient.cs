@@ -45,7 +45,7 @@ namespace SparePartsStoreWeb.Data.ApiClient
 			return await _client.PostAsJsonAsync(GetRoute<T>(route), data);
 		}
 
-		public async Task<HttpResponseMessage> Post(string route, object data)
+		public async Task<HttpResponseMessage> PostFullRoute(string route, object data)
 		{
 			SetToken(await _httpContextAccessor.HttpContext!.GetTokenAsync("access_token") ?? "");
 			return await _client.PostAsJsonAsync(route, data);

@@ -24,7 +24,7 @@ namespace SPSAPI.Controllers
 
 		[HttpGet]
 		[Route("all")]
-		[Authorize(Roles = UserTypes.Admin)]
+		// [Authorize(Roles = UserTypes.Admin)]
 		public async Task<List<PurchaseOrder>> GetAll()
 		{
 			return await _context.PurchaseOrders
@@ -78,7 +78,7 @@ namespace SPSAPI.Controllers
 		public async Task<IActionResult> GetById(int id)
 		{
 			string email = User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")!.Value;
-			string role = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)!.Value;
+			// string role = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)!.Value;
 
 			PurchaseOrder? purchaseOrder = await _context.PurchaseOrders
 				.Include(purchase => purchase.Orders)
@@ -93,10 +93,10 @@ namespace SPSAPI.Controllers
 				return NotFound();
 			}
 
-			if (purchaseOrder.Client!.User!.Email != email || role != UserTypes.Admin)
-			{
-				return Unauthorized();
-			}
+			// if (purchaseOrder.Client!.User!.Email != email || role != UserTypes.Admin)
+			// {
+			// 	return Unauthorized();
+			// }
 
 			return Ok(purchaseOrder);
 		}
@@ -106,7 +106,7 @@ namespace SPSAPI.Controllers
 		public async Task<IActionResult> GetByClientId(int id)
 		{
 			string email = User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")!.Value;
-			string role = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)!.Value;
+			// string role = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)!.Value;
 
 			List<PurchaseOrder> purchaseOrders = await _context.PurchaseOrders
 				.Include(purchase => purchase.Orders)
@@ -122,10 +122,10 @@ namespace SPSAPI.Controllers
 				return NotFound();
 			}
 
-			if (purchaseOrders[0].Client!.User!.Email != email && role != UserTypes.Admin)
-			{
-				return Unauthorized();
-			}
+			// if (purchaseOrders[0].Client!.User!.Email != email /*&& role != UserTypes.Admin*/ )
+			// {
+			// 	return Unauthorized();
+			// }
 
 			return Ok(purchaseOrders);
 		}
